@@ -19,13 +19,13 @@ public class Feedback extends BaseEntity {
     @Column(name = "feedback_id")
     private Long id;
 
-    @Column(name = "video_url")
+    @Column(name = "video_url", length = 3000)
     private String videoUrl;
 
     @Column(name = "score")
     private Double score;
 
-    @Column(name = "thumbnail_img_url")
+    @Column(name = "thumbnail_img_url", length = 3000)
     private String thumbnailImgUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)

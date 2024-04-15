@@ -20,7 +20,7 @@ public class User extends BaseEntity {
     @Column(name = "nickname")
     private String nickname;
 
-    @Column(name = "profile_img_url")
+    @Column(name = "profile_img_url", length = 3000)
     private String profileImgUrl;
 
     @Builder

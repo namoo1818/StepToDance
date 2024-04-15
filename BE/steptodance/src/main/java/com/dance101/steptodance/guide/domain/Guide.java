@@ -18,10 +18,10 @@ public class Guide extends BaseEntity {
     @Column(name = "guide_id")
     private Long id;
 
-    @Column(name = "video_url")
+    @Column(name = "video_url", length = 3000)
     private String videoUrl;
 
-    @Column(name = "thumbnail_img_url")
+    @Column(name = "thumbnail_img_url", length = 3000)
     private String thumbnailImgUrl;
 
     @Column(name = "song_title")
