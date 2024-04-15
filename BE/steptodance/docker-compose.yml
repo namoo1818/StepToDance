@@ -1,0 +1,22 @@
+version: "3"
+services:
+
+  mysql_container:
+    container_name: mysql_container
+    image: mysql:8.0
+    ports:
+      - ${MYSQL_BINDING_PORT}:3306
+    volumes:
+      - ${MYSQL_DATA_PATH}:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    restart: unless-stopped
+
+  redis_container:
+    container_name: redis_container
+    image: redis:6.2.6-alpine
+    ports:
+      - ${REDIS_BINDING_PORT}:6379
+    restart: unless-stopped
