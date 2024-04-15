@@ -23,9 +23,13 @@ public class User extends BaseEntity {
     @Column(name = "profile_img_url", length = 3000)
     private String profileImgUrl;
 
+    @Column(name = "kakao_id")
+    private String kakaoId;
+
     @Builder
-    public User(String nickname, String profileImgUrl) {
+    public User(String nickname, String profileImgUrl, String kakaoId) {
         this.nickname = nickname;
         this.profileImgUrl = profileImgUrl;
+        this.kakaoId = kakaoId;
     }
 }
