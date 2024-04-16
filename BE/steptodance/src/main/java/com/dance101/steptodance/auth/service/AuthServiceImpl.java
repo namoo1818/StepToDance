@@ -8,6 +8,7 @@ import com.dance101.steptodance.user.domain.User;
 import com.dance101.steptodance.user.repository.UserRepository;
 import com.dance101.steptodance.user.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -24,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
     private final OAuthService oAuthService;
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final StringRedisTemplate redisTemplate;
 
     @Transactional
     @Override
@@ -49,6 +52,9 @@ public class AuthServiceImpl implements AuthService {
         Authentication authentication = new UsernamePasswordAuthenticationToken(user.getId(), Collections.singleton(new SimpleGrantedAuthority("AUTHORITY")));
         Map<String, String> tokenMap = jwtTokenProvider.generateToken(user.getId(), authentication);
 
+        // save refresh token to redis
+        saveRefreshToken("refresh:" + user.getId(), tokenMap.get("refresh"), jwtTokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
+
         // get refresh token & return
         return TokenResponse.builder()
             .accessToken(tokenMap.get("access"))
@@ -69,5 +75,9 @@ public class AuthServiceImpl implements AuthService {
 
     private boolean isFirstLogin(Long kakaoProfileId) {
         return !UserUtils.existsByKakaoId(userRepository, kakaoProfileId.toString());
+    }
+
+    private void saveRefreshToken(String key, String token, long expireIn) {
+        redisTemplate.opsForValue().set(key, token, expireIn, TimeUnit.MILLISECONDS);
     }
 }

@@ -84,9 +84,8 @@ public class KakaoService implements OAuthService {
         connected_at = connected_at.substring(0, connected_at.length() - 1);
         LocalDateTime connectedAt = LocalDateTime.parse(connected_at, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
 
-        String nickname = element.getAsJsonObject().get("nickname").getAsString();
-
         JsonElement property = element.getAsJsonObject().get("properties");
+        String nickname = property.getAsJsonObject().get("nickname").getAsString();
         String profileUrl = property.getAsJsonObject().get("profile_image").getAsString();
 
         return OAuthProfileResponse.builder()

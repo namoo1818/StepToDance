@@ -2,7 +2,6 @@ package com.dance101.steptodance.auth.provider;
 
 import com.dance101.steptodance.auth.service.UserDetailsServiceImpl;
 import com.dance101.steptodance.auth.utils.SecurityUser;
-import com.dance101.steptodance.auth.utils.SecurityUtil;
 import com.dance101.steptodance.global.exception.category.UnAuthorizedException;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
@@ -64,7 +63,7 @@ public class JwtTokenProvider {
         // generate refresh token
         String refreshToken = createToken(now, id, REFRESH_TOKEN_EXPIRE_TIME, Jwts.builder());
         HashMap<String, String> map = new HashMap<>();
-        map.put("access", SecurityUtil.getTokenPrefix() + " " + accessToken);
+        map.put("access", accessToken);
         map.put("refresh", refreshToken);
 
         // return tokens
@@ -76,7 +75,7 @@ public class JwtTokenProvider {
         return authentication
             .setExpiration(tokenExpiresIn)
             .claim("id", id)
-            .signWith(key, SignatureAlgorithm.ES256)
+            .signWith(key, SignatureAlgorithm.HS256)
             .compact();
     }
 
