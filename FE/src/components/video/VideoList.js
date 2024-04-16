@@ -1,5 +1,6 @@
 import React from "react";
 import {View, Text, Image, StyleSheet, TouchableOpacity} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const guideList = [{
     "id": 1,
@@ -40,9 +41,11 @@ const guideList = [{
 ];
 
 export default function VideoList(){
+    const navigation = useNavigation();
+    
     const handleGuidePress = (id) => {
-        
-    }
+        navigation.navigate("GuideDetail", id);
+    };
 
     return(
         <View style={styles.container}>
