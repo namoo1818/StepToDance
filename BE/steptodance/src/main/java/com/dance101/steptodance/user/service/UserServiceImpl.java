@@ -3,9 +3,7 @@ package com.dance101.steptodance.user.service;
 import com.dance101.steptodance.feedback.repository.FeedbackRepository;
 import com.dance101.steptodance.feedback.utils.FeedbackUtils;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
-import com.dance101.steptodance.user.data.response.FeedbackListFindResponse;
-import com.dance101.steptodance.user.data.response.MyPageResponse;
-import com.dance101.steptodance.user.data.response.UserFindResponse;
+import com.dance101.steptodance.user.data.response.*;
 import com.dance101.steptodance.user.domain.User;
 import com.dance101.steptodance.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +45,22 @@ public class UserServiceImpl implements UserService {
         return MyPageResponse.builder()
             .userFindResponse(userFindResponse)
             .feedbackListFindResponses(feedbackListFindResponses)
+            .build();
+    }
+
+    @Override
+    public RankFindResponse findRanks(long userId) {
+        // get top rankers list
+        List<TopRankerListResponse> topRankerList = userRepository.findTopRankerList();
+
+        // get my rank
+        MyRankResponse myRankResponse = userRepository.findMyRankInfo(userId)
+            .orElseThrow(() -> new NotFoundException("UserServiceImpl:findRanks", UNDEFINED_USER));
+
+        // return
+        return RankFindResponse.builder()
+            .topRankerListResponse(topRankerList)
+            .myRankResponse(myRankResponse)
             .build();
     }
 }
