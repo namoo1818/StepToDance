@@ -62,6 +62,17 @@ public class AuthServiceImpl implements AuthService {
             .build();
     }
 
+    @Override
+    public void logout(long userId, String accessToken) {
+        // check if refresh token expired & delete
+        if (isRefreshTokenExpired(userId)) {
+            redisTemplate.delete("refresh:" + userId);
+        }
+
+        // add access token to a blacklist
+        addAccessTokenAsABlacklist(accessToken);
+    }
+
     private OAuthProfileResponse getLoginInfo(String code) {
         // get authentication token
         OAuthTokenResponse oAuthTokenResponse = oAuthService.getAuthenticationFromKakao(code);
@@ -79,5 +90,13 @@ public class AuthServiceImpl implements AuthService {
 
     private void saveRefreshToken(String key, String token, long expireIn) {
         redisTemplate.opsForValue().set(key, token, expireIn, TimeUnit.MILLISECONDS);
+    }
+
+    private boolean isRefreshTokenExpired(long userId) {
+        return redisTemplate.opsForValue().get("refresh:" + userId) == null;
+    }
+
+    private void addAccessTokenAsABlacklist(String token) {
+        redisTemplate.opsForValue().set("blacklist:" + token, token, jwtTokenProvider.getACCESS_TOKEN_EXPIRE_TIME(), TimeUnit.MILLISECONDS);
     }
 }
