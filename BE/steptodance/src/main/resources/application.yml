@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:${MYSQL_BINDING_PORT}/${MYSQL_DATABASE}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_ROOT_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+  data:
+    redis:
+      host: localhost
+      port: ${REDIS_BINDING_PORT}
+  mvc:
+    servlet:
+      path: /api/v1
+logging:
+  level:
+    org.hibernate.sql: debug
+jwt:
+  secret: ${JWT_SECRET_KEY}
+kakao:
+  key: ${KAKAO_KEY}
+  redirectUri: ${KAKAO_REDIRECT_URL}
