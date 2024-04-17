@@ -40,18 +40,18 @@ const guideList = [{
 }
 ];
 
-export default function VideoList(){
+export default function SearchResultList(){
     const navigation = useNavigation();
 
     return(
         <View style={styles.container}>
-            <Text style={styles.text}>민지님이 좋아하는 케이팝 안무</Text>
-            {Object.keys(guideList).map((key)=> (
+            {guideList.length>0?
+            (Object.keys(guideList).map((key)=> (
                 <TouchableOpacity style={styles.guide} onPress={()=>{navigation.navigate("GuideDetail", guideList[key])}} key={key}>
                     <Image style={styles.image} source={require("../../assets/thumbnail.png")} />
                     <Text style={styles.text}>{guideList[key].song_title} - {guideList[key].singer}</Text>
                 </TouchableOpacity>
-            ))}
+            ))):(<Text style={styles.text}>검색 결과가 없습니다.</Text>)}
         </View>
     )
 }
