@@ -10,8 +10,10 @@ import com.dance101.steptodance.guide.data.SearchConditions;
 import com.dance101.steptodance.guide.data.response.GuideListItem;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -28,7 +30,7 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
             guide.songTitle,
             guide.singer,
             guide.genre.name,
-            queryUtils.createGuideRankingSQL(feedback.count()),
+            queryUtils.createRankingSQL(feedback.count()),
             guide.user.nickname,
             feedback.count(),
             guide.createdAt))
@@ -45,29 +47,29 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
             .fetch();
     }
 
-    private Predicate uploaderSearch(String uploader) {
-        if (uploader == null) {
+    private BooleanExpression uploaderSearch(String uploader) {
+        if (StringUtil.isNullOrEmpty(uploader)) {
             return null;
         }
         return guide.user.nickname.like("%"+uploader+"%");
     }
 
-    private Predicate singerSearch(String singer) {
-        if (singer == null) {
+    private BooleanExpression singerSearch(String singer) {
+        if (StringUtil.isNullOrEmpty(singer)) {
             return null;
         }
         return guide.singer.like("%"+singer+"%");
     }
 
-    private Predicate titleSearch(String title) {
-        if (title == null) {
+    private BooleanExpression titleSearch(String title) {
+        if (StringUtil.isNullOrEmpty(title)) {
             return null;
         }
         return guide.songTitle.like("%" + title + "%");
     }
 
-    private Predicate categorySearch(String category) {
-        if (category == null) {
+    private BooleanExpression categorySearch(String category) {
+        if (StringUtil.isNullOrEmpty(category)) {
             return null;
         }
         return guide.genre.name.like("%" + category+ "%");

@@ -6,11 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class QueryUtils {
-    public NumberExpression<Integer> createRankingSQL(NumberExpression<Double> totalScore) {
+    public NumberExpression<Integer> createRankingSQL(NumberExpression<?> totalScore) {
         return Expressions.numberTemplate(Integer.class, "rank() over (order by {0} desc)", totalScore);
-    }
-
-    public NumberExpression<Integer> createGuideRankingSQL(NumberExpression<Long> totalCount) {
-        return Expressions.numberTemplate(Integer.class, "rank() over (order by {0} desc)");
     }
 }

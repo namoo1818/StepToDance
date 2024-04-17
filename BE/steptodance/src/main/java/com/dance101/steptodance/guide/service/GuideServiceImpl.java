@@ -16,8 +16,6 @@ public class GuideServiceImpl implements GuideService{
 	private final GuideRepository guideRepository;
 	@Override
 	public GuideListFindResponse findGuideList(SearchConditions searchConditions) {
-		return GuideListFindResponse.builder()
-			.guideList(guideRepository.findGuideListWithSearchConditions(searchConditions))
-			.build();
+		return new GuideListFindResponse(guideRepository.findGuideListWithSearchConditions(searchConditions));
 	}
 }
