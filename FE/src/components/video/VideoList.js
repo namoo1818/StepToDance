@@ -44,7 +44,7 @@ export default function VideoList(){
     const navigation = useNavigation();
     
     const handleGuidePress = (id) => {
-        navigation.navigate("GuideDetail", id);
+        // navigation.navigate("GuideDetail", id);
     };
 
     return(
