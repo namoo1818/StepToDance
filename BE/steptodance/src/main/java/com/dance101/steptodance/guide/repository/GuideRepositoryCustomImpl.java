@@ -1,20 +1,19 @@
 package com.dance101.steptodance.guide.repository;
 
-import static com.dance101.steptodance.feedback.domain.QFeedback.*;
-import static com.dance101.steptodance.guide.domain.QGuide.*;
-
-import java.util.List;
-
 import com.dance101.steptodance.global.utils.QueryUtils;
-import com.dance101.steptodance.guide.data.SearchConditions;
-import com.dance101.steptodance.guide.data.response.GuideListItem;
-import com.querydsl.core.types.Predicate;
+import com.dance101.steptodance.guide.data.request.SearchConditions;
+import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-
 import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.Optional;
+
+import static com.dance101.steptodance.feedback.domain.QFeedback.feedback;
+import static com.dance101.steptodance.guide.domain.QGuide.guide;
 
 @RequiredArgsConstructor
 public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
@@ -22,8 +21,8 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
     private final QueryUtils queryUtils;
 
     @Override
-    public List<GuideListItem> findGuideListWithSearchConditions(SearchConditions searchConditions) {
-        return queryFactory.select(Projections.constructor(GuideListItem.class,
+    public List<GuideFindResponse> findGuideListWithSearchConditions(SearchConditions searchConditions) {
+        return queryFactory.select(Projections.constructor(GuideFindResponse.class,
             guide.id,
             guide.videoUrl,
             guide.thumbnailImgUrl,
@@ -45,6 +44,27 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
             .limit(searchConditions.getLimit())
             .offset(searchConditions.getOffset())
             .fetch();
+    }
+
+    @Override
+    public Optional<GuideFindResponse> findGuideByGuideId(long guideId) {
+        return Optional.ofNullable(
+            queryFactory.select(Projections.constructor(GuideFindResponse.class,
+                    guide.id,
+                    guide.videoUrl,
+                    guide.thumbnailImgUrl,
+                    guide.songTitle,
+                    guide.singer,
+                    guide.genre.name,
+                    queryUtils.createRankingSQL(feedback.count()),
+                    guide.user.nickname,
+                    feedback.count(),
+                    guide.createdAt
+                ))
+                .from(guide)
+                .where(guide.id.eq(guideId))
+                .fetchOne()
+        );
     }
 
     private BooleanExpression uploaderSearch(String uploader) {

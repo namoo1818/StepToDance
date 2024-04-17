@@ -1,4 +1,4 @@
-package com.dance101.steptodance.guide.data;
+package com.dance101.steptodance.guide.data.request;
 
 import lombok.Getter;
 

@@ -1,10 +1,10 @@
 package com.dance101.steptodance.guide.data.response;
 
-import java.time.LocalDateTime;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public record GuideListItem(
+import java.time.LocalDateTime;
+
+public record GuideFindResponse(
 	@JsonProperty("id") long id,
 	@JsonProperty("video_url") String videoUrl,
 	@JsonProperty("thumbnail_img_url") String thumbnailImgUrl,

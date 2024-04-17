@@ -1,10 +1,13 @@
 package com.dance101.steptodance.guide.repository;
 
-import java.util.List;
+import com.dance101.steptodance.guide.data.request.SearchConditions;
+import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 
-import com.dance101.steptodance.guide.data.SearchConditions;
-import com.dance101.steptodance.guide.data.response.GuideListItem;
+import java.util.List;
+import java.util.Optional;
 
 public interface GuideRepositoryCustom {
-    List<GuideListItem> findGuideListWithSearchConditions(SearchConditions searchConditions);
+    List<GuideFindResponse> findGuideListWithSearchConditions(SearchConditions searchConditions);
+
+    Optional<GuideFindResponse> findGuideByGuideId(long guideId);
 }
