@@ -11,6 +11,7 @@ import VideoUpload from './pages/VideoUpload';
 import Mypage from './pages/Mypage';
 import GuideDetail from './pages/GuideDetail';
 import SearchResult from './pages/SearchResult';
+import Feedback from './pages/Feedback';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -18,9 +19,10 @@ const Stack = createStackNavigator();
 function HomeStack(){
   return (
     <Stack.Navigator screenOptions = {{ headerShown: false }}>
-      <Stack.Screen name="홈" component={Home}/>
+      <Stack.Screen name="home" component={Home}/>
       <Stack.Screen name="GuideDetail" component={GuideDetail}/>
       <Stack.Screen name="SearchResult" component={SearchResult}/>
+      {/* <Stack.Screen name="Feedback" component={Feedback}/> */}
     </Stack.Navigator>
   )
 }
@@ -38,7 +40,10 @@ export default function App() {
           <Tab.Screen name="VideoUpload" component={VideoUpload} options={{title:'업로드', tabBarIcon:({color, size})=>(
             <Icon name="upload" color={color} size={size}/>
           )}}/>
-          <Tab.Screen name="Mypage" component={Mypage} options={{title:'마이페이지', tabBarIcon:({color, size})=>(
+          {/* <Tab.Screen name="Mypage" component={Mypage} options={{title:'마이페이지', tabBarIcon:({color, size})=>(
+            <Icon name="person" color={color} size={size}/>
+          )}}/> */}
+          <Tab.Screen name="Feedback" component={Feedback} options={{title:'피드백', tabBarIcon:({color, size})=>(
             <Icon name="person" color={color} size={size}/>
           )}}/>
         </Tab.Navigator>
