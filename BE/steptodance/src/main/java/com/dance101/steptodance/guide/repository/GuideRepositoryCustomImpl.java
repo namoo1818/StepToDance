@@ -20,7 +20,7 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
     private final QueryUtils queryUtils;
 
     @Override
-    public List<GuideListItem> findGuideListByUserId(SearchConditions searchConditions) {
+    public List<GuideListItem> findGuideListWithSearchConditions(SearchConditions searchConditions) {
         return queryFactory.select(Projections.constructor(GuideListItem.class,
             guide.id,
             guide.videoUrl,

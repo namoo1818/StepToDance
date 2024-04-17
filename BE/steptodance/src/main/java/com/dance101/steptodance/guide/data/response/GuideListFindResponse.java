@@ -5,6 +5,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Builder;
+
+@Builder
 public record GuideListFindResponse(
 	@JsonProperty("guide_list") List<GuideListItem> guideList
 ){}

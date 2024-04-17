@@ -1,13 +1,11 @@
 package com.dance101.steptodance.guide.service;
 
-import java.util.List;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dance101.steptodance.guide.data.SearchConditions;
-import com.dance101.steptodance.guide.data.response.GuideListItem;
-import com.querydsl.core.QueryFactory;
+import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
+import com.dance101.steptodance.guide.repository.GuideRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,9 +13,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class GuideServiceImpl implements GuideService{
+	private final GuideRepository guideRepository;
 	@Override
-	public List<GuideListItem> findGuideList(SearchConditions searchConditions) {
-
-		return null;
+	public GuideListFindResponse findGuideList(SearchConditions searchConditions) {
+		return GuideListFindResponse.builder()
+			.guideList(guideRepository.findGuideListWithSearchConditions(searchConditions))
+			.build();
 	}
 }
