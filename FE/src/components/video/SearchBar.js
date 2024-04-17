@@ -1,8 +1,10 @@
 import React from "react";
 import {View, Text, TextInput, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-export default function SearchBar(){
-    const [text, setText] = React.useState('');
+export default function SearchBar({params}){
+    const [text, setText] = React.useState(params);
+    const navigation = useNavigation();
 
     const onChangeText = (payload) => {
         setText(payload);
@@ -13,6 +15,7 @@ export default function SearchBar(){
             return;
         }
         setText("");
+        navigation.navigate("SearchResult", text);
     };
 
 
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
         paddingVertical:15,
         paddingHorizontal: 20,
         borderRadius:30,
-        marginTop:10,
+        marginTop:20,
         fontSize:18,
     }
 })

@@ -1,13 +1,14 @@
 import React from "react";
-import {View, Text, Button, ScrollView} from "react-native";
-import VideoList from "../components/video/VideoList";
+import {View, Text, Button, StyleSheet, ScrollView} from "react-native";
+import SearchResultList from "../components/video/SearchResultList";
+import SearchBar from "../components/video/SearchBar";
 
 export default function SearchResult({navigation, route}){
     return (
         <View style={styles.root}>
-            <SearchBar/>
+            <SearchBar params={route.params}/>
             <ScrollView>
-                <VideoList/>
+                <SearchResultList/>
             </ScrollView>
         </View>
     );
@@ -15,6 +16,7 @@ export default function SearchResult({navigation, route}){
 
 const styles = StyleSheet.create({
     root: {
+      flex:1,
       backgroundColor:'black',
     },
   });
