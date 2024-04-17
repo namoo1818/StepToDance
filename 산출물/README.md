@@ -13,7 +13,7 @@
 ![가이드영상 재생 화면](https://github.com/MadCom96/Study/assets/70102600/c4f36532-1cbe-4b16-819a-cc375590831c)
 
 ### 영상 찍기 화면(오버레이)
-![영상 찍기 화면 (오버레이)](https://github.com/MadCom96/Study/assets/70102600/591858f4-d8e7-4eaa-9777-29d46a60f437)
+![영상 찍기 화면 (오버레이)](https://github.com/MadCom96/Study/assets/70102600/43184775-c41f-4212-bb9c-78d81eaa6e93)
 
 ### 숏폼 생성 화면
 ![숏폼 생성 화면](https://github.com/MadCom96/Study/assets/70102600/10eae812-52f2-4640-a8cb-37da8f50030b)
