@@ -28,7 +28,7 @@ public class FeedbackController {
 
     @DeleteMapping("/{feedback_id}")
     public ResponseEntity<ApiResponse<Void>> deleteFeedback(@PathVariable("feedback_id") long feedbackId) {
-        //
+        feedbackService.deleteFeedback(feedbackId);
         return ApiResponse.toEmptyResponse(NO_CONTENT, SUCCESS_FEEDBACK_DELETION);
     }
 }
