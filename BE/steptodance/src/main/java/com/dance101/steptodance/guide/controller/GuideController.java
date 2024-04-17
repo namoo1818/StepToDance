@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.dance101.steptodance.global.data.response.StatusCode.*;
 import static com.dance101.steptodance.global.data.response.StatusCode.SUCCESS_GUIDE_ONE;
 import static org.springframework.http.HttpStatus.OK;
 
@@ -20,8 +21,8 @@ public class GuideController {
 	private final GuideService guideService;
 	@GetMapping
 	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(@ModelAttribute SearchConditions searchConditions) {
-		GuideListFindResponse guideListFindResponse = guideService.findGuideList(searchConditions);
-		return ApiResponse.toResponse(OK, StatusCode.SUCCESS_GUIDE_LIST, guideListFindResponse);
+		GuideListFindResponse response = guideService.findGuideList(searchConditions);
+		return ApiResponse.toResponse(OK, SUCCESS_GUIDE_LIST, response);
 	}
 
 	@GetMapping("/{guide_id}")
