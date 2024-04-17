@@ -8,20 +8,19 @@ import Hot5Videos from "../components/video/Hot5Videos";
 
 function Home(){
     return(
-      <View style={styles.root}>
+      <LinearGradient colors={['#0B1338', '#0B1338', '#245DA5']} style={styles.root}>
         <SearchBar/>
         <ScrollView>
             <Hot5Videos/>
             <VideoList/>
         </ScrollView>
-      </View>
+      </LinearGradient>
     )
 }
 
 const styles = StyleSheet.create({
     root: {
       flex:1,
-      backgroundColor:'black',
     },
   });
 
