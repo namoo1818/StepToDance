@@ -1,17 +1,35 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  SafeAreaView,
+} from "react-native";
+import { S3 } from "aws-sdk";
 import { useEffect, useState } from "react";
 import { Camera } from "expo-camera";
-import { Audio } from "expo-av";
+import { Audio, Video } from "expo-av";
 import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
 import * as MediaLibrary from "expo-media-library";
 import { useIsFocused } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 
 export default function CameraScreen() {
+  const s3 = new S3({
+    accessKeyId: process.env.ACCESS_KEY,
+    secretAccessKey: process.env.SECRET_KEY,
+    region: process.env.REIGON,
+  });
+
+  const bucketName = "elasticbeanstalk";
   const [isRecording, setIsRecording] = useState(false);
   const [hasCameraPermissions, setHasCameraPermissions] = useState(false);
   const [hasAudioPermissions, setHasAudioPermissions] = useState(false);
   const [hasGalleryPermissions, setHasGalleryPermissions] = useState(false);
+  const [showVideo, setShowVideo] = useState("");
+  const [convertedVideoUri, setConvertedVideoUri] = useState(null);
 
   const [galleryItems, setGalleryItems] = useState([]);
   const [cameraRef, setCameraRef] = useState(null);
@@ -19,7 +37,6 @@ export default function CameraScreen() {
   const [cameraFlash, setCameraFlash] = useState(
     Camera.Constants.FlashMode.off
   );
-
   const [isCameraReady, setIsCameraReady] = useState(false);
   const isFocused = useIsFocused();
 
@@ -52,21 +69,44 @@ export default function CameraScreen() {
     );
   }
 
+  const uploadToS3 = async (localUri, fileName) => {
+    console.log("여기", localUri, fileName);
+    const fileContent = await FileSystem.readAsStringAsync(localUri, {
+      encoding: FileSystem.EncodingType.Base64,
+    });
+
+    const params = {
+      Bucket: bucketName,
+      Key: fileName,
+      Body: fileContent,
+      ContentType: "video/mp4",
+      ACL: "public-read",
+    };
+
+    try {
+      await s3.upload(params).promise();
+      console.log("File uploaded successfully.");
+    } catch (error) {
+      console.error("Error uploading file to S3:", error);
+    }
+  };
+
   const recordVideo = async () => {
-    console.log(cameraRef);
     if (cameraRef) {
       setIsRecording(true);
       try {
         const options = {
           maxDuration: 60,
           quality: Camera.Constants.VideoQuality["480"],
+          mute: false,
         };
         const videoRecordPromise = cameraRef.recordAsync(options);
         if (videoRecordPromise) {
           const data = await videoRecordPromise;
           const source = data.uri;
-          console.log(source);
-          // pass video uri into save component
+          setShowVideo(source);
+          const fileName = "test.mp4"; // 파일 이름 설정
+          await uploadToS3(source, fileName);
         }
       } catch (error) {
         console.error(error);
@@ -97,76 +137,92 @@ export default function CameraScreen() {
 
   return (
     <View style={styles.container}>
-      {isFocused ? (
-        <Camera
-          ref={(ref) => setCameraRef(ref)}
-          style={styles.camera}
-          ratio={"16:9"}
-          type={cameraType}
-          flashMode={cameraFlash}
-          onCameraReady={() => setIsCameraReady(true)}
-        />
-      ) : null}
+      {showVideo ? (
+        <SafeAreaView style={styles.container}>
+          <Text>{convertedVideoUri}</Text>
+          <Video
+            style={styles.video}
+            source={{ uri: showVideo }}
+            useNativeControls
+            resizeMode="contain"
+            isLooping
+          />
+        </SafeAreaView>
+      ) : (
+        // <video controls>{/* <source src={showVideo} /> */}</video>
+        <>
+          {isFocused ? (
+            <Camera
+              ref={(ref) => setCameraRef(ref)}
+              style={styles.camera}
+              ratio={"16:9"}
+              type={cameraType}
+              flashMode={cameraFlash}
+              onCameraReady={() => setIsCameraReady(true)}
+            />
+          ) : null}
 
-      <View style={styles.sideBarContainer}>
-        <TouchableOpacity
-          style={styles.sideBarButton}
-          onPress={() =>
-            setCameraType(
-              cameraType === Camera.Constants.Type.back
-                ? Camera.Constants.Type.front
-                : Camera.Constants.Type.back
-            )
-          }
-        >
-          <Feather name="refresh-ccw" size={24} color={"white"} />
-          <Text style={styles.iconText}>Flip</Text>
-        </TouchableOpacity>
+          <View style={styles.sideBarContainer}>
+            <TouchableOpacity
+              style={styles.sideBarButton}
+              onPress={() =>
+                setCameraType(
+                  cameraType === Camera.Constants.Type.back
+                    ? Camera.Constants.Type.front
+                    : Camera.Constants.Type.back
+                )
+              }
+            >
+              <Feather name="refresh-ccw" size={24} color={"white"} />
+              <Text style={styles.iconText}>Flip</Text>
+            </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.sideBarButton}
-          onPress={() =>
-            setCameraFlash(
-              cameraFlash === Camera.Constants.FlashMode.off
-                ? Camera.Constants.FlashMode.torch
-                : Camera.Constants.FlashMode.off
-            )
-          }
-        >
-          <Feather name="zap" size={24} color={"white"} />
-          <Text style={styles.iconText}>Flash</Text>
-        </TouchableOpacity>
-      </View>
+            <TouchableOpacity
+              style={styles.sideBarButton}
+              onPress={() =>
+                setCameraFlash(
+                  cameraFlash === Camera.Constants.FlashMode.off
+                    ? Camera.Constants.FlashMode.torch
+                    : Camera.Constants.FlashMode.off
+                )
+              }
+            >
+              <Feather name="zap" size={24} color={"white"} />
+              <Text style={styles.iconText}>Flash</Text>
+            </TouchableOpacity>
+          </View>
 
-      <View style={styles.bottomBarContainer}>
-        <View style={{ flex: 1 }}></View>
-        <View style={styles.recordButtonContainer}>
-          <TouchableOpacity
-            disabled={!isCameraReady}
-            onPress={isRecording ? () => stopVideo() : () => recordVideo()}
-            style={styles.recordButton}
-          >
-            <View
-              style={isRecording ? styles.stopButton : styles.startButton}
-            ></View>
-          </TouchableOpacity>
-        </View>
-        <View style={{ flex: 1 }}>
-          <TouchableOpacity
-            onPress={() => pickFromGallery()}
-            style={styles.galleryButton}
-          >
-            {galleryItems[0] == undefined ? (
-              <></>
-            ) : (
-              <Image
-                style={styles.galleryButtonImage}
-                source={{ uri: galleryItems[0].uri }}
-              />
-            )}
-          </TouchableOpacity>
-        </View>
-      </View>
+          <View style={styles.bottomBarContainer}>
+            <View style={{ flex: 1 }}></View>
+            <View style={styles.recordButtonContainer}>
+              <TouchableOpacity
+                disabled={!isCameraReady}
+                onPress={isRecording ? () => stopVideo() : () => recordVideo()}
+                style={styles.recordButton}
+              >
+                <View
+                  style={isRecording ? styles.stopButton : styles.startButton}
+                ></View>
+              </TouchableOpacity>
+            </View>
+            <View style={{ flex: 1 }}>
+              <TouchableOpacity
+                onPress={() => pickFromGallery()}
+                style={styles.galleryButton}
+              >
+                {galleryItems[0] == undefined ? (
+                  <></>
+                ) : (
+                  <Image
+                    style={styles.galleryButtonImage}
+                    source={{ uri: galleryItems[0].uri }}
+                  />
+                )}
+              </TouchableOpacity>
+            </View>
+          </View>
+        </>
+      )}
     </View>
   );
 }
@@ -238,5 +294,9 @@ const styles = StyleSheet.create({
   sideBarButton: {
     alignItems: "center",
     marginBottom: 25,
+  },
+  video: {
+    flex: 1,
+    alignSelf: "stretch",
   },
 });
