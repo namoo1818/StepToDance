@@ -24,6 +24,8 @@ import static com.dance101.steptodance.global.exception.data.response.ErrorCode.
 @Service
 public class GuideServiceImpl implements GuideService{
 	private final GuideRepository guideRepository;
+	private final AIServerService aiServerService;
+
 	@Override
 	public GuideListFindResponse findGuideList(SearchConditions searchConditions) {
 		// get response
@@ -51,6 +53,8 @@ public class GuideServiceImpl implements GuideService{
 		System.out.println(guideFeedbackCreateRequest.endAt());
 		System.out.println(guideFeedbackCreateRequest.videoUrl());
 		System.out.println("============================================");
+
+		aiServerService.send(guideFeedbackCreateRequest);
 
 		return CompletableFuture.completedFuture(new FeedbackFindResponse(null, null));
 	}

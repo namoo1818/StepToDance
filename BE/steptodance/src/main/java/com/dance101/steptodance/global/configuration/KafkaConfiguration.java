@@ -20,6 +20,8 @@ import java.util.Map;
 public class KafkaConfiguration {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
+    @Value("${topic.name}")
+    private String topicName;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -31,7 +33,7 @@ public class KafkaConfiguration {
     // publish settings
     @Bean
     public NewTopic feedbackTopic() {
-        return new NewTopic("feedback_topic", 1, (short) 1);
+        return new NewTopic(topicName, 1, (short) 1);
     }
 
     @Bean

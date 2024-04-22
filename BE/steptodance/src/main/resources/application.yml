@@ -28,3 +28,5 @@ jwt:
 kakao:
   key: ${KAKAO_KEY}
   redirectUri: ${KAKAO_REDIRECT_URL}
+topic:
+  name: feedback_topic
