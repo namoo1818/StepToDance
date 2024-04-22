@@ -30,3 +30,4 @@ kakao:
   redirectUri: ${KAKAO_REDIRECT_URL}
 topic:
   name: feedback_topic
+  group-id: foo

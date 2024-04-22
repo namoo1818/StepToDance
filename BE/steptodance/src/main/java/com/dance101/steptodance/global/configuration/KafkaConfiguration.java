@@ -22,6 +22,8 @@ public class KafkaConfiguration {
     private String bootstrapAddress;
     @Value("${topic.name}")
     private String topicName;
+    @Value("${topic.group-id}")
+    private String groupId;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -55,7 +57,7 @@ public class KafkaConfiguration {
     public ConsumerFactory<String, String> consumerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
-        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, "foo");
+        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringSerializer.class);
         return new DefaultKafkaConsumerFactory<>(configProps);
     }

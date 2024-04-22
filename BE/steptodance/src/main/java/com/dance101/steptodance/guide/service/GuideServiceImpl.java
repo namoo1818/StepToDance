@@ -54,7 +54,7 @@ public class GuideServiceImpl implements GuideService{
 		System.out.println(guideFeedbackCreateRequest.videoUrl());
 		System.out.println("============================================");
 
-		aiServerService.send(guideFeedbackCreateRequest);
+		aiServerService.publish(guideFeedbackCreateRequest);
 
 		return CompletableFuture.completedFuture(new FeedbackFindResponse(null, null));
 	}
