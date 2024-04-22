@@ -5,24 +5,17 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  Button,
 } from "react-native";
-import { S3 } from "aws-sdk";
 import { useEffect, useState } from "react";
 import { Camera } from "expo-camera";
 import { Audio, Video } from "expo-av";
 import * as ImagePicker from "expo-image-picker";
-import * as FileSystem from "expo-file-system";
 import * as MediaLibrary from "expo-media-library";
 import { useIsFocused } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 
 export default function CameraScreen() {
-  const s3 = new S3({
-    accessKeyId: process.env.ACCESS_KEY,
-    secretAccessKey: process.env.SECRET_KEY,
-    region: process.env.REIGON,
-  });
-
   const bucketName = "elasticbeanstalk";
   const [isRecording, setIsRecording] = useState(false);
   const [hasCameraPermissions, setHasCameraPermissions] = useState(false);
@@ -41,6 +34,7 @@ export default function CameraScreen() {
   const isFocused = useIsFocused();
 
   useEffect(() => {
+    // 권한 인증 로직
     (async () => {
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermissions(cameraStatus.status == "granted");
@@ -69,35 +63,13 @@ export default function CameraScreen() {
     );
   }
 
-  const uploadToS3 = async (localUri, fileName) => {
-    console.log("여기", localUri, fileName);
-    const fileContent = await FileSystem.readAsStringAsync(localUri, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-
-    const params = {
-      Bucket: bucketName,
-      Key: fileName,
-      Body: fileContent,
-      ContentType: "video/mp4",
-      ACL: "public-read",
-    };
-
-    try {
-      await s3.upload(params).promise();
-      console.log("File uploaded successfully.");
-    } catch (error) {
-      console.error("Error uploading file to S3:", error);
-    }
-  };
-
   const recordVideo = async () => {
     if (cameraRef) {
       setIsRecording(true);
       try {
         const options = {
           maxDuration: 60,
-          quality: Camera.Constants.VideoQuality["480"],
+          quality: Camera.Constants.VideoQuality["720"],
           mute: false,
         };
         const videoRecordPromise = cameraRef.recordAsync(options);
@@ -105,8 +77,6 @@ export default function CameraScreen() {
           const data = await videoRecordPromise;
           const source = data.uri;
           setShowVideo(source);
-          const fileName = "test.mp4"; // 파일 이름 설정
-          await uploadToS3(source, fileName);
         }
       } catch (error) {
         console.error(error);
@@ -125,31 +95,45 @@ export default function CameraScreen() {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Videos,
       allowsEditing: true,
-      aspect: [16, 9],
       quality: 1,
     });
     if (!result.canceled) {
-      // pass video uri into save component
+      setShowVideo(result.assets[0].uri);
     }
   };
 
-  console.log(galleryItems);
+  const reStart = () => {
+    setShowVideo("");
+  };
 
   return (
     <View style={styles.container}>
       {showVideo ? (
-        <SafeAreaView style={styles.container}>
-          <Text>{convertedVideoUri}</Text>
-          <Video
-            style={styles.video}
-            source={{ uri: showVideo }}
-            useNativeControls
-            resizeMode="contain"
-            isLooping
-          />
-        </SafeAreaView>
+        <>
+          <SafeAreaView style={styles.viewContainer}>
+            <Text>{convertedVideoUri}</Text>
+            <Video
+              style={styles.video}
+              source={{ uri: showVideo }}
+              useNativeControls
+              resizeMode="contain"
+              isLooping
+            />
+          </SafeAreaView>
+          <View style={styles.buttonBox}>
+            <TouchableOpacity
+              style={styles.ButtonOne}
+              onPress={() => reStart()}
+            >
+              <Text style={styles.ButtonText}>다시촬영</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.ButtonTwo}>
+              <Text style={styles.ButtonText}>평가하기</Text>
+            </TouchableOpacity>
+          </View>
+        </>
       ) : (
-        // <video controls>{/* <source src={showVideo} /> */}</video>
         <>
           {isFocused ? (
             <Camera
@@ -158,6 +142,7 @@ export default function CameraScreen() {
               ratio={"16:9"}
               type={cameraType}
               flashMode={cameraFlash}
+              autoFocus={true}
               onCameraReady={() => setIsCameraReady(true)}
             />
           ) : null}
@@ -230,8 +215,19 @@ export default function CameraScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 30,
   },
+
+  viewContainer: {
+    flex: 6,
+  },
+
+  buttonBox: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+
   camera: {
     flex: 1,
     // backgroundColor: "black",
@@ -298,5 +294,29 @@ const styles = StyleSheet.create({
   video: {
     flex: 1,
     alignSelf: "stretch",
+  },
+  ButtonOne: {
+    flex: 1,
+    backgroundColor: "#ef5350",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    marginHorizontal: 15,
+    borderRadius: 10,
+  },
+
+  ButtonTwo: {
+    flex: 1,
+    backgroundColor: "#4caf50",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingVertical: 10,
+    marginHorizontal: 15,
+    borderRadius: 10,
+  },
+  ButtonText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#fff",
   },
 });
