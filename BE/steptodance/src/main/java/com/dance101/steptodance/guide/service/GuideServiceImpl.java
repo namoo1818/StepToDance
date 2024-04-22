@@ -8,6 +8,7 @@ import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
 import com.dance101.steptodance.guide.repository.GuideRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,7 @@ import java.util.concurrent.CompletableFuture;
 
 import static com.dance101.steptodance.global.exception.data.response.ErrorCode.GUIDE_NOT_FOUND;
 
+@Slf4j
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
@@ -44,12 +46,6 @@ public class GuideServiceImpl implements GuideService{
 	@Transactional
 	@Override
 	public CompletableFuture<FeedbackFindResponse> createGuideFeedback(long userId, long guideId, GuideFeedbackCreateRequest guideFeedbackCreateRequest) {
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			Thread.currentThread().interrupt();
-		}
-
 		System.out.println("============================================");
 		System.out.println(guideFeedbackCreateRequest.startAt());
 		System.out.println(guideFeedbackCreateRequest.endAt());

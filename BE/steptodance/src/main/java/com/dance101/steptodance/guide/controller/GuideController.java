@@ -42,7 +42,6 @@ public class GuideController {
 		@AuthenticationPrincipal SecurityUser securityUser, @PathVariable("guide_id") long guideId, @RequestBody GuideFeedbackCreateRequest guideFeedbackCreateRequest
 	) throws ExecutionException, InterruptedException {
 		long userId = securityUser.getId();
-		;
 		CompletableFuture<FeedbackFindResponse> completableFuture = guideService.createGuideFeedback(userId, guideId, guideFeedbackCreateRequest);
 		FeedbackFindResponse response = completableFuture.get();
 		return ApiResponse.toResponse(CREATED, SUCCESS_FEEDBACK_CREATION, response);

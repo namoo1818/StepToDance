@@ -18,6 +18,8 @@ spring:
   mvc:
     servlet:
       path: /api/v1
+  kafka:
+    bootstrap-servers: localhost:${KAFKA1_BINDING_PORT}, localhost:${KAFKA2_BINDING_PORT}, localhost:${KAFKA3_BINDING_PORT}
 logging:
   level:
     org.hibernate.sql: debug
