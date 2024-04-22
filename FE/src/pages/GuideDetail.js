@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, ScrollView, StyleSheet, Button } from "react-native";
+import { Text, StyleSheet, Button } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient'
 
 function GuideDetail({ navigation, route }) {
