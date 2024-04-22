@@ -1,6 +1,5 @@
 import React from "react";
 import {View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
-import Carousel from 'react-native-snap-carousel';
 import { useNavigation } from "@react-navigation/native";
 
 const thumbnail = require("../../assets/thumbnail.png");
@@ -78,14 +77,14 @@ export default function Hot5Videos(){
   return (
     <View style={styles.container}>
       <Text style={styles.title}>HOT 5</Text>
-      <Carousel
+      {/* <Carousel
         layout={"stack"}
         data={guideList}
         sliderWidth={300}
         itemWidth={300}
         renderItem={_renderItem}
         loop={true}
-      />
+      /> */}
     </View>
   );
 }
