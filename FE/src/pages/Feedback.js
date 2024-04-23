@@ -9,9 +9,8 @@ function Feedback({ navigation, route }) {
   const guideVideo = useRef(null);
   const myVideo = useRef(null);
   const [status, setStatus] = useState({});
-  const [position, setPosition] = useState(0);
-  const [duration, setDuration] = useState(0);
-  const [isPlaying, setPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+
   const data = {
     feedback: {
       id: 1,
@@ -21,9 +20,8 @@ function Feedback({ navigation, route }) {
     },
     incorrectSectionList: [
       {startAt:'0:00'},
+      {startAt:'0:05'},
       {startAt:'0:10'},
-      {startAt:'0:20'},
-      {startAt:'0:30'},
     ],
   }
 
@@ -32,14 +30,25 @@ function Feedback({ navigation, route }) {
     });
   }, []);
 
-  guideVideo
+  const togglePlayPause = () => {
+    if (isPlaying) {
+      guideVideo.current.pauseAsync();
+      myVideo.current.pauseAsync();
+    } else {
+      guideVideo.current.playAsync();
+      myVideo.current.playAsync();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
-  const moveTime = async (time) => {
-    const [hours, minutes, seconds] = time.split(':').map(Number);
-    const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+  const moveTime = (time) => {
+    const [minutes, seconds] = time.split(':').map(Number);
+    const totalSeconds = minutes * 60 + seconds;
     if (guideVideo.current && myVideo.current) {
-      await guideVideo.current.setPositionAsync(totalSeconds * 1000); 
-      // myVideo.current.setPositionAsync(totalSeconds * 1000);
+      guideVideo.current.setPositionAsync(totalSeconds * 1000); 
+      myVideo.current.setPositionAsync(totalSeconds * 1000);
+      guideVideo.current.playAsync();
+      myVideo.current.playAsync();
     }
   }
 
@@ -56,20 +65,25 @@ function Feedback({ navigation, route }) {
               source={data.feedback.videoUrl}
               useNativeControls
               resizeMode={ResizeMode.CONTAIN}
+              shouldPlay={isPlaying}
+              isMuted={true}
               isLooping
               onPlaybackStatusUpdate={newStatus => setStatus(newStatus)}
             />
-          {/* <Video
+          <Video
             ref={myVideo}
             style={styles.video}
             source={data.feedback.guideUrl}
             useNativeControls
             resizeMode={ResizeMode.CONTAIN}
+            shouldPlay={isPlaying}
             isLooping
             onPlaybackStatusUpdate={newStatus => setStatus(newStatus)}
-          /> */}
+          />
           </View>
-        
+        <TouchableOpacity onPress={togglePlayPause}>
+          <Text style={styles.text}>{isPlaying ? '정지' : '재생'}</Text>
+        </TouchableOpacity>
         <Text style={styles.text}>오답 구간</Text>
         {data.incorrectSectionList.map((item, index)=>(
           <TouchableOpacity key={index} onPress={() => moveTime(item.startAt)}>
