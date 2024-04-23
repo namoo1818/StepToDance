@@ -19,7 +19,15 @@ spring:
     servlet:
       path: /api/v1
   kafka:
-    bootstrap-servers: localhost:${KAFKA1_BINDING_PORT}
+    bootstrap-servers: localhost:${KAFKA1_BINDING_PORT}, localhost:${KAFKA2_BINDING_PORT}, localhost:${KAFKA3_BINDING_PORT}
+    consumer:
+      group-id: step-to-dance
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 logging:
   level:
     org.hibernate.sql: debug
@@ -28,6 +36,6 @@ jwt:
 kakao:
   key: ${KAKAO_KEY}
   redirectUri: ${KAKAO_REDIRECT_URL}
-topic:
-  name: feedback_topic
-  group-id: foo
+message:
+  topic:
+    name: topic
