@@ -12,6 +12,7 @@ import GuideDetail from './src/pages/GuideDetail';
 import SearchResult from './src/pages/SearchResult';
 import Feedback from './src/pages/Feedback';
 import MyVideoList from './src/pages/MyVideoList';
+import SignIn from './src/pages/SignIn';
 
 
 const Tab = createBottomTabNavigator();
@@ -38,6 +39,14 @@ function MypageStack() {
   );
 }
 
+// function SignIn() {
+//   return (
+//     <Stack.Navigator initialRouteName="signIn">
+//       <Stack.Screen name="signIn" component={SignIn} options={{ headerShown: false }} />
+//     </Stack.Navigator>
+//   );
+// }
+
 export default function App() {
   
   return (
@@ -55,6 +64,9 @@ export default function App() {
             <Icon name="person" color={color} size={size}/>
           )}}/>
           <Tab.Screen name="Mypage" component={MypageStack} options={{title:'마이페이지', tabBarIcon:({color, size})=>(
+            <Icon name="person" color={color} size={size}/>
+          )}}/>
+          <Tab.Screen name="signIn" component={SignIn} options={{title:'로그인', tabBarIcon:({color, size})=>(
             <Icon name="person" color={color} size={size}/>
           )}}/>
         </Tab.Navigator>

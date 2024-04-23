@@ -50,13 +50,10 @@ const Mypage = ({ navigation, route }) => {
             style={styles.image2}
           />
           <Text style={styles.pageCenter}>
-            김싸피
-            <View />
-            RANK 9999
-            <View />
+            김싸피{'\n'}{/* '\n' creates a new line */}
+            RANK 9999{'\n'}
             1점
-            <View />
-          </Text>
+            </Text>
         </View>
       </View>
       <TouchableOpacity onPress={goToVideoList}>
@@ -179,7 +176,7 @@ const styles = StyleSheet.create({
     width: "100%",
     paddingLeft: 18,
     paddingRight: 18,
-    marginTop: 20,
+    marginTop: 200,
   },
   videoContainer: {
     flexDirection: "row",
