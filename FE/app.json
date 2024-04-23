@@ -4,15 +4,27 @@
     "slug": "FE",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "",
     "userInterfaceStyle": "light",
-    "assetBundlePatterns": ["**/*"],
+    "splash": {
+      "image": "",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
+        "foregroundImage": "",
         "backgroundColor": "#ffffff"
       }
+    },
+    "web": {
+      "favicon": ""
     }
   }
 }

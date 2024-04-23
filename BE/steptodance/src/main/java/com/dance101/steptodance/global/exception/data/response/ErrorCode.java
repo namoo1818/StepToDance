@@ -10,7 +10,11 @@ public enum ErrorCode {
     COOKIE_NOT_FOUND(404, "쿠키를 찾을 수 없습니다."),
     REFRESH_TOKEN_NOT_FOUND(404, "리프레시 토큰을 찾을 수 없습니다."),
     // USER
-    UNDEFINED_USER(404, "회원을 찾을 수 없습니다.");
+    UNDEFINED_USER(404, "회원을 찾을 수 없습니다."),
+    // GUIDE
+    GUIDE_NOT_FOUND(404, "가이드를 찾을 수 없습니다."),
+    // FEEDBACK
+    FEEDBACK_NOT_FOUND(404, "피드백을 찾을 수 없습니다.");
 
     private final int status;
     private final String message;

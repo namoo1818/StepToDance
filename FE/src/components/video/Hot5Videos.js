@@ -1,8 +1,9 @@
 import React from "react";
-import {View, Text, Image, StyleSheet } from "react-native";
+import {View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const thumbnail = require("../../assets/thumbnail.png");
-guide_list: [
+const guideList = [
     {
       id: 1,
       video_url: "https://example.com/guide_video_1",
@@ -65,28 +66,55 @@ guide_list: [
     },
   ];
 export default function Hot5Videos(){
-    return(
-        <View style={styles.container}>
-            <Text style={styles.text}>HOT 5</Text>
-            <Image source={thumbnail} style={{ width:200, height:300}}/>
-            <Text style={styles.text}>1</Text>
-        </View>
-    )
+  const navigation = useNavigation();
+  const _renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.slide} onPress={()=>{navigation.navigate("GuideDetail", item)}} key={item.id}>
+      <Image source={thumbnail} style={styles.image} />
+      <Text style={styles.text}> {item.rank}위 {item.song_title} - {item.singer}</Text>
+    </TouchableOpacity>
+  );
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>HOT 5</Text>
+      {/* <Carousel
+        layout={"stack"}
+        data={guideList}
+        sliderWidth={300}
+        itemWidth={300}
+        renderItem={_renderItem}
+        loop={true}
+      /> */}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center',
-    },
-    text :{
-        color:'white',
-        fontSize:30,
-        fontWeight: "500",
-        margin:20,
-    },
-    video:{
-
-    }
-})
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'floralwhite',
+    borderRadius: 5,
+    height: 250,
+    padding: 50,
+    marginLeft: 25,
+    marginRight: 25,
+  },
+  title: {
+    fontSize: 30,
+    color: 'white',
+  },
+  text: {
+    color: 'black',
+  },
+  image: {
+    width: 200,
+    height: 200,
+  },
+});
