@@ -1,0 +1,7 @@
+tapi
+uvicorn
+openai
+clarifai
+nbformat
+nbclient
+nbconvert
