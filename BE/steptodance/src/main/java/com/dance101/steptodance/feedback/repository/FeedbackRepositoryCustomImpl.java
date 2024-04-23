@@ -43,10 +43,13 @@ public class FeedbackRepositoryCustomImpl implements FeedbackRepositoryCustom {
     public Optional<FeedbackInfoResponse> findFeedbackByFeedbackId(long feedbackId) {
         return Optional.ofNullable(
             queryFactory.select(Projections.constructor(FeedbackInfoResponse.class,
+                    feedback.id,
                     feedback.score,
-                    feedback.videoUrl
+                    feedback.videoUrl,
+                    guide.videoUrl
                 ))
                 .from(feedback)
+                .innerJoin(guide).on(guide.id.eq(feedback.guide.id))
                 .where(feedback.id.eq(feedbackId))
                 .fetchOne()
         );
