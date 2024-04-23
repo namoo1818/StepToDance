@@ -21,6 +21,31 @@ services:
       - ${REDIS_BINDING_PORT}:6379
     restart: unless-stopped
 
+  spring:
+    container_name: spring
+    image: docker
+    ports:
+      - ${SPRING_BINDING_PORT}:8080
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+      - redis
+    environment:
+      MYSQL_BINDING_PORT: ${MYSQL_BINDING_PORT}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USERNAME: ${MYSQL_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      REDIS_BINDING_PORT: ${REDIS_BINDING_PORT}
+      KAFKA1_BINDING_PORT: ${KAFKA1_BINDING_PORT}
+      KAFKA2_BINDING_PORT: ${KAFKA2_BINDING_PORT}
+      KAFKA3_BINDING_PORT: ${KAFKA3_BINDING_PORT}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      KAKAO_KEY: ${KAKAO_KEY}
+      KAKAO_REDIRECT_URL: ${KAKAO_REDIRECT_URL}
+    restart: always
+
   kafka1:
     image: confluentinc/cp-kafka:7.6.0
     hostname: kafka1
