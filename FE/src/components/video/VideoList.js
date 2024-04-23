@@ -38,7 +38,19 @@ const guideList = [
     "uploader": "user789",
     "count_feedback": 7,
     "created_at": "2024-04-13T15:45:00Z"
-  }
+  },
+  {
+    "id": 4,
+    "video_url": "https://example.com/guide_video_3",
+    "thumbnail_img_url": "../../assets/thumbnail.png",
+    "song_title": "Smoke",
+    "singer": "Dynamic Duo",
+    "genre": "HipHop",
+    "rank": 4,
+    "uploader": "user789",
+    "count_feedback": 7,
+    "created_at": "2024-04-13T15:45:00Z"
+  },
 ];
 
 export default function VideoList() {
