@@ -19,7 +19,7 @@ spring:
     servlet:
       path: /api/v1
   kafka:
-    bootstrap-servers: kafka1:${KAFKA1_BINDING_PORT}, kafka2:${KAFKA2_BINDING_PORT}, kafka3:${KAFKA3_BINDING_PORT}
+    bootstrap-servers: kafka1:${KAFKA1_BINDING_PORT}, kafka2:${KAFKA1_BINDING_PORT}, kafka3:${KAFKA1_BINDING_PORT}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
