@@ -230,8 +230,6 @@ const styles = StyleSheet.create({
 
   camera: {
     flex: 1,
-    // backgroundColor: "black",
-    // aspectRatio: 10 / 16,
   },
   bottomBarContainer: {
     alignItems: "center",
