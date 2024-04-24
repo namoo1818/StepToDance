@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: mt-ai
-    container_name: mt-ai
+    image: fastAPI
+    container_name: fastAPI
     ports:
       - "8000:8000"
