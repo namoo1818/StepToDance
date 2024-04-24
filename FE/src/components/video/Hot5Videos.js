@@ -1,8 +1,10 @@
 import React from "react";
-import {View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
+import {View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Carousel from "./Carousel";
 
 const thumbnail = require("../../assets/thumbnail.png");
+const screenWidth = Math.round(Dimensions.get('window').width);
 const guideList = [
     {
       id: 1,
@@ -77,6 +79,7 @@ export default function Hot5Videos(){
   return (
     <View style={styles.container}>
       <Text style={styles.title}>HOT 5</Text>
+      <Carousel gap={16} offset={36} pages={guideList} pageWidth={screenWidth}/>
       {/* <Carousel
         layout={"stack"}
         data={guideList}
