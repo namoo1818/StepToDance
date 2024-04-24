@@ -6,3 +6,4 @@ clarifai
 nbformat
 nbclient
 nbconvert
+aiokafka
