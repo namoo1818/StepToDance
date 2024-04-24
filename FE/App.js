@@ -13,7 +13,7 @@ import SearchResult from './src/pages/SearchResult';
 import Feedback from './src/pages/Feedback';
 import MyVideoList from './src/pages/MyVideoList';
 import SignIn from './src/pages/SignIn';
-
+import WebViewScreen from './src/pages/WebViewScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -39,13 +39,14 @@ function MypageStack() {
   );
 }
 
-// function SignIn() {
-//   return (
-//     <Stack.Navigator initialRouteName="signIn">
-//       <Stack.Screen name="signIn" component={SignIn} options={{ headerShown: false }} />
-//     </Stack.Navigator>
-//   );
-// }
+function SignInStack() {
+  return (
+    <Stack.Navigator initialRouteName="signIn">
+      <Stack.Screen name="signIn" component={SignIn} options={{ headerShown: false }} />
+      <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
+    </Stack.Navigator>
+  );
+}
 
 export default function App() {
   
@@ -66,7 +67,7 @@ export default function App() {
           <Tab.Screen name="Mypage" component={MypageStack} options={{title:'마이페이지', tabBarIcon:({color, size})=>(
             <Icon name="person" color={color} size={size}/>
           )}}/>
-          <Tab.Screen name="signIn" component={SignIn} options={{title:'로그인', tabBarIcon:({color, size})=>(
+          <Tab.Screen name="signIn" component={SignInStack} options={{title:'로그인', tabBarIcon:({color, size})=>(
             <Icon name="person" color={color} size={size}/>
           )}}/>
         </Tab.Navigator>

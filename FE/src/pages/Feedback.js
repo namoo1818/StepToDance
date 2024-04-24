@@ -3,6 +3,7 @@ import { View, Text, Image, ScrollView, StyleSheet, Button } from "react-native"
 import { LinearGradient } from 'expo-linear-gradient'
 import { Video, ResizeMode } from 'expo-av';
 import { TouchableOpacity } from "react-native";
+import { SafeAreaView } from 'react-native';
 
 function Feedback({ navigation, route }) {
   const guide = route.params;
@@ -53,6 +54,7 @@ function Feedback({ navigation, route }) {
   }
 
   return (
+    <SafeAreaView style={styles.safeArea}>
     <LinearGradient colors={['#0B1338', '#0B1338', '#245DA5']} style={styles.root}>
       <Button title="뒤로가기" onPress={()=>navigation.goBack()}/>
       <View style={styles.container}>
@@ -92,10 +94,15 @@ function Feedback({ navigation, route }) {
         ))}
       </View>
     </LinearGradient>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+  },
   root: {
     flex:1,
   },
