@@ -9,6 +9,7 @@ services:
     container_name: fast-api
     ports:
       - "8000:8000"
+    restart: always
   # kafka1:
   #   image: confluentinc/cp-kafka:7.6.0
   #   hostname: kafka1
