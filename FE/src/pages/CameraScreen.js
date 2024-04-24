@@ -16,6 +16,7 @@ import { useIsFocused } from "@react-navigation/native";
 import { Feather } from "@expo/vector-icons";
 
 export default function CameraScreen() {
+  const guide = require("../assets/guide.mp4");
   const bucketName = "elasticbeanstalk";
   const [isRecording, setIsRecording] = useState(false);
   const [hasCameraPermissions, setHasCameraPermissions] = useState(false);
@@ -136,15 +137,25 @@ export default function CameraScreen() {
       ) : (
         <>
           {isFocused ? (
-            <Camera
-              ref={(ref) => setCameraRef(ref)}
-              style={styles.camera}
-              ratio={"16:9"}
-              type={cameraType}
-              flashMode={cameraFlash}
-              autoFocus={true}
-              onCameraReady={() => setIsCameraReady(true)}
-            />
+            <>
+              <Camera
+                ref={(ref) => setCameraRef(ref)}
+                style={styles.camera}
+                ratio={"16:9"}
+                type={cameraType}
+                flashMode={cameraFlash}
+                autoFocus={true}
+                onCameraReady={() => setIsCameraReady(true)}
+              />
+              <Video
+                style={styles.testVideo}
+                source={guide}
+                useNativeControls
+                shouldPlay={true}
+                isMuted={true}
+                isLooping
+              />
+            </>
           ) : null}
 
           <View style={styles.sideBarContainer}>
@@ -215,6 +226,7 @@ export default function CameraScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
   },
 
   viewContainer: {
@@ -237,6 +249,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     flexDirection: "row",
     marginBottom: 30,
+    zIndex: 2,
   },
   recordButtonContainer: {
     flex: 1,
@@ -279,6 +292,7 @@ const styles = StyleSheet.create({
     right: 0,
     marginHorizontal: 20,
     position: "absolute",
+    zIndex: 2,
   },
   iconText: {
     color: "white",
@@ -316,5 +330,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     color: "#fff",
+  },
+  testVideo: {
+    position: "absolute",
+    zIndex: 1,
+    opacity: 0.4,
+    width: "100%",
+    height: "100%",
+    aspectRatio: 9 / 16,
   },
 });
