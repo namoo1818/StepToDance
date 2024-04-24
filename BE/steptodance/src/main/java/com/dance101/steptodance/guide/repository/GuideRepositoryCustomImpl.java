@@ -73,7 +73,7 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
                     feedback.count(),
                     guide.createdAt
                 ))
-                .from(guide)
+                .from(guide).leftJoin(feedback).on(feedback.guide.id.eq(guide.id))
                 .where(guide.id.eq(guideId))
                 .fetchOne()
         );
