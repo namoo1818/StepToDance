@@ -25,7 +25,7 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
         if (searchConditions.getLimit() == null) {
             searchConditions.setLimit(10);
         }
-        if (searchConditions.getOffset() == 0) {
+        if (searchConditions.getOffset() == null) {
             searchConditions.setOffset(0);
         }
         searchConditions.setOffset(
