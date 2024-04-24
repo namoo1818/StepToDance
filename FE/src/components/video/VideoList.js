@@ -1,6 +1,9 @@
 import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import GudieApiRequest from "../../api/gudie";
+
+const g = GudieApiRequest.getGuideList();
 
 const guideList = [
   {
