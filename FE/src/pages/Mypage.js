@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from 'react-native';
 
 const Mypage = ({ navigation, route }) => {
   const signOut = () => {
@@ -26,6 +27,7 @@ const Mypage = ({ navigation, route }) => {
   };
 
   return (
+    <SafeAreaView style={styles.safeArea}>
     <LinearGradient colors={["#0B1238", "#286ECA"]} style={styles.mainView}>
       <View style={styles.view2}>
         <Image
@@ -86,10 +88,15 @@ const Mypage = ({ navigation, route }) => {
         </View>
       </ScrollView>
     </LinearGradient>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#f0f0f0',
+  },
   mainView: {
     flex: 1,
     alignItems: "center",

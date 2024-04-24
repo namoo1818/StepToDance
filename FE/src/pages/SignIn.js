@@ -5,12 +5,12 @@ import {
     StyleSheet,
     Animated, 
     TextInput,
-    TouchableOpacity 
+    TouchableOpacity,
+    Image
     } 
     from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import FormError from '../components/Form/FormError';
-import FormSuccess from '../components/Form/FormSuccess';
+import { KAKAO_AUTH_URL } from '../contexts/OAuth';
 
 const SignIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
@@ -18,11 +18,16 @@ const SignIn = ({ navigation }) => {
     const [errorMessage, setErrorMessage] = useState('')
     const [displayFormErr, setDisplayFormErr] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const fadeAnim = useRef(new Animated.Value(1)).current;  // 초기 너비
-    const colorAnim = useRef(new Animated.Value(0)).current; // 초기 색상
+    const fadeAnim = useRef(new Animated.Value(1)).current;  
+    const colorAnim = useRef(new Animated.Value(0)).current; 
     function navigate(){
         navigation.navigate("signUp")
     }
+
+    const handleKakaoLogin = () => {
+        navigation.navigate('WebViewScreen', { uri: KAKAO_AUTH_URL });
+    };
+
     useEffect(() => {
         Animated.parallel([
             Animated.timing(fadeAnim, {
@@ -104,20 +109,22 @@ const SignIn = ({ navigation }) => {
                     secureTextEntry={true}
                     placeholderTextColor={"#fff"}
                     style={styles.TextInput}/>
-                    <TouchableOpacity style={styles.Button}>
-                        <Text style={styles.ButtonText}
-                        onPress={validateInput}>로그인</Text>
+                    <TouchableOpacity style={styles.Button} onPress={handleKakaoLogin}>
+                        <Image
+                        source={require('../assets/images/kakao_login_medium_narrow.png')} // 카카오 로그인 버튼 이미지 파일 경로
+                        style={styles.kakaoLoginButton}
+                    />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity 
+                {/* <TouchableOpacity 
                 style={styles.TextButton}
                 onPress={navigate}>
                     <Text style={styles.SignUpText}>
                         회원 가입
                     </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
-            {displayFormErr == true?
+            {/* {displayFormErr == true?
             <FormError 
             hideErrOverlay={setDisplayFormErr}
             err={errorMessage}
@@ -130,7 +137,7 @@ const SignIn = ({ navigation }) => {
             :
             null
 
-            }
+            } */}
         </View>
     );
 }
@@ -201,11 +208,9 @@ const styles = StyleSheet.create({
     },
     Button : {
         width: '90%',
-        color:'#fff',
         height: 32, 
-        backgroundColor: '#fff',
         borderRadius: 10,
-        marginTop: 20,
+        marginTop: 50,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -224,6 +229,11 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent: 'center',
         marginTop: 20
+    },
+    kakaoLoginButton: {
+        width: 200,
+        height: 45,
+        resizeMode: 'contain' // 이미지 비율 유지
     }
 });
 
