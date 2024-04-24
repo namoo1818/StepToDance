@@ -98,7 +98,7 @@ const SignIn = ({ navigation }) => {
                     Back
                 </Text>
                 <View style={styles.FormView}>
-                    <TextInput
+                    {/* <TextInput
                     value={email} onChangeText={(val => setEmail(val))}
                     placeholder={"Email Address"}
                     placeholderTextColor={"#fff"}
@@ -108,7 +108,7 @@ const SignIn = ({ navigation }) => {
                     placeholder={"Password"}
                     secureTextEntry={true}
                     placeholderTextColor={"#fff"}
-                    style={styles.TextInput}/>
+                    style={styles.TextInput}/> */}
                     <TouchableOpacity style={styles.Button} onPress={handleKakaoLogin}>
                         <Image
                         source={require('../assets/images/kakao_login_medium_narrow.png')} // 카카오 로그인 버튼 이미지 파일 경로
@@ -116,28 +116,7 @@ const SignIn = ({ navigation }) => {
                     />
                     </TouchableOpacity>
                 </View>
-                {/* <TouchableOpacity 
-                style={styles.TextButton}
-                onPress={navigate}>
-                    <Text style={styles.SignUpText}>
-                        회원 가입
-                    </Text>
-                </TouchableOpacity> */}
             </View>
-            {/* {displayFormErr == true?
-            <FormError 
-            hideErrOverlay={setDisplayFormErr}
-            err={errorMessage}
-            />
-            :
-            null
-            }
-            {isLoading == true?
-            <FormSuccess/>
-            :
-            null
-
-            } */}
         </View>
     );
 }
