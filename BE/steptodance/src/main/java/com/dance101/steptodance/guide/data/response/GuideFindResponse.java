@@ -13,7 +13,7 @@ public record GuideFindResponse(
 	@JsonProperty("genre") String genre,
 	@JsonProperty("rank") int rank,
 	@JsonProperty("uploader") String uploader,
-	@JsonProperty("count_feedback") int countFeedback,
+	@JsonProperty("count_feedback") long countFeedback,
 	@JsonProperty("created_at") LocalDateTime createdAt
 ) {
 
