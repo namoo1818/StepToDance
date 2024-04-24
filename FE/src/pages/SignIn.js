@@ -11,18 +11,15 @@ import {
     from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { KAKAO_AUTH_URL } from '../contexts/OAuth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SignIn = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('')
-    const [displayFormErr, setDisplayFormErr] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     const fadeAnim = useRef(new Animated.Value(1)).current;  
     const colorAnim = useRef(new Animated.Value(0)).current; 
-    function navigate(){
-        navigation.navigate("signUp")
-    }
 
     const handleKakaoLogin = () => {
         navigation.navigate('WebViewScreen', { uri: KAKAO_AUTH_URL });
@@ -43,6 +40,22 @@ const SignIn = ({ navigation }) => {
         ]).start();
     }, []);
 
+    
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            const token = await AsyncStorage.getItem('accessToken');
+            console.log(token)
+            if (token) {
+                setIsLoggedIn(true);
+            }
+        };
+        checkLoginStatus();
+    }, []);
+
+    const goToHome = () => {
+        navigation.navigate('Home'); // Make sure 'Home' is the correct route name
+    }
+    
     const barWidth = fadeAnim.interpolate({
         inputRange: [0, 1],
         outputRange: ['0%', '50%'] // 너비가 50%에서 0%로 줄어듬
@@ -93,29 +106,24 @@ const SignIn = ({ navigation }) => {
             </LinearGradient>
             <View
             style={styles.BottomView}>
-                <Text style={styles.Heading}>
-                    Welcome{'\n'}
-                    Back
-                </Text>
-                <View style={styles.FormView}>
-                    {/* <TextInput
-                    value={email} onChangeText={(val => setEmail(val))}
-                    placeholder={"Email Address"}
-                    placeholderTextColor={"#fff"}
-                    style={styles.TextInput}/>
-                    <TextInput 
-                    value={password} onChangeText={(val => setPassword(val))}
-                    placeholder={"Password"}
-                    secureTextEntry={true}
-                    placeholderTextColor={"#fff"}
-                    style={styles.TextInput}/> */}
-                    <TouchableOpacity style={styles.Button} onPress={handleKakaoLogin}>
-                        <Image
-                        source={require('../assets/images/kakao_login_medium_narrow.png')} // 카카오 로그인 버튼 이미지 파일 경로
-                        style={styles.kakaoLoginButton}
-                    />
+                {isLoggedIn ? (
+                <View>
+                    <Text style={styles.Heading}>Welcome!</Text>
+                    <TouchableOpacity onPress={goToHome} style={styles.button}>
+                        <Text style={styles.Heading}>{'\n'}Enter Home</Text>
                     </TouchableOpacity>
                 </View>
+                ) : (
+                    <View style={styles.FormView}>
+                    <Text style={styles.infoText}>Please log in.</Text>
+                        <TouchableOpacity style={styles.Button} onPress={handleKakaoLogin}>
+                            <Image
+                            source={require('../assets/images/kakao_login_medium_narrow.png')} // 카카오 로그인 버튼 이미지 파일 경로
+                            style={styles.kakaoLoginButton}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    )}
             </View>
         </View>
     );
