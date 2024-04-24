@@ -8,6 +8,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import static com.dance101.steptodance.feedback.domain.QFeedback.feedback;
 import static com.dance101.steptodance.guide.domain.QGuide.guide;
 
+@Slf4j
 @RequiredArgsConstructor
 public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
     private final JPAQueryFactory queryFactory;
@@ -30,6 +32,8 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
         }
         searchConditions.setOffset(
             (searchConditions.getOffset() - 1) * searchConditions.getLimit());
+
+        log.info("SearchCondition: " + searchConditions);
         return queryFactory.select(Projections.constructor(GuideFindResponse.class,
             guide.id,
             guide.videoUrl,
