@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.dance101.steptodance.global.data.response.StatusCode.SUCCESS_FEEDBACK_DELETION;
 import static com.dance101.steptodance.global.data.response.StatusCode.SUCCESS_FEEDBACK_ONE;
@@ -17,6 +18,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RequiredArgsConstructor
 @RequestMapping("/feedbacks")
+@RestController
 public class FeedbackController {
     private final FeedbackService feedbackService;
 
