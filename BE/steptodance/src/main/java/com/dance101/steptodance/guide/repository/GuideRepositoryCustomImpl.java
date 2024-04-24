@@ -22,6 +22,14 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
 
     @Override
     public List<GuideFindResponse> findGuideListWithSearchConditions(SearchConditions searchConditions) {
+        if (searchConditions.getLimit() == null) {
+            searchConditions.setLimit(10);
+        }
+        if (searchConditions.getOffset() == 0) {
+            searchConditions.setOffset(0);
+        }
+        searchConditions.setOffset(
+            (searchConditions.getOffset() - 1) * searchConditions.getLimit());
         return queryFactory.select(Projections.constructor(GuideFindResponse.class,
             guide.id,
             guide.videoUrl,
