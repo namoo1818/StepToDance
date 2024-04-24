@@ -4,7 +4,7 @@ const API_BASE_URL = 'https://k10a101.p.ssafy.io/api/v1';
 
 export const getGuideList = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/guides`);
+    const response = await axios.get(`${API_BASE_URL}/guides?offset=1`);
     return response.data;
   } catch (error) {
     console.error('Error fetching guide list:', error);

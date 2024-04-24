@@ -3,73 +3,23 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from "react
 import { useNavigation } from "@react-navigation/native";
 import { getGuideList } from "../../api/GuideApis";
 
-const guideList = [
-  {
-    "id": 1,
-    "video_url": "https://example.com/guide_video_1",
-    "thumbnail_img_url": "../../assets/thumbnail.png",
-    "song_title": "Yesterday",
-    "singer": "The Beatles",
-    "genre": "Rock",
-    "rank": 1,
-    "uploader": "user123",
-    "count_feedback": 5,
-    "created_at": "2024-04-15T08:00:00Z"
-  },
-  {
-    "id": 2,
-    "video_url": "https://example.com/guide_video_2",
-    "thumbnail_img_url": "../../assets/thumbnail.png",
-    "song_title": "Shape of You",
-    "singer": "Ed Sheeran",
-    "genre": "Pop",
-    "rank": 2,
-    "uploader": "user456",
-    "count_feedback": 3,
-    "created_at": "2024-04-14T10:30:00Z"
-  },
-  {
-    "id": 3,
-    "video_url": "https://example.com/guide_video_3",
-    "thumbnail_img_url": "../../assets/thumbnail.png",
-    "song_title": "Bohemian Rhapsody",
-    "singer": "Queen",
-    "genre": "Rock",
-    "rank": 3,
-    "uploader": "user789",
-    "count_feedback": 7,
-    "created_at": "2024-04-13T15:45:00Z"
-  },
-  {
-    "id": 4,
-    "video_url": "https://example.com/guide_video_3",
-    "thumbnail_img_url": "../../assets/thumbnail.png",
-    "song_title": "Smoke",
-    "singer": "Dynamic Duo",
-    "genre": "HipHop",
-    "rank": 4,
-    "uploader": "user789",
-    "count_feedback": 7,
-    "created_at": "2024-04-13T15:45:00Z"
-  },
-];
-
 export default function VideoList() {
-  // const [guideList, setGuideList] = useState([]);
+  const [guideList, setGuideList] = useState([]);
   const navigation = useNavigation();
 
-  // useEffect(() => {
-  //   const fetchGuideData = async () => {
-  //     try {
-  //       const data = await getGuideList();
-  //       setGuideList(data);
-  //     } catch (error) {
-  //       console.error('Error fetching guide data:', error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchGuideData = async () => {
+      try {
+        const data = await getGuideList();
+        console.log(data.data.guide_list);
+        setGuideList(data.data.guide_list);
+      } catch (error) {
+        console.error('Error fetching guide data:', error);
+      }
+    };
 
-  //   fetchGuideData();
-  // }, []);
+    fetchGuideData();
+  }, []);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.guide} onPress={() => navigation.navigate("GuideDetail", item)}>
