@@ -2,6 +2,7 @@ import React from 'react';
 import { WebView } from 'react-native-webview';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StyleSheet, View, Text, Button } from 'react-native';
 
 const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
 
@@ -42,16 +43,20 @@ const requestToken = async (code) => {
     }
   };
 
-  return <WebView 
-    source={{ uri }}
-    style={{ flex: 1 }}
-    injectedJavaScript={INJECTED_JAVASCRIPT}
-    javaScriptEnabled
-    onMessage={event => {
-      const data = event.nativeEvent.url;
-      getCode(data);
-    }}
-    />;
+  return (
+    <View style={{ flex: 1 }}>
+    <WebView 
+        source={{ uri }}
+        style={{ flex: 1 }}
+        injectedJavaScript={INJECTED_JAVASCRIPT}
+        javaScriptEnabled
+        onMessage={event => {
+        const data = event.nativeEvent.url;
+        getCode(data);
+        }}
+        />
+	</View>
+	);
 };
 
 export default WebViewScreen;
