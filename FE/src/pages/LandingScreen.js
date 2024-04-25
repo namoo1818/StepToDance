@@ -3,58 +3,284 @@ import { View, Text, StyleSheet, Animated } from "react-native";
 
 const LandingScreen = () => {
   const [isZoom, setIsZoom] = useState(false);
-  const mainRef = useRef(new Animated.Value(0)).current;
+  const mainRef = useRef(new Animated.Value(1)).current;
+  const bar1Ref = useRef(new Animated.Value(0)).current;
+  const bar2Ref = useRef(new Animated.Value(0)).current;
+  const bar3Ref = useRef(new Animated.Value(0)).current;
+  const bar4Ref = useRef(new Animated.Value(0)).current;
+  const bar5Ref = useRef(new Animated.Value(0)).current;
+  const bar6Ref = useRef(new Animated.Value(0)).current;
+  const bar7Ref = useRef(new Animated.Value(0)).current;
+  const bar8Ref = useRef(new Animated.Value(0)).current;
+  const bar9Ref = useRef(new Animated.Value(0)).current;
+  const bar10Ref = useRef(new Animated.Value(0)).current;
+  const bar11Ref = useRef(new Animated.Value(0)).current;
+  const bar12Ref = useRef(new Animated.Value(0)).current;
+  const bar13Ref = useRef(new Animated.Value(0)).current;
+  const bar14Ref = useRef(new Animated.Value(0)).current;
+  const bar15Ref = useRef(new Animated.Value(0)).current;
+  const bar16Ref = useRef(new Animated.Value(0)).current;
+  const bar17Ref = useRef(new Animated.Value(0)).current;
+  const bar18Ref = useRef(new Animated.Value(0)).current;
+  const bar19Ref = useRef(new Animated.Value(0)).current;
+  const bar20Ref = useRef(new Animated.Value(0)).current;
+  const bar21Ref = useRef(new Animated.Value(0)).current;
+  const bar22Ref = useRef(new Animated.Value(0)).current;
+  const bar23Ref = useRef(new Animated.Value(0)).current;
+  const bar24Ref = useRef(new Animated.Value(0)).current;
+  const bar25Ref = useRef(new Animated.Value(0)).current;
   useEffect(() => {
-    Animated.timing(mainRef, {
-      toValue: 35,
-      duration: 1000,
-      useNativeDriver: true,
-    }).start(() => {
-      setIsZoom(true);
-    });
+    setTimeout(() => {
+      Animated.timing(mainRef, {
+        toValue: 35,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start(() => {
+        setIsZoom(true);
+      });
+    }, 1000);
   }, [mainRef]);
-
+  useEffect(() => {
+    setTimeout(() => {
+      Animated.timing(bar1Ref, {
+        toValue: -100,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar2Ref, {
+        toValue: -100,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar3Ref, {
+        toValue: -100,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar4Ref, {
+        toValue: -100,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar5Ref, {
+        toValue: -100,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar6Ref, {
+        toValue: -100,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar7Ref, {
+        toValue: -200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar8Ref, {
+        toValue: -200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar9Ref, {
+        toValue: -200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar10Ref, {
+        toValue: -200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar11Ref, {
+        toValue: -200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar12Ref, {
+        toValue: -200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar13Ref, {
+        toValue: -250,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar14Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar15Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar16Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar17Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar18Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar19Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar20Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar21Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar22Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar23Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar24Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(bar25Ref, {
+        toValue: 200,
+        duration: Math.random() * 1000 + 2000,
+        useNativeDriver: true,
+      }).start();
+    }, 3000);
+  }, [isZoom]);
   return (
     <View style={styles.container}>
       <View style={[styles.intro]}>
         {isZoom ? (
           <>
-            <View style={styles.bar1}></View>
-            <View style={styles.bar2}></View>
-            <View style={styles.bar3}></View>
-            <View style={styles.bar4}></View>
-            <View style={styles.bar5}></View>
-            <View style={styles.bar6}></View>
-            <View style={styles.bar7}></View>
-            <View style={styles.bar8}></View>
-            <View style={styles.bar9}></View>
-            <View style={styles.bar10}></View>
-            <View style={styles.bar11}></View>
-            <View style={styles.bar12}></View>
-            <View style={styles.bar13}></View>
-            <View style={styles.bar14}></View>
-            <View style={styles.bar15}></View>
-            <View style={styles.bar16}></View>
-            <View style={styles.bar17}></View>
-            <View style={styles.bar18}></View>
-            <View style={styles.bar19}></View>
-            <View style={styles.bar20}></View>
-            <View style={styles.bar21}></View>
-            <View style={styles.bar22}></View>
-            <View style={styles.bar23}></View>
-            <View style={styles.bar24}></View>
-            <View style={styles.bar25}></View>
+            <Animated.View
+              ref={bar1Ref}
+              style={[styles.bar1, { transform: [{ translateX: bar1Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar2Ref}
+              style={[styles.bar2, { transform: [{ translateX: bar2Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar3Ref}
+              style={[styles.bar3, { transform: [{ translateX: bar3Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar4Ref}
+              style={[styles.bar4, { transform: [{ translateX: bar4Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar5Ref}
+              style={[styles.bar5, { transform: [{ translateX: bar5Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar6Ref}
+              style={[styles.bar6, { transform: [{ translateX: bar6Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar7Ref}
+              style={[styles.bar7, { transform: [{ translateX: bar7Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar8Ref}
+              style={[styles.bar8, { transform: [{ translateX: bar8Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar9Ref}
+              style={[styles.bar9, { transform: [{ translateX: bar9Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar10Ref}
+              style={[styles.bar10, { transform: [{ translateX: bar10Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar11Ref}
+              style={[styles.bar11, { transform: [{ translateX: bar11Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar12Ref}
+              style={[styles.bar12, { transform: [{ translateX: bar12Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar13Ref}
+              style={[styles.bar13, { transform: [{ translateX: bar13Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar14Ref}
+              style={[styles.bar14, { transform: [{ translateX: bar14Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar15Ref}
+              style={[styles.bar15, { transform: [{ translateX: bar15Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar16Ref}
+              style={[styles.bar16, { transform: [{ translateX: bar16Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar17Ref}
+              style={[styles.bar17, { transform: [{ translateX: bar17Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar18Ref}
+              style={[styles.bar18, { transform: [{ translateX: bar18Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar19Ref}
+              style={[styles.bar19, { transform: [{ translateX: bar19Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar20Ref}
+              style={[styles.bar20, { transform: [{ translateX: bar20Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar21Ref}
+              style={[styles.bar21, { transform: [{ translateX: bar21Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar22Ref}
+              style={[styles.bar22, { transform: [{ translateX: bar22Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar23Ref}
+              style={[styles.bar23, { transform: [{ translateX: bar23Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar24Ref}
+              style={[styles.bar24, { transform: [{ translateX: bar24Ref }] }]}
+            ></Animated.View>
+            <Animated.View
+              ref={bar25Ref}
+              style={[styles.bar25, { transform: [{ translateX: bar25Ref }] }]}
+            ></Animated.View>
           </>
         ) : (
           <Animated.View
-            style={[
-              styles.helper,
-              styles.helper1,
-              { transform: [{ scale: mainRef }] },
-            ]}
+            style={[styles.helper1, { transform: [{ scale: mainRef }] }]}
           >
             <View style={styles.effectBrush}>
-              <Text style={styles.title}>STEP</Text>
+              <Text>STEP</Text>
               <Text>TO</Text>
               <Text>DANCE</Text>
             </View>
@@ -75,21 +301,20 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   intro: {
+    flex: 1,
     width: "100%",
     height: "100%",
     overflow: "hidden",
     position: "relative",
-  },
-  helper: {
-    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
   },
   helper1: {
-    width: "19.5%",
-    height: "100%",
+    position: "absolute",
+    width: "20%",
+    height: "20%",
     backgroundColor: "rgba(255, 255, 255, 1)",
-    left: "50%",
-    top: 0,
-    transform: [{ translateX: "-50%" }],
+    borderRadius: 10,
   },
   effectBrush: {
     position: "absolute",
