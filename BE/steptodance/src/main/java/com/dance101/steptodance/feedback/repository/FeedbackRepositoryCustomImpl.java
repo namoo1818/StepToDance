@@ -46,7 +46,9 @@ public class FeedbackRepositoryCustomImpl implements FeedbackRepositoryCustom {
                     feedback.id,
                     feedback.score,
                     feedback.videoUrl,
-                    guide.videoUrl
+                    guide.videoUrl,
+                    guide.highlightSectionStartAt,
+                    guide.highlightSectionEndAt
                 ))
                 .from(feedback)
                 .innerJoin(guide).on(guide.id.eq(feedback.guide.id))
