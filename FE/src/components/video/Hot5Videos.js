@@ -73,17 +73,10 @@ export default function Hot5Videos() {
     setCurrentPage(page);
   };
 
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.slide}>
-  //     <Image source={item.thumbnail_img_url} style={styles.image} />
-  //   </View>
-  // );
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>HOT 5</Text>
       <Carousel
-        // renderItem={renderItem}
         gap={16}
         offset={36}
         pages={guideList}
@@ -102,17 +95,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'floralwhite',
-    borderRadius: 5,
-    height: 250,
-    padding: 10,
-    marginLeft: 10,
-    marginRight: 10,
-  },
   title: {
     fontSize: 30,
     color: 'white',
@@ -120,9 +102,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
-  },
-  image: {
-    // width: 200,
-    // height: 200,
   },
 });

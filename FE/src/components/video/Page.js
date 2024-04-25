@@ -16,10 +16,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20,
-    width: '100%', // 페이지의 전체 너비를 차지하도록 설정
-    aspectRatio: 1 / 1, // 페이지의 가로 세로 비율을 설정하여 가로 방향으로 스크롤되도록 함
-    backgroundColor: 'white', // 페이지의 배경색을 설정 (필요에 따라 변경 가능)
-    marginHorizontal: 8, // 좌우 여백을 설정하여 페이지 간 간격을 조절
+    width: '100%', 
+    aspectRatio: 1 / 1, 
+    backgroundColor: 'white', 
+    marginHorizontal: 8, 
   },
   pageNum: {},
   image: {
