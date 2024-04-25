@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Video, ResizeMode } from 'expo-av';
 import { TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native';
+import { getFeedbackDetail } from "../api/FeedbackApis";
 
 function Feedback({ navigation, route }) {
   const guide = route.params;
@@ -11,25 +12,29 @@ function Feedback({ navigation, route }) {
   const myVideo = useRef(null);
   const [status, setStatus] = useState({});
   const [isPlaying, setIsPlaying] = useState(true);
-
-  const data = {
-    feedback: {
-      id: 1,
-      score: 90,
-      videoUrl: require('../assets/guide.mp4'),
-      guideUrl: require('../assets/myVideo.mp4')
-    },
-    incorrectSectionList: [
-      {startAt:'0:00'},
-      {startAt:'0:05'},
-      {startAt:'0:10'},
-    ],
-  }
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    navigation.setOptions({
-    });
+    const fetchFeekbackData = async () => {
+      try {
+        const data = await getFeedbackDetail(1);
+        console.log(data.data);
+        setData(data.data);
+      } catch (error) {
+        console.error('Error fetching feekback data:', error);
+      }
+    };
+    fetchFeekbackData();
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', () => {
+      setIsPlaying(false);
+      moveTime('0:00'); 
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const togglePlayPause = () => {
     if (isPlaying) {
@@ -57,9 +62,10 @@ function Feedback({ navigation, route }) {
     <SafeAreaView style={styles.safeArea}>
     <LinearGradient colors={['#0B1338', '#0B1338', '#245DA5']} style={styles.root}>
       <Button title="뒤로가기" onPress={()=>navigation.goBack()}/>
+      {data.feedback && (
       <View style={styles.container}>
         <Text style={styles.text}>SCORE</Text>
-        <Text style={styles.score}>90</Text>
+        <Text style={styles.score}>{data.feedback.score}</Text>
         <View style={styles.videoList}>
           <Video
               ref={guideVideo}
@@ -87,12 +93,18 @@ function Feedback({ navigation, route }) {
           <Text style={styles.text}>{isPlaying ? '정지' : '재생'}</Text>
         </TouchableOpacity>
         <Text style={styles.text}>오답 구간</Text>
-        {data.incorrectSectionList.map((item, index)=>(
-          <TouchableOpacity key={index} onPress={() => moveTime(item.startAt)}>
-            <Text style={styles.text}>{item.startAt}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+        {data.incorrectSectionList && data.incorrectSectionList.length > 0 ? (
+          data.incorrectSectionList.map((item, index) => (
+            <TouchableOpacity key={index} onPress={() => moveTime(item.startAt)}>
+              <Text style={styles.text}>{item.startAt}</Text>
+            </TouchableOpacity>
+          ))
+        ) : (
+          <Text style={styles.body}>틀린 구간이 없습니다</Text>
+        )}
+
+
+      </View>)}
     </LinearGradient>
     </SafeAreaView>
   );
@@ -125,6 +137,10 @@ const styles = StyleSheet.create({
     aspectRatio: 9/16,
     margin: 10,
   },
+  body: {
+    color:'skyblue',
+    margin: 20,
+  }
 });
 
 export default Feedback;
