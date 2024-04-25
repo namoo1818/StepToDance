@@ -64,6 +64,8 @@ public class AuthServiceImpl implements AuthService {
         return TokenResponse.builder()
             .accessToken(tokenMap.get("access"))
             .refreshToken(tokenMap.get("refresh"))
+            .nickname(user.getNickname())
+            .profileImgUrl(user.getProfileImgUrl())
             .build();
     }
 

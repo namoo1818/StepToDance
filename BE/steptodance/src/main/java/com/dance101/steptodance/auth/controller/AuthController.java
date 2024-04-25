@@ -31,7 +31,11 @@ public class AuthController {
         TokenResponse tokens = authService.kakaoLogin(code);
         ResponseCookie cookie = cookieProvider.createCookie(tokens.refreshToken());
         cookieProvider.addCookieHttpHeaders(cookie);
-        LoginResponse response = LoginResponse.builder().accessToken(tokens.accessToken()).build();
+        LoginResponse response = LoginResponse.builder()
+            .accessToken(tokens.accessToken())
+            .nickname(tokens.nickname())
+            .profileImgUrl(tokens.profileImgUrl())
+            .build();
         return ApiResponse.toResponse(CREATED, SUCCESS_LOGIN, response);
     }
 

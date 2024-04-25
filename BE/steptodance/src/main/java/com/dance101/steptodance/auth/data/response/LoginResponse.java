@@ -5,6 +5,8 @@ import lombok.Builder;
 
 @Builder
 public record LoginResponse(
-    @JsonProperty("access_token") String accessToken
+    @JsonProperty("access_token") String accessToken,
+    @JsonProperty("nickname") String nickname,
+    @JsonProperty("profile_img_url") String profileImgUrl
 ) {
 }
