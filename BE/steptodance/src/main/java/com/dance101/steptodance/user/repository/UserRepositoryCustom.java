@@ -12,5 +12,5 @@ public interface UserRepositoryCustom {
 
     List<TopRankerListResponse> findTopRankerList();
 
-    Optional<MyRankResponse> findMyRankInfo(long userId);
+//    Optional<MyRankResponse> findMyRankInfo(long userId);
 }
