@@ -8,7 +8,7 @@ export const getFeedbackDetail = async (feedbackId) => {
         const accessToken = await AsyncStorage.getItem('accessToken');
         const response = await axios.get(`${API_BASE_URL}/feedbacks/${feedbackId}`, {
             headers: {
-                Authorization: `Bearer ${accessToken}`,
+                'Authorization': `Bearer ${accessToken}`,
             },
         });
         return response.data;
@@ -20,9 +20,10 @@ export const getFeedbackDetail = async (feedbackId) => {
 
 export const deleteFeedback = async (feedbackId) => {
     try {
+        const accessToken = await AsyncStorage.getItem('accessToken');
         const response = await axios.delete(`${API_BASE_URL}/feedbacks/${feedbackId}`, {
             headers: {
-                Authorization: `Bearer ${accessToken}`,
+                'Authorization': `Bearer ${accessToken}`,
             },
         });
         return response.data;
