@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "GUIDE_TBL")
@@ -29,6 +31,12 @@ public class Guide extends BaseEntity {
 
     @Column(name = "singer")
     private String singer;
+
+    @Column(name = "highlight_section_start_at")
+    private LocalTime highlightSectionStartAt;
+
+    @Column(name = "highlight_section_end_at")
+    private LocalTime highlightSectionEndAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
