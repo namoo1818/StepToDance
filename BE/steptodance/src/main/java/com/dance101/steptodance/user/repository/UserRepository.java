@@ -26,5 +26,5 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
         "from User u left join Feedback f on u.id = f.user.id " +
         "group by u.id) as sub " +
         "where sub.id = :userId")
-    Optional<UserFindResponse> findUserByUserId(long userId);
+    Optional<UserFindResponse> findUserByUserId(@Param("userId") long userId);
 }
