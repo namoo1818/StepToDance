@@ -12,17 +12,33 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { KAKAO_AUTH_URL } from '../contexts/OAuth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
+
 
 const SignIn = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
     const fadeAnim = useRef(new Animated.Value(1)).current;  
     const colorAnim = useRef(new Animated.Value(0)).current; 
+    const isFocused = useIsFocused(); // This hook returns true if the screen is focused
+
+    useEffect(() => {
+        if (isFocused) {
+            checkLoginStatus();
+        }
+    }, [isFocused]); // Dependency on isFocused to re-run the effect when the screen is focused
+    
+    const checkLoginStatus = async () => {
+        const token = await AsyncStorage.getItem('accessToken');
+        console.log(token); // Debugging: Log the token to see if it's being retrieved correctly
+        setIsLoggedIn(!!token); // Set logged in state based on token's presence
+    };
 
     const handleKakaoLogin = () => {
         navigation.navigate('WebViewScreen', { uri: KAKAO_AUTH_URL });
+    };
+
+    const goToHome = () => {
+        navigation.navigate('home'); // Adjust the navigation if the route name is different
     };
 
     useEffect(() => {
@@ -51,10 +67,6 @@ const SignIn = ({ navigation }) => {
         };
         checkLoginStatus();
     }, []);
-
-    const goToHome = () => {
-        navigation.navigate('Home'); // Make sure 'Home' is the correct route name
-    }
     
     const barWidth = fadeAnim.interpolate({
         inputRange: [0, 1],
@@ -66,28 +78,7 @@ const SignIn = ({ navigation }) => {
         outputRange: ['blue', 'white'] // 색상이 파란색에서 흰색으로 변함
     });
 
-    const validateInput = () => {
-        var form_input = [email,password];
-        
-        if(form_input.includes('') || form_input.includes(undefined)){
-            setErrorMessage('Please Fill in all fields')
-            return setDisplayFormErr(true);
-        }
-        setIsLoading(true)
-        signInWithEmailAndPassword(auth,email,password)
-        .then(()=>{
-            setIsLoading(false)
-            console.log('로그인 됨')
 
-        })
-        .catch(err =>{
-            console.log(err)
-            setErrorMessage(err.message)
-            setIsLoading(false)
-            return setDisplayFormErr(true);
-        
-        })
-    }
     return (
         <View style={styles.mainView}>
             <LinearGradient
