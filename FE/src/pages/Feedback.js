@@ -4,6 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import { Video, ResizeMode } from 'expo-av';
 import { TouchableOpacity } from "react-native";
 import { SafeAreaView } from 'react-native';
+import { getFeedbackDetail } from "../api/FeedbackApis";
 
 function Feedback({ navigation, route }) {
   const guide = route.params;
@@ -11,24 +12,34 @@ function Feedback({ navigation, route }) {
   const myVideo = useRef(null);
   const [status, setStatus] = useState({});
   const [isPlaying, setIsPlaying] = useState(true);
+  const [data, setData] = useState({});
 
-  const data = {
-    feedback: {
-      id: 1,
-      score: 90,
-      videoUrl: require('../assets/guide.mp4'),
-      guideUrl: require('../assets/myVideo.mp4')
-    },
-    incorrectSectionList: [
-      {startAt:'0:00'},
-      {startAt:'0:05'},
-      {startAt:'0:10'},
-    ],
-  }
+
+  // const data = {
+  //   feedback: {
+  //     id: 1,
+  //     score: 90,
+  //     videoUrl: require('../assets/guide.mp4'),
+  //     guideUrl: require('../assets/myVideo.mp4')
+  //   },
+  //   incorrectSectionList: [
+  //     {startAt:'0:00'},
+  //     {startAt:'0:05'},
+  //     {startAt:'0:10'},
+  //   ],
+  // }
 
   useEffect(() => {
-    navigation.setOptions({
-    });
+    const fetchFeekbackData = async () => {
+      try {
+        const data = await getFeedbackDetail();
+        console.log(data.data);
+        setData(data.data);
+      } catch (error) {
+        console.error('Error fetching feekback data:', error);
+      }
+    };
+    fetchFeekbackData();
   }, []);
 
   const togglePlayPause = () => {
@@ -61,7 +72,7 @@ function Feedback({ navigation, route }) {
         <Text style={styles.text}>SCORE</Text>
         <Text style={styles.score}>90</Text>
         <View style={styles.videoList}>
-          <Video
+          {/* <Video
               ref={guideVideo}
               style={styles.video}
               source={data.feedback.videoUrl}
@@ -81,17 +92,20 @@ function Feedback({ navigation, route }) {
             shouldPlay={isPlaying}
             isLooping
             onPlaybackStatusUpdate={newStatus => setStatus(newStatus)}
-          />
+          /> */}
           </View>
         <TouchableOpacity onPress={togglePlayPause}>
           <Text style={styles.text}>{isPlaying ? '정지' : '재생'}</Text>
         </TouchableOpacity>
         <Text style={styles.text}>오답 구간</Text>
-        {data.incorrectSectionList.map((item, index)=>(
-          <TouchableOpacity key={index} onPress={() => moveTime(item.startAt)}>
-            <Text style={styles.text}>{item.startAt}</Text>
-          </TouchableOpacity>
-        ))}
+        {data.incorrectSectionList && data.incorrectSectionList.length > 0 && (
+          data.incorrectSectionList.map((item, index) => (
+            <TouchableOpacity key={index} onPress={() => moveTime(item.startAt)}>
+              <Text style={styles.text}>{item.startAt}</Text>
+            </TouchableOpacity>
+          ))
+        )}
+
       </View>
     </LinearGradient>
     </SafeAreaView>
