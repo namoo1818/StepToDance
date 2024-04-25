@@ -125,7 +125,7 @@ const Mypage = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#0B1238',
   },
   mainView: {
     flex: 1,

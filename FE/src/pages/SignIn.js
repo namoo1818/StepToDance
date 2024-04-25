@@ -90,14 +90,14 @@ const SignIn = ({ navigation }) => {
         <Text style={styles.appTitle}>DANCE</Text>
       </LinearGradient>
       <View style={styles.BottomView}>
-        {isLoggedIn ? (
+        {/* {isLoggedIn ? (
           <View>
             <Text style={styles.Heading}>Welcome!</Text>
             {/* <TouchableOpacity onPress={goToHome} style={styles.button}>
               <Text style={styles.Heading}>{"\n"}Enter Home</Text>
             </TouchableOpacity> */}
-          </View>
-        ) : (
+          {/* </View> */}
+        {/* ) : (  */}
           <View style={styles.FormView}>
             <Text style={styles.infoText}>Please log in.</Text>
             <TouchableOpacity style={styles.Button} onPress={handleKakaoLogin}>
@@ -107,7 +107,7 @@ const SignIn = ({ navigation }) => {
               />
             </TouchableOpacity>
           </View>
-        )}
+        {/* )} */}
       </View>
     </View>
   );
