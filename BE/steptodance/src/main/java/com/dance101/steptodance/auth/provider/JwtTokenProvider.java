@@ -94,7 +94,6 @@ public class JwtTokenProvider {
         }
 
         // get security user
-//        String id = claims.getSubject();
         String id = String.valueOf(claims.get("id"));
         SecurityUser securityUser = (SecurityUser) userDetailsService.loadUserByUsername(id);
         List<SimpleGrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
