@@ -57,6 +57,7 @@ public class JwtTokenProvider {
         long now = (new Date()).getTime();
         String accessToken = createToken(now, id, ACCESS_TOKEN_EXPIRE_TIME, Jwts.builder()
             .claim("created", now)
+            .claim("id", id)
             .claim("expiresIn", ACCESS_TOKEN_EXPIRE_TIME)
             .claim("auth", authorities));
 
@@ -93,7 +94,8 @@ public class JwtTokenProvider {
         }
 
         // get security user
-        String id = claims.getSubject();
+//        String id = claims.getSubject();
+        String id = (String) claims.get("id");
         SecurityUser securityUser = (SecurityUser) userDetailsService.loadUserByUsername(id);
         List<SimpleGrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
             .map(SimpleGrantedAuthority::new)
