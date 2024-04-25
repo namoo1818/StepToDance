@@ -27,9 +27,9 @@ public class GuideServiceImpl implements GuideService{
 	private final AIServerService aiServerService;
 
 	@Override
-	public GuideListFindResponse findGuideList(SearchConditions searchConditions) {
+	public GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId) {
 		// get response
-		List<GuideFindResponse> guideFindResponses = guideRepository.findGuideListWithSearchConditions(searchConditions);
+		List<GuideFindResponse> guideFindResponses = guideRepository.findGuideListWithSearchConditions(searchConditions, userId);
 
 		// create response & return
 		return GuideListFindResponse.builder()

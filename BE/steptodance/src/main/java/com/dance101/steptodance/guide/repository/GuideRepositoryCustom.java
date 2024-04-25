@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GuideRepositoryCustom {
-    List<GuideFindResponse> findGuideListWithSearchConditions(SearchConditions searchConditions);
+    List<GuideFindResponse> findGuideListWithSearchConditions(SearchConditions searchConditions, long userId);
 
     Optional<GuideFindResponse> findGuideByGuideId(long guideId);
 }
