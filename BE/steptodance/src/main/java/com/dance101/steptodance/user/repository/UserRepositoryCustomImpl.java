@@ -50,7 +50,7 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
                 queryUtils.createRankingSQL(feedback.score.sum())
             ))
             .from(user)
-            .innerJoin(feedback).on(feedback.user.id.eq(user.id))
+            .leftJoin(feedback).on(feedback.user.id.eq(user.id))
             .groupBy(user.id)
             .orderBy(feedback.score.sum().desc())
             .limit(10)
@@ -67,9 +67,9 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
                     queryUtils.createRankingSQL(feedback.score.sum())
                 ))
                 .from(user)
-                .innerJoin(feedback).on(feedback.user.id.eq(user.id))
+                .where(user.id.eq(userId))
+                .leftJoin(feedback).on(feedback.user.id.eq(user.id))
                 .groupBy(user.id)
-                .having(user.id.eq(userId))
                 .fetchOne()
         );
     }
