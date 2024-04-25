@@ -42,9 +42,6 @@ export default function VideoList() {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   text: {
     color: 'white',
     fontSize: 20,
