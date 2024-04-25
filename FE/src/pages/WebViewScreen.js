@@ -2,11 +2,14 @@ import React from 'react';
 import { WebView } from 'react-native-webview';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { StyleSheet, View, Text, Button } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../store/UserSlice';
 
-const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
 
 const WebViewScreen = ({ route,navigation }) => {
+  const dispatch = useDispatch();
+  
+  const INJECTED_JAVASCRIPT = `window.ReactNativeWebView.postMessage('message from webView')`;
   const { uri } = route.params;
   const getCode = (target) => {
     const exp = 'code=';
@@ -26,6 +29,7 @@ const requestToken = async (code) => {
       if (response.status === 201) {
         const accessToken = response.data.data.access_token;
         const refreshToken = response.headers['refresh_token'];
+        const { access_token, nickname, profile_img_url } = response.data.data;
 
         if (accessToken) {
           await AsyncStorage.setItem('accessToken', accessToken);
@@ -34,7 +38,11 @@ const requestToken = async (code) => {
         if (refreshToken) {
           await AsyncStorage.setItem('refreshToken', refreshToken);
         }
-
+        dispatch(setUserData({
+          accessToken: access_token,
+          nickname: nickname,
+          profileImgUrl: profile_img_url,
+      }));
         navigation.navigate('signIn');
       }
       console.log(response.data);
@@ -43,20 +51,16 @@ const requestToken = async (code) => {
     }
   };
 
-  return (
-    <View style={{ flex: 1 }}>
-    <WebView 
-        source={{ uri }}
-        style={{ flex: 1 }}
-        injectedJavaScript={INJECTED_JAVASCRIPT}
-        javaScriptEnabled
-        onMessage={event => {
-        const data = event.nativeEvent.url;
-        getCode(data);
-        }}
-        />
-	</View>
-	);
+  return <WebView 
+    source={{ uri }}
+    style={{ flex: 1 }}
+    injectedJavaScript={INJECTED_JAVASCRIPT}
+    javaScriptEnabled
+    onMessage={event => {
+      const data = event.nativeEvent.url;
+      getCode(data);
+    }}
+    />;
 };
 
 export default WebViewScreen;

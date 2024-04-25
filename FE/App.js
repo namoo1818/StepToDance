@@ -14,6 +14,9 @@ import Feedback from './src/pages/Feedback';
 import MyVideoList from './src/pages/MyVideoList';
 import SignIn from './src/pages/SignIn';
 import WebViewScreen from './src/pages/WebViewScreen';
+import { Provider } from 'react-redux';
+import store from './src/store/index';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -35,6 +38,7 @@ function MypageStack() {
     <Stack.Navigator initialRouteName="Mypage">
       <Stack.Screen name="Mypage" component={Mypage} options={{ headerShown: false }} />
       <Stack.Screen name="VideoListScreen" component={MyVideoList} options={{ headerShown: false }} />
+      <Stack.Screen name="signIn" component={SignIn} options={{ headerShown: false }} />
     </Stack.Navigator>
   );
 }
@@ -43,6 +47,7 @@ function SignInStack() {
   return (
     <Stack.Navigator initialRouteName="signIn">
       <Stack.Screen name="signIn" component={SignIn} options={{ headerShown: false }} />
+      <Stack.Screen name="home" component={Home}/>
       <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
     </Stack.Navigator>
   );
@@ -51,7 +56,7 @@ function SignInStack() {
 export default function App() {
   
   return (
-    
+    <Provider store={store}>
       <NavigationContainer>
         <StatusBar/>
         <Tab.Navigator initialRouteName="Home" screenOptions = {{ headerShown: false}} >
@@ -72,5 +77,6 @@ export default function App() {
           )}}/>
         </Tab.Navigator>
       </NavigationContainer>
+     </Provider>
   );
 }
