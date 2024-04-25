@@ -20,25 +20,25 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
     private final JPAQueryFactory queryFactory;
     private final QueryUtils queryUtils;
 
-    @Override
-    public Optional<UserFindResponse> findUserByUserId(long userId) {
-        return Optional.ofNullable(
-            queryFactory.select(Projections.constructor(UserFindResponse.class,
-                    user.profileImgUrl,
-                    user.nickname,
-                    ExpressionUtils.as(
-                        JPAExpressions.select(queryUtils.createRankingSQL(feedback.score.sum()))
-                            .from(feedback)
-                            .groupBy(user.id)
-                            .having(user.id.eq(userId)),
-                        "userRank"
-                    )
-                ))
-                .from(user)
-                .where(user.id.eq(userId))
-                .fetchOne()
-        );
-    }
+//    @Override
+//    public Optional<UserFindResponse> findUserByUserId(long userId) {
+//        return Optional.ofNullable(
+//            queryFactory.select(Projections.constructor(UserFindResponse.class,
+//                    user.profileImgUrl,
+//                    user.nickname,
+//                    ExpressionUtils.as(
+//                        JPAExpressions.select(queryUtils.createRankingSQL(feedback.score.sum()))
+//                            .from(feedback)
+//                            .groupBy(user.id)
+//                            .having(user.id.eq(userId)),
+//                        "userRank"
+//                    )
+//                ))
+//                .from(user)
+//                .where(user.id.eq(userId))
+//                .fetchOne()
+//        );
+//    }
 
     @Override
     public List<TopRankerListResponse> findTopRankerList() {
