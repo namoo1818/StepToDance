@@ -26,8 +26,9 @@ import static org.springframework.http.HttpStatus.OK;
 public class GuideController {
 	private final GuideService guideService;
 	@GetMapping
-	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(@ModelAttribute SearchConditions searchConditions) {
-		GuideListFindResponse response = guideService.findGuideList(searchConditions);
+	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(@AuthenticationPrincipal SecurityUser securityUser, @ModelAttribute SearchConditions searchConditions) {
+		long userId = securityUser.getId();
+		GuideListFindResponse response = guideService.findGuideList(searchConditions, userId);
 		return ApiResponse.toResponse(OK, SUCCESS_GUIDE_LIST, response);
 	}
 

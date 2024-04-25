@@ -9,7 +9,7 @@ import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
 import java.util.concurrent.CompletableFuture;
 
 public interface GuideService {
-	GuideListFindResponse findGuideList(SearchConditions searchConditions);
+	GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId);
 
 	GuideFindResponse findGuide(long guideId);
 
