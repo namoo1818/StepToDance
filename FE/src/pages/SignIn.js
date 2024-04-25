@@ -35,9 +35,9 @@ const SignIn = ({ navigation }) => {
     navigation.navigate("WebViewScreen", { uri: KAKAO_AUTH_URL });
   };
 
-  const goToHome = () => {
-    navigation.navigate("home"); // Adjust the navigation if the route name is different
-  };
+//   const goToHome = () => {
+//     navigation.navigate("home"); // Adjust the navigation if the route name is different
+//   };
 
   useEffect(() => {
     Animated.parallel([
@@ -93,9 +93,9 @@ const SignIn = ({ navigation }) => {
         {isLoggedIn ? (
           <View>
             <Text style={styles.Heading}>Welcome!</Text>
-            <TouchableOpacity onPress={goToHome} style={styles.button}>
+            {/* <TouchableOpacity onPress={goToHome} style={styles.button}>
               <Text style={styles.Heading}>{"\n"}Enter Home</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         ) : (
           <View style={styles.FormView}>

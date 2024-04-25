@@ -42,6 +42,7 @@ const requestToken = async (code) => {
           accessToken: access_token,
           nickname: nickname,
           profileImgUrl: profile_img_url,
+          isLoggedIn: true,
       }));
         navigation.navigate('signIn');
       }

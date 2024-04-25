@@ -12,12 +12,15 @@ import { SafeAreaView } from 'react-native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logout } from "../store/UserSlice";
 
 
 const Mypage = ({ navigation, route }) => {
   
   const user = useSelector(state => state.user);
   console.log(user.nickname, user.profileImgUrl);
+  const dispatch = useDispatch();
   
   const signOut = async () => {
     try {
@@ -34,7 +37,8 @@ const Mypage = ({ navigation, route }) => {
         console.log("Logout successful:", response.data.message);
         await AsyncStorage.removeItem('accessToken');
         await AsyncStorage.removeItem('refreshToken');
-        navigation.navigate('signIn');
+        dispatch(logout());  // Reset Redux state to initial
+
       }
     } catch (error) {
       // 에러 정보를 출력할 때 에러 객체의 내용을 확인할 수 있도록 수정
