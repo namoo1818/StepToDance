@@ -6,4 +6,4 @@ clarifai
 nbformat
 nbclient
 nbconvert
-aiokafka
+kafka-python
