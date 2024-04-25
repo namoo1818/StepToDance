@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { FlatList, View, StyleSheet } from 'react-native';
+import { FlatList, View, StyleSheet, Text } from 'react-native';
 import Page from './Page';
 
-export default function Carousel({ pages, pageWidth, gap, offset }) {
+export default function Carousel({ pages, pageWidth, gap, offset, onPageChange  }) {
   const [page, setPage] = useState(0);
 
   function renderItem({ item }) {
     return (
-      <Page item={item} style={{ width: pageWidth, marginHorizontal: gap / 2 }} />
+      <Page key={item.id} item={item} style={{ width: pageWidth, marginHorizontal: gap / 2 }} />
     );
   }
 
@@ -16,6 +16,7 @@ export default function Carousel({ pages, pageWidth, gap, offset }) {
       e.nativeEvent.contentOffset.x / (pageWidth + gap),
     );
     setPage(newPage);
+    onPageChange(newPage);
   };
 
   return (
@@ -28,7 +29,7 @@ export default function Carousel({ pages, pageWidth, gap, offset }) {
         data={pages}
         decelerationRate="fast"
         horizontal
-        keyExtractor={(item) => `page__${item.color}`}
+        keyExtractor={(item) => `page__${item.id}`}
         onScroll={onScroll}
         pagingEnabled
         renderItem={renderItem}
@@ -41,7 +42,11 @@ export default function Carousel({ pages, pageWidth, gap, offset }) {
           <View key={`indicator_${i}`} style={[styles.indicator, i === page && styles.focused]} />
         ))}
       </View>
+      <View>
+      <Text style={styles.text}>{pages.song_title}</Text>
+      </View>
     </View>
+    
   );
 }
 
@@ -65,5 +70,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 16,
+  },
+  text: {
+    color: 'white',
   },
 });
