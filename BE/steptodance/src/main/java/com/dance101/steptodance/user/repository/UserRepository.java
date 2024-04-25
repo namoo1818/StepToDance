@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long>, UserRepositor
     @Query("select new com.dance101.steptodance.user.data.response.MyRankResponse(sub_query.nickname, sub_query.profileImgUrl, sub_query.score, sub_query.ranking) " +
         "from (select u.id, u.nickname, u.profileImgUrl, sum(f.score) as score, rank() over (order by sum(f.score) desc) as ranking " +
         "from User u left join Feedback f on u.id = f.user.id " +
-        "group by u.id) sub_query " +
+        "group by u.id) as sub_query " +
         "where sub_query.id = :userId")
     Optional<MyRankResponse> findMyRankInfo(@Param("userId") long userId);
 }
