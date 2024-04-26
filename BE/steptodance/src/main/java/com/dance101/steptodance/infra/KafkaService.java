@@ -1,6 +1,7 @@
 package com.dance101.steptodance.infra;
 
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
+import com.dance101.steptodance.guide.data.response.GuideFeedbackCreateResponse;
 import com.dance101.steptodance.guide.service.AIServerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,8 +25,8 @@ public class KafkaService implements AIServerService {
     }
 
     @KafkaListener(topics = "${message.topic.name}", groupId = "step-to-dance")
-    public void consume(String message) {
+    public void consume(GuideFeedbackCreateResponse guideFeedbackCreateResponse) {
         log.info("==========================Kafka Consumer 실행==========================");
-        log.info(message);
+        log.info(guideFeedbackCreateResponse.toString());
     }
 }
