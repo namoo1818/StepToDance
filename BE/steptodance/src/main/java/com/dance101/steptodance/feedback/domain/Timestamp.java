@@ -13,7 +13,8 @@ import java.time.LocalTime;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "TIMESTAMP_TBL")
 @Entity
-public class Timestamp extends BaseEntity {
+public class
+Timestamp extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "timestamp_id")

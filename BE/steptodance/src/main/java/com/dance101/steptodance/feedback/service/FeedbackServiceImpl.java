@@ -4,12 +4,16 @@ import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
 import com.dance101.steptodance.feedback.data.response.FeedbackInfoResponse;
 import com.dance101.steptodance.feedback.data.response.SectionListResponse;
 import com.dance101.steptodance.feedback.domain.Feedback;
+import com.dance101.steptodance.feedback.domain.Timestamp;
 import com.dance101.steptodance.feedback.repository.FeedbackRepository;
+import com.dance101.steptodance.feedback.repository.TimeStampRepository;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
+import com.dance101.steptodance.guide.data.response.GuideFeedbackCreateResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.dance101.steptodance.global.exception.data.response.ErrorCode.FEEDBACK_NOT_FOUND;
@@ -19,6 +23,7 @@ import static com.dance101.steptodance.global.exception.data.response.ErrorCode.
 @Service
 public class FeedbackServiceImpl implements FeedbackService {
     private final FeedbackRepository feedbackRepository;
+    private final TimeStampRepository timeStampRepository;
 
     @Override
     public FeedbackFindResponse findFeedback(long feedbackId) {
@@ -45,5 +50,26 @@ public class FeedbackServiceImpl implements FeedbackService {
 
         // delete
         feedbackRepository.delete(feedback);
+    }
+
+    @Transactional
+    @Override
+    public void updateFeedback(GuideFeedbackCreateResponse guideFeedbackCreateResponse) {
+        // get feedback
+        Feedback feedback = feedbackRepository.findById(guideFeedbackCreateResponse.id())
+            .orElseThrow(() -> new NotFoundException("FeedbackServiceImpl:deleteFeedback", FEEDBACK_NOT_FOUND));
+
+        // update & save feedback
+        feedback.update(guideFeedbackCreateResponse.score(), guideFeedbackCreateResponse.thumbnailImgUrl());
+
+        // create incorrect sections
+        List<Timestamp> timestamps = new ArrayList<>();
+        guideFeedbackCreateResponse.sectionListResponses().forEach(section -> {
+            Timestamp timestamp = Timestamp.builder().startAt(section).feedback(feedback).build();
+            timestamps.add(timestamp);
+        });
+
+        // save incorrect sections
+        timeStampRepository.saveAll(timestamps);
     }
 }
