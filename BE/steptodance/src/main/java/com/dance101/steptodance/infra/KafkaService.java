@@ -25,8 +25,8 @@ public class KafkaService implements AIServerService {
     }
 
     @KafkaListener(topics = "${message.topic.name}", groupId = "step-to-dance")
-    public void consume(GuideFeedbackCreateResponse guideFeedbackCreateResponse) {
+    public void consume(String message) {
         log.info("==========================Kafka Consumer 실행==========================");
-        log.info(guideFeedbackCreateResponse.toString());
+        log.info(message);
     }
 }
