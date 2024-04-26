@@ -22,7 +22,7 @@ public class KafkaService implements AIServerService {
         this.kafkaTemplate.send(topicName, feedbackMessageRequest.toString());
     }
 
-    @KafkaListener(topics = "topic-ai-to-be", groupId = ConsumerConfig.GROUP_ID_CONFIG)
+    @KafkaListener(topics = "${message.topic.name}", groupId = ConsumerConfig.GROUP_ID_CONFIG)
     public void consume() {
         System.out.println();
     }
