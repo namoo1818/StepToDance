@@ -1,12 +1,19 @@
 package com.dance101.steptodance.guide.service;
 
-import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
+import com.dance101.steptodance.feedback.domain.Feedback;
+import com.dance101.steptodance.feedback.repository.FeedbackRepository;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
+import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
+import com.dance101.steptodance.guide.data.response.FeedbackResponse;
 import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
+import com.dance101.steptodance.guide.domain.Guide;
 import com.dance101.steptodance.guide.repository.GuideRepository;
+import com.dance101.steptodance.user.domain.User;
+import com.dance101.steptodance.user.repository.UserRepository;
+import com.dance101.steptodance.user.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -25,6 +32,8 @@ import static com.dance101.steptodance.global.exception.data.response.ErrorCode.
 public class GuideServiceImpl implements GuideService{
 	private final GuideRepository guideRepository;
 	private final AIServerService aiServerService;
+	private final UserRepository userRepository;
+	private final FeedbackRepository feedbackRepository;
 
 	@Override
 	public GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId) {
@@ -47,15 +56,35 @@ public class GuideServiceImpl implements GuideService{
 	@Async
 	@Transactional
 	@Override
-	public CompletableFuture<FeedbackFindResponse> createGuideFeedback(long userId, long guideId, GuideFeedbackCreateRequest guideFeedbackCreateRequest) {
-		System.out.println("============================================");
-		System.out.println(guideFeedbackCreateRequest.startAt());
-		System.out.println(guideFeedbackCreateRequest.endAt());
-		System.out.println(guideFeedbackCreateRequest.videoUrl());
-		System.out.println("============================================");
+	public CompletableFuture<FeedbackResponse> createGuideFeedback(long userId, long guideId, GuideFeedbackCreateRequest guideFeedbackCreateRequest) {
+		// find guide & user
+		Guide guide = guideRepository.findById(guideId)
+			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:createGuideFeedback", GUIDE_NOT_FOUND));
+		User user = UserUtils.findUserById(userRepository, userId);
 
-		aiServerService.publish(guideFeedbackCreateRequest);
+		// create & save feedback
+		Feedback feedback = Feedback.builder()
+			.videoUrl(guideFeedbackCreateRequest.videoUrl())
+			.score(0.0)
+			.thumbnailImgUrl(null)
+			.guide(guide)
+			.user(user)
+			.build();
+		Feedback savedFeedback = feedbackRepository.save(feedback);
 
-		return CompletableFuture.completedFuture(new FeedbackFindResponse(null, null));
+		// create message & send to ai server
+		FeedbackMessageRequest feedbackMessageRequest = FeedbackMessageRequest.builder()
+			.id(savedFeedback.getId())
+			.startAt(guideFeedbackCreateRequest.startAt())
+			.endAt(guideFeedbackCreateRequest.endAt())
+			.videoUrl(guideFeedbackCreateRequest.videoUrl())
+			.guideUrl(guide.getVideoUrl())
+			.highlightSectionStartAt(guide.getHighlightSectionStartAt())
+			.highlightSectionEndAt(guide.getHighlightSectionEndAt())
+			.build();
+		aiServerService.publish(feedbackMessageRequest);
+
+		// create & return
+		return CompletableFuture.completedFuture(new FeedbackResponse(savedFeedback.getId()));
 	}
 }
