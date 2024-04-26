@@ -6,6 +6,6 @@ public record MyRankResponse(
     @JsonProperty("nickname") String nickname,
     @JsonProperty("profile_img_url") String profileImgUrl,
     @JsonProperty("score") double score,
-    @JsonProperty("rank") int rank
+    @JsonProperty("rank") long ranking
 ) {
 }

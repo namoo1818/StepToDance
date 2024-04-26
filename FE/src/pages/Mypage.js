@@ -9,18 +9,44 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from 'react-native';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { logout } from "../store/UserSlice";
+
 
 const Mypage = ({ navigation, route }) => {
-  const signOut = () => {
-    firebaseSignOut(auth)
-      .then(() => {
-        console.log("Signed out successfully!");
-        // Optionally navigate to the login screen
-      })
-      .catch((error) => {
-        console.error("Sign out error:", error);
+  
+  const user = useSelector(state => state.user);
+  console.log(user.nickname, user.profileImgUrl);
+  const dispatch = useDispatch();
+  
+  const signOut = async () => {
+    try {
+      const accessToken = await AsyncStorage.getItem('accessToken');
+      console.log(accessToken)
+      const requestTokenUrl = "https://k10a101.p.ssafy.io/api/v1/auth/logout";
+      const response = await axios.post(requestTokenUrl, {}, {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+        }
       });
+  
+      if (response.status === 204) {
+        console.log("Logout successful:", response.data.message);
+        await AsyncStorage.removeItem('accessToken');
+        await AsyncStorage.removeItem('refreshToken');
+        dispatch(logout());  // Reset Redux state to initial
+
+      }
+    } catch (error) {
+      // 에러 정보를 출력할 때 에러 객체의 내용을 확인할 수 있도록 수정
+      console.error("Error logging out:", error.response ? error.response.data.message : error.message);
+    }
   };
+  
+
 
   const goToVideoList = () => {
     navigation.navigate("VideoListScreen");
@@ -29,6 +55,11 @@ const Mypage = ({ navigation, route }) => {
   return (
     <SafeAreaView style={styles.safeArea}>
     <LinearGradient colors={["#0B1238", "#286ECA"]} style={styles.mainView}>
+    <Image
+      resizeMode="contain"
+      source={{ uri: user.profileImgUrl}}
+      style={styles.profileImage}
+    />
       <View style={styles.view2}>
         <Image
           resizeMode="auto"
@@ -41,9 +72,9 @@ const Mypage = ({ navigation, route }) => {
           <Text style={styles.myPageText}>MYPAGE</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={signOut} style={styles.Button}>
-        <Text style={styles.ButtonText}>로그아웃</Text>
-      </TouchableOpacity>
+      <TouchableOpacity onPress={signOut} style={styles.logoutButton}>
+          <Text style={styles.logoutButtonText}>로그아웃</Text>
+        </TouchableOpacity>
       <View style={styles.view4}>
         <View style={styles.view5}>
           <Image
@@ -51,16 +82,15 @@ const Mypage = ({ navigation, route }) => {
             source={require("../assets/images/ProfileImage.png")}
             style={styles.image2}
           />
-          <Text style={styles.pageCenter}>
-            김싸피{'\n'}{/* '\n' creates a new line */}
-            RANK 9999{'\n'}
-            1점
-            </Text>
+        </View>
+        <View style={styles.headerView}>
+          <Text style={styles.username}>{user.nickname || "No Name"}</Text>
+          <Text style={styles.rankAndPoints}>RANK 9999{'\n'}1 point</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={goToVideoList}>
-        <Text style={styles.moreText}>더보기</Text>
-      </TouchableOpacity>
+      <TouchableOpacity onPress={goToVideoList} style={styles.moreButton}>
+          <Text style={styles.moreButtonText}>더보기</Text>
+        </TouchableOpacity>
       <ScrollView horizontal={true} style={styles.videoScroll}>
         <View style={styles.videoContainer}>
           {/* Example images repeated; replace with actual image sources */}
@@ -95,12 +125,53 @@ const Mypage = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#0B1238',
   },
   mainView: {
     flex: 1,
     alignItems: "center",
     padding: "32px 0 12px",
+  },
+  headerView: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  profileImage: {
+    width: 150,
+    height: 100,
+    position: 'absolute',
+    borderRadius: 150, // Circular profile image
+  },
+  username: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginTop: 110,
+  },
+  rankAndPoints: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  logoutButton: {
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 20,
+    marginTop: 20,
+  },
+  logoutButtonText: {
+    color: '#0B1238',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  moreButton: {
+    marginTop: 10,
+    marginLeft: 250
+  },
+  moreButtonText: {
+    color: '#fff',
+    fontSize: 16,
   },
   Button: {
     width: "90%",
@@ -155,7 +226,9 @@ const styles = StyleSheet.create({
     fontFamily: "Inter",
     fontStyle: "italic",
     fontSize: 35,
+    position: 'absolute',
     fontWeight: "950",
+    marginTop: 60,
     color: "white",
     textAlign: "center",
   },
@@ -180,26 +253,18 @@ const styles = StyleSheet.create({
   },
   videoScroll: {
     flexDirection: "row",
-    width: "100%",
+    width: "90%",
     paddingLeft: 18,
     paddingRight: 18,
-    marginTop: 200,
+    marginTop: 20,
   },
   videoContainer: {
     flexDirection: "row",
   },
   videoImage: {
-    width: 150, // Smaller width
-    height: 100, // Adjusted height
-    borderRadius: 15, // Smaller border radius
+    width: 150, 
+    height: 150,
     marginRight: 10, // Space between images
-  },
-  moreText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 16,
-    marginbottom: -80,
-    marginLeft: 300,
   },
 });
 

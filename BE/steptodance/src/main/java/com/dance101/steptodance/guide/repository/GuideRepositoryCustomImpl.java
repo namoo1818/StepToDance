@@ -5,6 +5,7 @@ import com.dance101.steptodance.guide.data.request.SearchConditions;
 import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import io.netty.util.internal.StringUtil;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.dance101.steptodance.feedback.domain.QFeedback.feedback;
+import static com.dance101.steptodance.guide.domain.QGenre.genre;
 import static com.dance101.steptodance.guide.domain.QGuide.guide;
 
 @Slf4j
@@ -23,7 +25,7 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
     private final QueryUtils queryUtils;
 
     @Override
-    public List<GuideFindResponse> findGuideListWithSearchConditions(SearchConditions searchConditions) {
+    public List<GuideFindResponse> findGuideListWithSearchConditions(SearchConditions searchConditions, long userId) {
         if (searchConditions.getLimit() == null) {
             searchConditions.setLimit(10);
         }
@@ -47,7 +49,7 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
             guide.createdAt))
             .from(guide).leftJoin(feedback).on(feedback.guide.id.eq(guide.id))
             .where(
-                categorySearch(searchConditions.getCategory()),
+                categorySearch(searchConditions.getCategory(), userId),
                 titleSearch(searchConditions.getTitle()),
                 singerSearch(searchConditions.getSinger()),
                 uploaderSearch(searchConditions.getUploader())
@@ -100,9 +102,22 @@ public class GuideRepositoryCustomImpl implements GuideRepositoryCustom {
         return guide.songTitle.like("%" + title + "%");
     }
 
-    private BooleanExpression categorySearch(String category) {
+    private BooleanExpression categorySearch(String category, long userId) {
         if (StringUtil.isNullOrEmpty(category)) {
             return null;
+        } else if (category.equals("custom")) {
+            category = queryFactory.select(genre.name)
+                .from(guide)
+                .innerJoin(genre).on(genre.id.eq(guide.genre.id))
+                .where(guide.id.eq(
+                    JPAExpressions.select(guide.id)
+                        .from(feedback)
+                        .where(feedback.user.id.eq(userId))
+                        .groupBy(feedback.guide.id)
+                        .orderBy(feedback.id.count().desc())
+                        .limit(1)
+                ))
+                .fetchOne();
         }
         return guide.genre.name.like("%" + category+ "%");
     }
