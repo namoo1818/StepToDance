@@ -6,6 +6,7 @@ import com.dance101.steptodance.global.exception.category.NotFoundException;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
+import com.dance101.steptodance.guide.data.response.FeedbackResponse;
 import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
 import com.dance101.steptodance.guide.domain.Guide;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 import static com.dance101.steptodance.global.exception.data.response.ErrorCode.GUIDE_NOT_FOUND;
 
@@ -54,7 +56,7 @@ public class GuideServiceImpl implements GuideService{
 	@Async
 	@Transactional
 	@Override
-	public void createGuideFeedback(long userId, long guideId, GuideFeedbackCreateRequest guideFeedbackCreateRequest) {
+	public CompletableFuture<FeedbackResponse> createGuideFeedback(long userId, long guideId, GuideFeedbackCreateRequest guideFeedbackCreateRequest) {
 		// find guide & user
 		Guide guide = guideRepository.findById(guideId)
 			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:createGuideFeedback", GUIDE_NOT_FOUND));
@@ -81,5 +83,8 @@ public class GuideServiceImpl implements GuideService{
 			.highlightSectionEndAt(guide.getHighlightSectionEndAt())
 			.build();
 		aiServerService.publish(feedbackMessageRequest);
+
+		// create & return
+		return CompletableFuture.completedFuture(new FeedbackResponse(savedFeedback.getId()));
 	}
 }

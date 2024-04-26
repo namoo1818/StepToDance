@@ -3,6 +3,7 @@ package com.dance101.steptodance.infra;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.service.AIServerService;
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -21,7 +22,7 @@ public class KafkaService implements AIServerService {
         this.kafkaTemplate.send(topicName, feedbackMessageRequest.toString());
     }
 
-    @KafkaListener(topics = "${message.consumer.topic.name}", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "topic-ai-to-be", groupId = ConsumerConfig.GROUP_ID_CONFIG)
     public void consume() {
         System.out.println();
     }
