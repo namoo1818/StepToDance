@@ -10,6 +10,8 @@ services:
     ports:
       - "8000:8000"
     restart: always
+    networks:
+      - steptodance_default
 networks:
   steptodance_default:
     external: true

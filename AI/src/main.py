@@ -4,7 +4,8 @@ from confluent_kafka import Consumer
 import asyncio
 
 
-consumer = Consumer({'bootstrap.servers': 'k10a101.p.ssafy.io:9092', 'group.id': 'group.id'})
+# consumer = Consumer({'bootstrap.servers': 'k10a101.p.ssafy.io:9092', 'group.id': 'group.id'})
+consumer = Consumer({'bootstrap.servers': 'kafka1:9092, kafka2:9092, kafka3:9092', 'group.id': 'group.id'})
 consumer.subscribe(['topic-ai'])
 
 app = FastAPI()
