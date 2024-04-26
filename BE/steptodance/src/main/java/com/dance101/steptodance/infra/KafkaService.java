@@ -10,6 +10,9 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @Service
 public class KafkaService implements AIServerService {
@@ -19,7 +22,14 @@ public class KafkaService implements AIServerService {
 
     @Override
     public void publish(GuideFeedbackCreateRequest feedbackCreateRequest) {
-        this.kafkaTemplate.send(topicName, feedbackCreateRequest.videoUrl());
+        // create message
+        Map<String, Object> message = new HashMap<>();
+        message.put("start_at", feedbackCreateRequest.startAt());
+        message.put("end_at", feedbackCreateRequest.endAt());
+        message.put("video_url", feedbackCreateRequest.videoUrl());
+
+        // send message
+        this.kafkaTemplate.send(topicName, message.toString());
     }
 
     @KafkaListener(topics = "${message.topic.name}", groupId = ConsumerConfig.GROUP_ID_CONFIG)
