@@ -38,4 +38,4 @@ kakao:
   redirectUri: ${KAKAO_REDIRECT_URL}
 message:
   topic:
-    name: topic-be-to-ai
+    name: topic

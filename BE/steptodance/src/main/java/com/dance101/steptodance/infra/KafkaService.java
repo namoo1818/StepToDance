@@ -3,11 +3,13 @@ package com.dance101.steptodance.infra;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.service.AIServerService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class KafkaService implements AIServerService {
@@ -22,7 +24,8 @@ public class KafkaService implements AIServerService {
     }
 
     @KafkaListener(topics = "${message.topic.name}", groupId = "step-to-dance")
-    public void consume() {
-        System.out.println();
+    public void consume(String message) {
+        log.info("==========================Kafka Consumer 실행==========================");
+        log.info(message);
     }
 }
