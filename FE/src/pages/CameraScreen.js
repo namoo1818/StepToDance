@@ -24,7 +24,7 @@ export default function CameraScreen() {
   const [hasGalleryPermissions, setHasGalleryPermissions] = useState(false);
   const [showVideo, setShowVideo] = useState("");
   const [convertedVideoUri, setConvertedVideoUri] = useState(null);
-
+  const [saveStatus, setSaveStatus] = useState(false);
   const [galleryItems, setGalleryItems] = useState([]);
   const [cameraRef, setCameraRef] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
@@ -46,6 +46,9 @@ export default function CameraScreen() {
       const galleryStatus =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       setHasGalleryPermissions(galleryStatus.status == "granted");
+
+      const mediaSave = await MediaLibrary.requestPermissionsAsync();
+      setSaveStatus(mediaSave.status == "granted");
 
       if (galleryStatus.status == "granted") {
         const userGalleryMedia = await MediaLibrary.getAssetsAsync({
@@ -91,6 +94,12 @@ export default function CameraScreen() {
       setIsRecording(false);
     }
   };
+  const onSave = async () => {
+    const mediaLibraryPermissions = await MediaLibrary.getPermissionsAsync();
+    if (mediaLibraryPermissions.granted) {
+      await MediaLibrary.saveToLibraryAsync(showVideo.uri);
+    }
+  };
 
   const pickFromGallery = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -130,7 +139,9 @@ export default function CameraScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.ButtonTwo}>
-              <Text style={styles.ButtonText}>평가하기</Text>
+              <Text style={styles.ButtonText} onPress={() => onSave()}>
+                평가하기
+              </Text>
             </TouchableOpacity>
           </View>
         </>
