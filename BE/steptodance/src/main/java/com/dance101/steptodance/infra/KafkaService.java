@@ -3,6 +3,8 @@ package com.dance101.steptodance.infra;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.data.response.GuideFeedbackCreateResponse;
 import com.dance101.steptodance.guide.service.AIServerService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +27,12 @@ public class KafkaService implements AIServerService {
     }
 
     @KafkaListener(topics = "${message.topic.name}", groupId = "step-to-dance")
-    public void consume(String message) {
+    public void consume(String message) throws JsonProcessingException {
         log.info("==========================Kafka Consumer 실행==========================");
         log.info(message);
+        // convert message to DTO
+        ObjectMapper mapper = new ObjectMapper();
+        GuideFeedbackCreateResponse response = mapper.readValue(message, GuideFeedbackCreateResponse.class);
+        log.info(response.toString());
     }
 }
