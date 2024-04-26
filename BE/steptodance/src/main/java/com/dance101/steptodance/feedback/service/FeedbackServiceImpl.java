@@ -57,7 +57,7 @@ public class FeedbackServiceImpl implements FeedbackService {
     public void updateFeedback(GuideFeedbackCreateResponse guideFeedbackCreateResponse) {
         // get feedback
         Feedback feedback = feedbackRepository.findById(guideFeedbackCreateResponse.id())
-            .orElseThrow(() -> new NotFoundException("FeedbackServiceImpl:deleteFeedback", FEEDBACK_NOT_FOUND));
+            .orElseThrow(() -> new NotFoundException("FeedbackServiceImpl:updateFeedback", FEEDBACK_NOT_FOUND));
 
         // update & save feedback
         feedback.update(guideFeedbackCreateResponse.score(), guideFeedbackCreateResponse.thumbnailImgUrl());
