@@ -39,3 +39,6 @@ kakao:
 message:
   topic:
     name: topic
+  consumer:
+    topic:
+      name: consumer-topic

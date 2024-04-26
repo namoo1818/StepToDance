@@ -1,7 +1,6 @@
 package com.dance101.steptodance.guide.controller;
 
 import com.dance101.steptodance.auth.utils.SecurityUser;
-import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
 import com.dance101.steptodance.global.data.response.ApiResponse;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
@@ -12,9 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import static com.dance101.steptodance.global.data.response.StatusCode.*;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -39,12 +35,11 @@ public class GuideController {
 	}
 
 	@PostMapping("/{guide_id}")
-	public ResponseEntity<ApiResponse<FeedbackFindResponse>> createGuideFeedback(
+	public ResponseEntity<ApiResponse<Void>> createGuideFeedback(
 		@AuthenticationPrincipal SecurityUser securityUser, @PathVariable("guide_id") long guideId, @RequestBody GuideFeedbackCreateRequest guideFeedbackCreateRequest
-	) throws ExecutionException, InterruptedException {
+	) {
 		long userId = securityUser.getId();
-		CompletableFuture<FeedbackFindResponse> completableFuture = guideService.createGuideFeedback(userId, guideId, guideFeedbackCreateRequest);
-		FeedbackFindResponse response = completableFuture.get();
-		return ApiResponse.toResponse(CREATED, SUCCESS_FEEDBACK_CREATION, response);
+		guideService.createGuideFeedback(userId, guideId, guideFeedbackCreateRequest);
+		return ApiResponse.toEmptyResponse(CREATED, SUCCESS_FEEDBACK_CREATION);
 	}
 }
