@@ -8,6 +8,6 @@ import java.util.List;
 public record GuideFeedbackCreateResponse(
     @JsonProperty("score") double score,
     @JsonProperty("thumbnail_img_url") String thumnailImgUrl,
-    @JsonProperty("incorrect_section_list") List<SectionListResponse> sectionListResponses
+    @JsonProperty("incorrect_section_list") List<String> sectionListResponses
 ) {
 }
