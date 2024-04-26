@@ -6,11 +6,11 @@ from confluent_kafka import Producer
 #     bootstrap_servers='kafka1:9092, kafka2:9092, kafka3:9092',
 #     value_serializer=lambda v: json.dumps(v).encode('utf-8')
 # )
-producer_c = Producer({
+producer = Producer({
     'bootstrap.servers': 'kafka1:9092, kafka2:9092, kafka3:9093',
 })
 
 async def send_data_to_kafka(data: dict):
-    producer_c.produce(topic='topic-ai', value=json.dump(data))
-    producer_c.flush()
+    producer.produce(topic='topic-ai', value=json.dumps(data))
+    producer.flush()
     print(f'sent: {data}')
