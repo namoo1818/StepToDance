@@ -1,6 +1,6 @@
 package com.dance101.steptodance.infra;
 
-import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
+import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.data.response.GuideFeedbackCreateResponse;
 import com.dance101.steptodance.guide.service.AIServerService;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +10,6 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RequiredArgsConstructor
 @Service
 public class KafkaService implements AIServerService {
@@ -21,15 +18,9 @@ public class KafkaService implements AIServerService {
     private String topicName;
 
     @Override
-    public void publish(GuideFeedbackCreateRequest feedbackCreateRequest) {
-        // create message
-        Map<String, Object> message = new HashMap<>();
-        message.put("start_at", feedbackCreateRequest.startAt());
-        message.put("end_at", feedbackCreateRequest.endAt());
-        message.put("video_url", feedbackCreateRequest.videoUrl());
-
+    public void publish(FeedbackMessageRequest feedbackMessageRequest) {
         // send message
-        this.kafkaTemplate.send(topicName, message.toString());
+        this.kafkaTemplate.send(topicName, feedbackMessageRequest.toString());
     }
 
     @KafkaListener(topics = "${message.topic.name}", groupId = ConsumerConfig.GROUP_ID_CONFIG)
