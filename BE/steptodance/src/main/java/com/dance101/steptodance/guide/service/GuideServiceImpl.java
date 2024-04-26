@@ -1,12 +1,12 @@
 package com.dance101.steptodance.guide.service;
 
-import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
 import com.dance101.steptodance.feedback.domain.Feedback;
 import com.dance101.steptodance.feedback.repository.FeedbackRepository;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
+import com.dance101.steptodance.guide.data.response.FeedbackResponse;
 import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
 import com.dance101.steptodance.guide.domain.Guide;
@@ -56,7 +56,7 @@ public class GuideServiceImpl implements GuideService{
 	@Async
 	@Transactional
 	@Override
-	public CompletableFuture<FeedbackFindResponse> createGuideFeedback(long userId, long guideId, GuideFeedbackCreateRequest guideFeedbackCreateRequest) {
+	public CompletableFuture<FeedbackResponse> createGuideFeedback(long userId, long guideId, GuideFeedbackCreateRequest guideFeedbackCreateRequest) {
 		// find guide & user
 		Guide guide = guideRepository.findById(guideId)
 			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:createGuideFeedback", GUIDE_NOT_FOUND));
@@ -84,6 +84,7 @@ public class GuideServiceImpl implements GuideService{
 			.build();
 		aiServerService.publish(feedbackMessageRequest);
 
-		return CompletableFuture.completedFuture(new FeedbackFindResponse(null, null));
+		// create & return
+		return CompletableFuture.completedFuture(new FeedbackResponse(savedFeedback.getId()));
 	}
 }
