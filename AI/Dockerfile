@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.11
 COPY ./requirements.txt /fastApiProject/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /fastApiProject/requirements.txt
 COPY ./src /fastApiProject/src
