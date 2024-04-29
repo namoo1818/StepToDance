@@ -2,7 +2,7 @@ import React from "react";
 import {Link, useLocation} from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/home';
 import UploadIcon from '@mui/icons-material/upload';
-// import PersonIcon from '@/mui/icons-material/Person';
+import MypageIcon from '@mui/icons-material/person';
 import { styled, useTheme } from '@mui/material/styles';
 
 function Footer(){
@@ -28,6 +28,10 @@ function Footer(){
             color: getIconColor('/upload'),
             fontSize: '28px',
           }),
+          Mypage: styled(MypageIcon)({
+            color: getIconColor('/mypage'),
+            fontSize: '28px',
+          }),
         };
 
     return (
@@ -42,6 +46,12 @@ function Footer(){
                 <icons.Upload/>
                 <span className="icon-description" style={getTextStyle('/guideUpload')}>
                     업로드
+                </span>
+            </Link>
+            <Link to="/guideUpload" className="icon-container">
+                <icons.Upload/>
+                <span className="icon-description" style={getTextStyle('/guideUpload')}>
+                    마이페이지
                 </span>
             </Link>
         </footer>

@@ -4,6 +4,7 @@ import "./App.css";
 import MainPage from "./pages/MainPage/MainPage";
 import Home from './pages/Home';
 import VideoList from './pages/VideoList';
+import GuideUpload from './pages/GuideUpload';
 import MyPage from "./pages/MyPage/MyPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 
@@ -18,7 +19,8 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path='/home' element={<Home/>}/>
           <Route path='/videoList' element={<VideoList/>}/>
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path='/guideUpload' element={<GuideUpload/>}/>
+          <Route path='/mypage' element={<Mypage/>}/>
           <Route path="/record" element={<WebcamStreamCapture />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
