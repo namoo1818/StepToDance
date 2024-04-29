@@ -14,6 +14,11 @@ app = FastAPI()
 def home():
     return "hello!"
 
+@app.post('/guides/upload')
+def guideUpload(data: dict):
+    print(data)
+    return "hello!"
+
 @app.post("/send-data")
 async def send_data(data: dict, background_tasks: BackgroundTasks):
     background_tasks.add_task(send_data_to_kafka, data)
