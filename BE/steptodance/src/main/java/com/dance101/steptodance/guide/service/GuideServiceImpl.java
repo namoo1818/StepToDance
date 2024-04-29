@@ -28,6 +28,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -67,9 +69,9 @@ public class GuideServiceImpl implements GuideService{
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
-			HttpEntity<String> entity = new HttpEntity<>(
-				String.format("{\n\t\"video_url\": \"%s\"\n}", guideUploadRequest.videoUrl()),
-				headers);
+			MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+			body.add("video_url", guideUploadRequest.videoUrl());
+			HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
 
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response = restTemplate.exchange(AIServer_URL + "/guides/upload", HttpMethod.POST, entity, String.class);
