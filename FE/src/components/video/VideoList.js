@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, FlatList } from "react
 import { useNavigation } from "@react-navigation/native";
 import { getGuideList } from "../../api/GuideApis";
 
-export default function VideoList() {
+export default function VideoList({ user }) {
   const [guideList, setGuideList] = useState([]);
   const navigation = useNavigation();
 
@@ -30,7 +30,7 @@ export default function VideoList() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>민지님이 좋아하는 케이팝 안무</Text>
+      <Text style={styles.text}>{user.nickname}님이 좋아하는 케이팝 안무</Text>
       <FlatList
         data={guideList}
         renderItem={renderItem}
@@ -42,9 +42,6 @@ export default function VideoList() {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   text: {
     color: 'white',
     fontSize: 20,

@@ -1,11 +1,11 @@
 package com.dance101.steptodance.guide.controller;
 
 import com.dance101.steptodance.auth.utils.SecurityUser;
-import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
 import com.dance101.steptodance.global.data.response.ApiResponse;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
 import com.dance101.steptodance.guide.data.request.GuideUploadRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
+import com.dance101.steptodance.guide.data.response.FeedbackResponse;
 import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
 import com.dance101.steptodance.guide.service.GuideService;
@@ -27,8 +27,9 @@ import static org.springframework.http.HttpStatus.OK;
 public class GuideController {
 	private final GuideService guideService;
 	@GetMapping
-	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(@ModelAttribute SearchConditions searchConditions) {
-		GuideListFindResponse response = guideService.findGuideList(searchConditions);
+	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(@AuthenticationPrincipal SecurityUser securityUser, @ModelAttribute SearchConditions searchConditions) {
+		long userId = securityUser.getId();
+		GuideListFindResponse response = guideService.findGuideList(searchConditions, userId);
 		return ApiResponse.toResponse(OK, SUCCESS_GUIDE_LIST, response);
 	}
 
@@ -46,12 +47,12 @@ public class GuideController {
 	}
 
 	@PostMapping("/{guide_id}")
-	public ResponseEntity<ApiResponse<FeedbackFindResponse>> createGuideFeedback(
+	public ResponseEntity<ApiResponse<FeedbackResponse>> createGuideFeedback(
 		@AuthenticationPrincipal SecurityUser securityUser, @PathVariable("guide_id") long guideId, @RequestBody GuideFeedbackCreateRequest guideFeedbackCreateRequest
 	) throws ExecutionException, InterruptedException {
 		long userId = securityUser.getId();
-		CompletableFuture<FeedbackFindResponse> completableFuture = guideService.createGuideFeedback(userId, guideId, guideFeedbackCreateRequest);
-		FeedbackFindResponse response = completableFuture.get();
+		CompletableFuture<FeedbackResponse> completableFuture = guideService.createGuideFeedback(userId, guideId, guideFeedbackCreateRequest);
+		FeedbackResponse response = completableFuture.get();
 		return ApiResponse.toResponse(CREATED, SUCCESS_FEEDBACK_CREATION, response);
 	}
 
