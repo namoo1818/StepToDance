@@ -4,6 +4,7 @@ import com.dance101.steptodance.auth.utils.SecurityUser;
 import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
 import com.dance101.steptodance.global.data.response.ApiResponse;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
+import com.dance101.steptodance.guide.data.request.GuideUploadRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
 import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
@@ -31,6 +32,13 @@ public class GuideController {
 		return ApiResponse.toResponse(OK, SUCCESS_GUIDE_LIST, response);
 	}
 
+	@PostMapping
+	public ResponseEntity<ApiResponse<Void>> uploadGuide(@RequestBody GuideUploadRequest guideUploadRequest) {
+		guideService.guideUpload(guideUploadRequest);
+		return ApiResponse.toEmptyResponse(CREATED, SUCCESS_GUIDE_ONE);
+	}
+
+
 	@GetMapping("/{guide_id}")
 	public ResponseEntity<ApiResponse<GuideFindResponse>> findGuide(@PathVariable("guide_id") long guideId) {
 		GuideFindResponse response = guideService.findGuide(guideId);
@@ -46,4 +54,5 @@ public class GuideController {
 		FeedbackFindResponse response = completableFuture.get();
 		return ApiResponse.toResponse(CREATED, SUCCESS_FEEDBACK_CREATION, response);
 	}
+
 }
