@@ -17,7 +17,7 @@ def home():
 
 @app.post('/guides/upload')
 def guideUpload(request: Request):
-    print(request)
+    print(request.json())
     return "hello!"
 
 @app.post("/send-data")
