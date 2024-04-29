@@ -1,4 +1,4 @@
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI, BackgroundTasks, Request
 from kafka_producer import send_data_to_kafka
 from confluent_kafka import Consumer
 import asyncio
@@ -16,8 +16,8 @@ def home():
     return "hello!"
 
 @app.post('/guides/upload')
-def guideUpload(data: GuideUpdateRequest):
-    print(data)
+def guideUpload(request: Request):
+    print(request)
     return "hello!"
 
 @app.post("/send-data")
