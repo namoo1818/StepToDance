@@ -16,7 +16,7 @@ def home():
     return "hello!"
 
 @app.post('/guides/upload')
-def guideUpload(data: str):
+def guideUpload(data: GuideUpdateRequest):
     print(data)
     return "hello!"
 
