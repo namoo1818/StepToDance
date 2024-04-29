@@ -62,7 +62,6 @@ public class GuideServiceImpl implements GuideService{
 			.build();
 	}
 
-	@Async
 	@Transactional
 	@Override
 	public void guideUpload(GuideUploadRequest guideUploadRequest) {
