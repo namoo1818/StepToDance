@@ -1,4 +1,4 @@
 from pydantic import BaseModel
 
-class guideUpdateRequest(BaseModel):
+class GuideUpdateRequest(BaseModel):
     video_url: str
