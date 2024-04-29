@@ -36,7 +36,7 @@ public class GuideController {
 	@PostMapping
 	public ResponseEntity<ApiResponse<Void>> uploadGuide(@RequestBody GuideUploadRequest guideUploadRequest) {
 		guideService.guideUpload(guideUploadRequest);
-		return ApiResponse.toEmptyResponse(CREATED, SUCCESS_GUIDE_ONE);
+		return ApiResponse.toEmptyResponse(CREATED, CREATED_GUIDE);
 	}
 
 

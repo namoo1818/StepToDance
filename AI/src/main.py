@@ -2,6 +2,7 @@ from fastapi import FastAPI, BackgroundTasks
 from kafka_producer import send_data_to_kafka
 from confluent_kafka import Consumer
 import asyncio
+from data.guideUpdateRequest import guideUpdateRequest
 
 
 # consumer = Consumer({'bootstrap.servers': 'k10a101.p.ssafy.io:9092', 'group.id': 'group.id'})
@@ -12,6 +13,11 @@ app = FastAPI()
 
 @app.get('/')
 def home():
+    return "hello!"
+
+@app.post('/guides/upload')
+def guideUpload(data: guideUpdateRequest):
+    print(data)
     return "hello!"
 
 @app.post("/send-data")
