@@ -17,10 +17,11 @@ def home():
 
 @app.post('/guides/upload')
 def guideUpload(guideUpdateRequest: GuideUpdateRequest):
-    print("요청 받음========================================")
+    print("")
     print(guideUpdateRequest.video_url)
     print(guideUpdateRequest)
-    return "hello!"
+    response = {"code": 201, "message": "가이드 영상이 저장되었습니다."}
+    return response
 
 @app.post("/send-data")
 async def send_data(data: dict, background_tasks: BackgroundTasks):
