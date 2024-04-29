@@ -16,7 +16,8 @@ def home():
     return "hello!"
 
 @app.post('/guides/upload')
-def guideUpload(request: Request):
+async def guideUpload(request: Request):
+    data = await request.json()
     print(request.json())
     return "hello!"
 
