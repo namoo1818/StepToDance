@@ -16,11 +16,10 @@ def home():
     return "hello!"
 
 @app.post('/guides/upload')
-async def guideUpload(request: Request):
-    data = await request.json()
-    print(request.body().json())
-    print(request.body.json())
-    print(request.json())
+def guideUpload(guideUpdateRequest: GuideUpdateRequest):
+    print("요청 받음========================================")
+    print(guideUpdateRequest.video_url)
+    print(guideUpdateRequest)
     return "hello!"
 
 @app.post("/send-data")
