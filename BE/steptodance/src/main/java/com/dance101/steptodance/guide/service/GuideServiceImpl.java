@@ -1,10 +1,14 @@
 package com.dance101.steptodance.guide.service;
 
+import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
+import com.dance101.steptodance.global.exception.category.ExternalServerException;
 import com.dance101.steptodance.feedback.domain.Feedback;
 import com.dance101.steptodance.feedback.repository.FeedbackRepository;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
+import com.dance101.steptodance.global.exception.data.response.ErrorCode;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
+import com.dance101.steptodance.guide.data.request.GuideUploadRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
 import com.dance101.steptodance.guide.data.response.FeedbackResponse;
 import com.dance101.steptodance.guide.data.response.GuideFindResponse;
@@ -16,13 +20,23 @@ import com.dance101.steptodance.user.repository.UserRepository;
 import com.dance101.steptodance.user.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+import static com.dance101.steptodance.global.exception.data.response.ErrorCode.*;
 import static com.dance101.steptodance.global.exception.data.response.ErrorCode.GUIDE_NOT_FOUND;
 
 @Slf4j
@@ -34,6 +48,8 @@ public class GuideServiceImpl implements GuideService{
 	private final AIServerService aiServerService;
 	private final UserRepository userRepository;
 	private final FeedbackRepository feedbackRepository;
+	// private final String AIServer_URL = "https://steptodance.site:8000";
+	private final String AIServer_URL = "https://k10a101.p.ssafy.io:8000";
 
 	@Override
 	public GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId) {
@@ -44,6 +60,22 @@ public class GuideServiceImpl implements GuideService{
 		return GuideListFindResponse.builder()
 			.guideList(guideFindResponses)
 			.build();
+	}
+
+	@Async
+	@Transactional
+	@Override
+	public void guideUpload(GuideUploadRequest guideUploadRequest) {
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
+			HttpEntity<GuideUploadRequest> entity = new HttpEntity<>(guideUploadRequest, headers);
+
+			RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<String> response = restTemplate.exchange(AIServer_URL + "/guides/upload", HttpMethod.POST, entity, String.class);
+		} catch (Exception e) {
+			throw new ExternalServerException("GuideServiceImpl:guidUpload", GUIDE_UPLOAD_FAILED);
+		}
 	}
 
 	@Override
