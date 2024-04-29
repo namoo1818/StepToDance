@@ -47,8 +47,7 @@ public class GuideServiceImpl implements GuideService{
 	private final UserRepository userRepository;
 	private final FeedbackRepository feedbackRepository;
 	// private final String AIServer_URL = "https://steptodance.site:8000";
-	// private final String AIServer_URL = "http://k10a101.p.ssafy.io:8000";
-	private final String AIServer_URL = "localhost:8000";
+	private final String AIServer_URL = "http://k10a101.p.ssafy.io:8000";
 
 	@Override
 	public GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId) {
