@@ -18,6 +18,8 @@ import com.dance101.steptodance.guide.repository.GuideRepository;
 import com.dance101.steptodance.user.domain.User;
 import com.dance101.steptodance.user.repository.UserRepository;
 import com.dance101.steptodance.user.utils.UserUtils;
+import com.google.gson.JsonObject;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -69,7 +71,9 @@ public class GuideServiceImpl implements GuideService{
 		try {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
-			HttpEntity<GuideUploadRequest> entity = new HttpEntity<>(guideUploadRequest, headers);
+			HttpEntity<String> entity = new HttpEntity<>(
+				String.format("{\n\t\"video_url\": \"%s\"\n}", guideUploadRequest.videoUrl()),
+				headers);
 
 			RestTemplate restTemplate = new RestTemplate();
 			ResponseEntity<String> response = restTemplate.exchange(AIServer_URL + "/guides/upload", HttpMethod.POST, entity, String.class);
