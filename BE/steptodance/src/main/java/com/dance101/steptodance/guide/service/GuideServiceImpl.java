@@ -1,12 +1,10 @@
 package com.dance101.steptodance.guide.service;
 
-import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
 import com.dance101.steptodance.global.exception.category.ExternalServerException;
 import com.dance101.steptodance.feedback.domain.Feedback;
 import com.dance101.steptodance.feedback.repository.FeedbackRepository;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
-import com.dance101.steptodance.global.exception.data.response.ErrorCode;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
 import com.dance101.steptodance.guide.data.request.GuideUploadRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
@@ -18,7 +16,6 @@ import com.dance101.steptodance.guide.repository.GuideRepository;
 import com.dance101.steptodance.user.domain.User;
 import com.dance101.steptodance.user.repository.UserRepository;
 import com.dance101.steptodance.user.utils.UserUtils;
-import com.google.gson.JsonObject;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
@@ -51,7 +47,8 @@ public class GuideServiceImpl implements GuideService{
 	private final UserRepository userRepository;
 	private final FeedbackRepository feedbackRepository;
 	// private final String AIServer_URL = "https://steptodance.site:8000";
-	private final String AIServer_URL = "https://k10a101.p.ssafy.io:8000";
+	// private final String AIServer_URL = "http://k10a101.p.ssafy.io:8000";
+	private final String AIServer_URL = "localhost:8000";
 
 	@Override
 	public GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId) {
