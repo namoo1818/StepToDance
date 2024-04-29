@@ -69,6 +69,7 @@ public class GuideServiceImpl implements GuideService{
 				.uri(uriBuilder -> uriBuilder
 					.path("/guides/upload")
 					.build())
+				.bodyValue(guideUploadRequest)
 				.retrieve()
 				.bodyToMono(Map.class)
 				.block();
