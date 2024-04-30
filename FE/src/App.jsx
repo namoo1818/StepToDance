@@ -5,7 +5,6 @@ import MainPage from "./pages/MainPage/MainPage";
 import Home from './pages/Home';
 import VideoList from './pages/VideoList';
 import GuideUpload from './pages/GuideUpload';
-import Mypage from './pages/Mypage';
 import VideoEditor from './pages/VideoEditor';
 import MyPage from "./pages/MyPage/MyPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -13,6 +12,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import { WebcamStreamCapture } from "./pages/RecodingPage/RecodingPage";
 
 function App() {
+
   return (
     <div className='App'>
       <Router>
