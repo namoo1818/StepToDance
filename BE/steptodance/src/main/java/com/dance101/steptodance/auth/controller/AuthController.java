@@ -9,7 +9,10 @@ import com.dance101.steptodance.auth.utils.SecurityUtil;
 import com.dance101.steptodance.global.data.response.ApiResponse;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,10 +30,14 @@ public class AuthController {
     private final CookieProvider cookieProvider;
 
     @GetMapping("/login")
-    public ResponseEntity<ApiResponse<LoginResponse>> kakaoLogin(@RequestParam("code") String code) {
+    public ResponseEntity<ApiResponse<LoginResponse>> kakaoLogin(
+        @RequestParam("code") String code,
+        HttpServletResponse httpResponse
+    ) {
         TokenResponse tokens = authService.kakaoLogin(code);
         ResponseCookie cookie = cookieProvider.createCookie(tokens.refreshToken());
-        cookieProvider.addCookieHttpHeaders(cookie);
+        httpResponse.addHeader("Set-Cookie", cookie.toString());
+
         LoginResponse response = LoginResponse.builder()
             .accessToken(tokens.accessToken())
             .nickname(tokens.nickname())
@@ -48,12 +55,15 @@ public class AuthController {
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<ApiResponse<LoginResponse>> reissue(HttpServletRequest request) {
+    public ResponseEntity<ApiResponse<LoginResponse>> reissue(
+        HttpServletRequest request,
+        HttpServletResponse httpResponse
+    ) {
         String refreshToken = cookieProvider.getCookie(request, "refreshToken")
             .orElseThrow(() -> new NotFoundException("AuthController:reissue", COOKIE_NOT_FOUND)).getValue();
         TokenResponse tokens = authService.reissue(refreshToken);
         ResponseCookie cookie = cookieProvider.createCookie(tokens.refreshToken());
-        cookieProvider.addCookieHttpHeaders(cookie);
+        httpResponse.setHeader("Set-Cookie", cookie.toString());
         LoginResponse response = LoginResponse.builder().accessToken(tokens.accessToken()).build();
         return ApiResponse.toResponse(OK, SUCCESS_REISSUE, response);
     }

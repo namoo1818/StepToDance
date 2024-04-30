@@ -1,5 +1,9 @@
 version: "3"
 
+networks:
+  steptodance_default:
+    external: true
+
 services:
   web:
     build:
@@ -8,7 +12,7 @@ services:
     image: react
     container_name: react
     ports:
-      - "80:80"
+      - "5173:80"
     restart: always
     networks:
       - steptodance_default

@@ -4,9 +4,11 @@ RUN mkdir /app
 
 WORKDIR /app
 
+COPY package*.json yarn.lock ./
+
 RUN mkdir ./build
 
-ADD ./build ./build
+ADD ./dist ./build
 
 RUN rm /etc/nginx/conf.d/default.conf
 
