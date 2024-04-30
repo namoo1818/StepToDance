@@ -21,7 +21,7 @@ function App() {
           <Route path='/home' element={<Home/>}/>
           <Route path='/videoList' element={<VideoList/>}/>
           <Route path='/guideUpload' element={<GuideUpload/>}/>
-          <Route path='/mypage' element={<Mypage/>}/>
+          <Route path='/mypage' element={<MyPage/>}/>
           <Route path='/videoEditor' element={<VideoEditor/>}/>
           <Route path="/record" element={<WebcamStreamCapture />} />
           <Route path="/login" element={<LoginPage />} />
