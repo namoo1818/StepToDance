@@ -5,13 +5,14 @@ import MainPage from "./pages/MainPage/MainPage";
 import Home from './pages/Home';
 import VideoList from './pages/VideoList';
 import GuideUpload from './pages/GuideUpload';
+import Mypage from './pages/Mypage';
+import VideoEditor from './pages/VideoEditor';
 import MyPage from "./pages/MyPage/MyPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 
 import { WebcamStreamCapture } from "./pages/RecodingPage/RecodingPage";
 
 function App() {
-
   return (
     <div className='App'>
       <Router>
@@ -21,6 +22,7 @@ function App() {
           <Route path='/videoList' element={<VideoList/>}/>
           <Route path='/guideUpload' element={<GuideUpload/>}/>
           <Route path='/mypage' element={<Mypage/>}/>
+          <Route path='/videoEditor' element={<VideoEditor/>}/>
           <Route path="/record" element={<WebcamStreamCapture />} />
           <Route path="/login" element={<LoginPage />} />
         </Routes>
