@@ -1,0 +1,77 @@
+/* SignIn.module.css */
+.mainView {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    height: 100vh;
+}
+
+.gradientView {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    background: linear-gradient(black, #737373);
+}
+
+.middleView {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    background-color: #737373;
+}
+
+.appTitle {
+    font-size: 36px;
+    font-weight: bold;
+    color: white;
+}
+
+.appSubtitle {
+    font-size: 20px;
+    color: white;
+}
+
+.bottomView {
+    width: 100%;
+    height: 30%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
+
+.heading {
+    color: white;
+    font-size: 36px;
+    font-weight: bold;
+    margin-left: 30px;
+    margin-top: 60px;
+}
+
+.formView {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.button {
+    width: 90%;
+    height: 32px;
+    border-radius: 10px;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.infoText {
+    color: white;
+    margin-bottom: 15px;
+}
