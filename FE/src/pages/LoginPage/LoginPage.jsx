@@ -43,7 +43,7 @@ const LoginPage = () => {
         {isLoggedIn ? (
             <div>
                 <h1 className={styles.heading}>Welcome!</h1>
-                <button className={styles.button} onClick={() => navigate("/")}>
+                <button className={styles.button} onClick={() => navigate("/home")}>
                 Enter Home
                 </button>
             </div>
