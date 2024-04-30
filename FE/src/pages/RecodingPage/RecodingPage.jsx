@@ -15,7 +15,7 @@ export const WebcamStreamCapture = () => {
   };
   useEffect(() => {
     window.addEventListener("resize", handleResize);
-    console.log(webcamRef.current);
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -71,6 +71,7 @@ export const WebcamStreamCapture = () => {
         ref={webcamRef}
         width={widthSize}
         height={heightSize}
+        videoConstraints={{ aspectRatio: 9 / 16 }}
       />
       {capturing ? (
         <button onClick={handleStopCaptureClick}>Stop Capture</button>
