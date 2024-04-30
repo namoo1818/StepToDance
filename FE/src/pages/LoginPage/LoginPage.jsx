@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from './LoginPage.module.css';
+import { getCookie } from '../../cookie';
 
 const LoginPage = () => {
 
-    const KAKAO_KEY = import.meta.env.REACT_APP_KAKAO_KEY; // If using Vite
-    const KAKAO_REDIRECT_URL = import.meta.env.REACT_APP_KAKAO_REDIRECT_URL; // Adjust based on your build tool
+    const KAKAO_KEY = import.meta.env.VITE_APP_KAKAO_KEY;
+    const KAKAO_REDIRECT_URL = import.meta.env.VITE_APP_KAKAO_REDIRECT_URL;
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_KEY}&redirect_uri=${KAKAO_REDIRECT_URL}&response_type=code`;
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
@@ -14,12 +15,17 @@ const LoginPage = () => {
     }, []);
 
     const checkLoginStatus = async () => {
-    const token = localStorage.getItem("accessToken");
+    const token = getCookie('accessToken')
     setIsLoggedIn(!!token);
     };
 
     const handleKakaoLogin = () => {
+        console.log("Navigating to:", KAKAO_AUTH_URL); // Log the URL to check its correctness
         window.location.href = KAKAO_AUTH_URL;
+        console.log(KAKAO_KEY);
+        console.log('l')
+        console.log(KAKAO_REDIRECT_URL);
+        
     };
 
     return (
@@ -37,7 +43,7 @@ const LoginPage = () => {
         {isLoggedIn ? (
             <div>
                 <h1 className={styles.heading}>Welcome!</h1>
-                <button className={styles.button} onClick={() => navigate("/home")}>
+                <button className={styles.button} onClick={() => navigate("/")}>
                 Enter Home
                 </button>
             </div>
