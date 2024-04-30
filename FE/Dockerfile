@@ -4,6 +4,8 @@ RUN mkdir /app
 
 WORKDIR /app
 
+COPY package*.json yarn.lock ./
+
 RUN mkdir ./build
 
 ADD ./dist ./build
