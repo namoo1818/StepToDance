@@ -20,20 +20,13 @@ import com.dance101.steptodance.user.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static com.dance101.steptodance.global.exception.data.response.ErrorCode.*;
@@ -62,19 +55,28 @@ public class GuideServiceImpl implements GuideService{
 			.build();
 	}
 
-	@Async
 	@Transactional
 	@Override
 	public void guideUpload(GuideUploadRequest guideUploadRequest) {
 		try {
-			HttpHeaders headers = new HttpHeaders();
-			headers.setAccept(Arrays.asList(new MediaType[] {MediaType.APPLICATION_JSON}));
-			MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-			body.add("video_url", guideUploadRequest.videoUrl());
-			HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
+			WebClient webClient = WebClient.builder()
+				.baseUrl(AIServer_URL)
+				.defaultHeader("Content-Type", "application/json")
+				.build();
 
-			RestTemplate restTemplate = new RestTemplate();
-			ResponseEntity<String> response = restTemplate.exchange(AIServer_URL + "/guides/upload", HttpMethod.POST, entity, String.class);
+			Map<String, Object> response = webClient
+				.post()
+				.uri(uriBuilder -> uriBuilder
+					.path("/guides/upload")
+					.build())
+				.bodyValue(guideUploadRequest)
+				.retrieve()
+				.bodyToMono(Map.class)
+				.block();
+			for (Map.Entry<String, Object> item : response.entrySet()) {
+				System.out.println(item.getKey());
+				System.out.println(item.getValue());
+			}
 		} catch (Exception e) {
 			throw new ExternalServerException("GuideServiceImpl:guidUpload", GUIDE_UPLOAD_FAILED);
 		}
