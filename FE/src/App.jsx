@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import "./App.css";
 import { useSelector } from "react-redux";
 import MainPage from "./pages/MainPage/MainPage";
@@ -10,8 +10,8 @@ import VideoEditor from './pages/VideoEditor';
 import MyPage from "./pages/MyPage/MyPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import KakaoLogin from "./pages/LoginPage/KakaoLogin";
-// import { WebcamStreamCapture } from "./pages/RecordingPage/RecordingPage";
-import { WebcamStreamCapture } from "./pages/RecodingPage/RecodingPage";
+import { WebcamStreamCapture } from "./pages/RecordingPage/RecordingPage";
+// import { WebcamStreamCapture } from "./pages/RecodingPage/RecodingPage";
 import { userLoggedInSelector } from "./stores/UserSlice";
 import { getCookie } from './cookie';
 import { useEffect } from 'react';
@@ -34,7 +34,6 @@ function App() {
 
   return (
     <div className='App'>
-      <Router>
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path='/home' element={<Home/>}/>
@@ -46,7 +45,6 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/api/v1/auth/login" element={<KakaoLogin />} />
         </Routes>
-      </Router>
     </div>
   );
 }
