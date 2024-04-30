@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     if (cookie && user) {
-      navigate('/');
+      navigate('/home');
     }
     if (!cookie) {
       navigate('/login');
