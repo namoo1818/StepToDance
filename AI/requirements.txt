@@ -6,5 +6,6 @@ clarifai
 nbformat
 nbclient
 nbconvert
-kafka-python
+# kafka-python
 confluent_kafka
+boto3
