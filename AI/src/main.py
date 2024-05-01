@@ -3,6 +3,7 @@ from kafka_producer import send_data_to_kafka
 from confluent_kafka import Consumer
 import asyncio
 from data.GuideRequest import GuideUpdateRequest
+from service.GuideService import guideUpload
 
 
 # consumer = Consumer({'bootstrap.servers': 'k10a101.p.ssafy.io:9092', 'group.id': 'group.id'})
@@ -17,9 +18,8 @@ def home():
 
 @app.post('/guides/upload')
 def guideUpload(guideUpdateRequest: GuideUpdateRequest):
-    print("")
-    print(guideUpdateRequest.video_url)
-    print(guideUpdateRequest)
+    print("log: guideUpload::", guideUpdateRequest)
+    guideUpload(guideUpdateRequest.video_url)
     response = {"code": 201, "message": "가이드 영상이 저장되었습니다."}
     return response
 
