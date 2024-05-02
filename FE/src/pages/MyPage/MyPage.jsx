@@ -11,8 +11,10 @@ import logo from '../../assets/images/LOGO.png'
 const MyPage = () => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  console.log(user.profileImgUrl); // Check the URL in the console
 
+  const navigate = useNavigate();
+  console.log(user)
   const signOut = async () => {
     try {
       const accessToken = getCookie('accessToken');
@@ -43,8 +45,8 @@ const MyPage = () => {
         </div>
       <div className={styles.mainView}>
         <img
+          src={'../assets/images/ProfileImage.png'}
           alt="Profile"
-          src={user.profileImgUrl}
           className={styles.profileImage}
         />
         <button onClick={signOut} className={styles.logoutButton}>
