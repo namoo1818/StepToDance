@@ -1,4 +1,4 @@
-from fastapi import FastAPI, BackgroundTasks, Request
+from fastapi import FastAPI, BackgroundTasks, File, Form, UploadFile
 from kafka_producer import send_data_to_kafka
 from confluent_kafka import Consumer
 import asyncio
@@ -21,6 +21,13 @@ def guideUpload(guideUpdateRequest: GuideUpdateRequest):
     print("log: guideUpload::", guideUpdateRequest)
     guideUpload(guideUpdateRequest.video_url)
     response = {"code": 201, "message": "가이드 영상이 저장되었습니다."}
+    return response
+
+@app.post('/guides/upload/file')
+def guideUploadFile(file: bytes = File(), guideId: str = Form()):
+    print("log: guideUploadFile::")
+    print(file)
+    response = {"code": 201, "message": "가이드 영상이 업로드 되었습니다."}
     return response
 
 @app.post("/send-data")
