@@ -8,6 +8,11 @@
 .sidebar {
   display: flex;
   justify-content: flex-end;
-  padding-right: 4.5vw;
-  margin-top: -1vh;
+  position: absolute;
+  /* paddingright: 4.5vw; */
+  right: 5%;
+  top: 3%;
+}
+.main-content {
+  flex-grow: 1; /* Ensures it takes the remaining space */
 }
