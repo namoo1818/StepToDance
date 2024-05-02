@@ -43,6 +43,7 @@ function VideoEditor() {
     setVideoSrc(blobURL);
   };
 
+  // HHMMSS 형태로 바꾸기
   const convertToHHMMSS = (val) => {
     const secNum = parseInt(val, 10);
     let hours = Math.floor(secNum / 3600);
@@ -158,6 +159,7 @@ function VideoEditor() {
         new Blob([data.buffer], { type: videoFileValue.type }),
       );
       setVideoTrimmedUrl(url);
+      console.log(videoTrimmedUrl);
     }
   };
 
@@ -189,7 +191,7 @@ function VideoEditor() {
           <button onClick={handleTrim}>Trim</button>
           <br />
           {videoTrimmedUrl && (
-            <video controls>
+            <video style={{maxWidth:'100%', height:'auto'}} controls>
               <source src={videoTrimmedUrl} type={videoFileValue.type} />
             </video>
           )}
