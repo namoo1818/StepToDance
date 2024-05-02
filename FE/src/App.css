@@ -8,3 +8,24 @@ html, body {
     max-width: 100%;
     overflow-x: hidden;
 }
+
+
+@font-face {
+    font-family: 'WavvePADO-Regular';
+    src: url(./assets/fonts/WavvePADO/WavvePADO-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'esamanru-Bold';
+    src: url(./assets/fonts/esamanru/esamanru\ Bold.ttf);
+}
+
+@font-face {
+    font-family: 'esamanru-Medium';
+    src: url(./assets/fonts/esamanru/esamanru\ Medium.ttf);
+}
+
+@font-face {
+    font-family: 'esamanru-Light';
+    src: url(./assets/fonts/esamanru/esamanru\ Light.ttf);
+}

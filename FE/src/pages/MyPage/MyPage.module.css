@@ -1,10 +1,20 @@
 /* Base styles */
+
+body{
+  font-family: 'esamanru-Bold' !important;
+}
+
 .safeArea {
+  background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
   display: flex;
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  background-color: #0B1238;
+}
+
+.title{
+  color: white;
+  margin-left: 50vw;
 }
 
 .mainView {
@@ -14,6 +24,12 @@
   padding: 2rem 0 0.75rem;
 }
 
+.logoimg {
+  margin-top: 2vh;
+  margin-left: 1vw;
+  width: 25vw;
+  
+}
 .headerView {
   display: flex;
   flex-direction: column;
