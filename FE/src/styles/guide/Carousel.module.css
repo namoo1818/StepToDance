@@ -1,0 +1,46 @@
+.container {
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flatList {
+    overflow-x: scroll;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+.flatListContent {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+}
+
+.pageWrapper {
+    flex: none;
+}
+
+.indicator {
+    margin: 4px;
+    background-color: #dfdfdf;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.focused {
+    background-color: #262626;
+}
+
+.indicatorWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.title {
+    color: white;
+}

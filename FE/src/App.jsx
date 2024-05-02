@@ -2,7 +2,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import { useSelector } from "react-redux";
 import Home from "./pages/Home";
-import VideoList from "./pages/VideoList";
 import GuideUpload from "./pages/GuideUpload";
 import VideoEditor from "./pages/VideoEditor";
 import GuideDetail from "./pages/VideoPage/GuideDetail";
@@ -32,12 +31,19 @@ function App() {
     }
   }, [cookie, user]);
 
+  function setScreenSize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }
+  useEffect(() => {
+    setScreenSize();
+  });
+
   return (
     <div className="App">
       <Routes>
         <Route element={<Layout />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/videoList" element={<VideoList />} />
           <Route path="/guideUpload" element={<GuideUpload />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/videoEditor" element={<VideoEditor />} />
