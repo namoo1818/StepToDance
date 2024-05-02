@@ -3,6 +3,7 @@ package com.dance101.steptodance.guide.controller;
 import com.dance101.steptodance.auth.utils.SecurityUser;
 import com.dance101.steptodance.global.data.response.ApiResponse;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
+import com.dance101.steptodance.guide.data.request.GuideUploadMultipartRequest;
 import com.dance101.steptodance.guide.data.request.GuideUploadRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
 import com.dance101.steptodance.guide.data.response.FeedbackResponse;
@@ -37,16 +38,21 @@ public class GuideController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ApiResponse<Void>> uploadGuide(@RequestBody GuideUploadRequest guideUploadRequest) {
+	public ResponseEntity<ApiResponse<Void>> uploadGuide(
+		// @AuthenticationPrincipal SecurityUser securityUser,
+		@RequestBody GuideUploadRequest guideUploadRequest
+	) {
 		guideService.guideUpload(guideUploadRequest);
 		return ApiResponse.toEmptyResponse(CREATED, CREATED_GUIDE);
 	}
 
 	@PostMapping(value = "/file", consumes = "multipart/form-data")
 	public ResponseEntity<ApiResponse<Void>> uploadGuideFile(
-		@RequestParam(value = "file") MultipartFile file
+		@AuthenticationPrincipal SecurityUser securityUser,
+		@ModelAttribute GuideUploadMultipartRequest guideUploadMultipartRequest
 	) {
-		guideService.guideUploadFile(file);
+		// guideService.guideUploadFile(securityUser.getId(), file);
+		guideService.guideUploadFile(2L, guideUploadMultipartRequest);
 		return ApiResponse.toEmptyResponse(CREATED, CREATED_GUIDE);
 	}
 
