@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import styles from '../styles/SideBar.module.css';
 import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 
 const SideBar = () => {
+    const user = useSelector(state => state.user);
     const [isOpen, setIsOpen] = useState(false); // Boolean state to handle open/close
     const navigate = useNavigate();  // Hook for navigation
     
@@ -19,6 +21,7 @@ const SideBar = () => {
         window.addEventListener('click', handleOutsideClick);
         return () => window.removeEventListener('click', handleOutsideClick);
     }, [isOpen]);
+    console.log(user)
 
     const MenuList = [
         { name: 'Home', path: '/home' },
@@ -44,6 +47,12 @@ const SideBar = () => {
             <div className={styles.sideMenu} style={{ width: isOpen ? '220px' : '0px' }}>
                 <div className={styles.toggleMenu} onClick={toggleSidebar}>
                 <FontAwesomeIcon icon={isOpen ? faXmark : faBars} style={{ color: "black" }} />
+                </div>
+                <div className={styles.userName}>
+                    {/* <img
+                    src={user.profileImgUrl}
+                    /> */}
+                    <span className={styles.userNickname}>"{user.nickname}"</span> 님 안녕하세요!
                 </div>
                 <ul className={styles.mobileSide}>
                     {MenuList.map((item, index) => (
