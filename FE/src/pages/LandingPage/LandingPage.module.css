@@ -9,17 +9,22 @@
   cursor: pointer;
 }
 
+.landing-page-click {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: linear-gradient(black, #202020c9, black);
+}
+
 .first {
   position: relative;
   margin: 0 auto;
-  width: 50vw;
-  height: 50vw;
-}
-
-.first div {
-  box-sizing: border-box;
-  position: absolute;
-  border: 2px solid #fff;
+  width: 60vw;
+  height: 60vw;
 }
 
 @keyframes flicker {
@@ -361,94 +366,468 @@
   }
 }
 
+@keyframes gradient-animation {
+  0% {
+    background-position: 15% 0%;
+  }
+  50% {
+    background-position: 85% 100%;
+  }
+  100% {
+    background-position: 15% 0%;
+  }
+}
+
+@keyframes frame-enter {
+  0% {
+    clip-path: polygon(
+      0% 100%,
+      2px 100%,
+      2px 2px,
+      calc(100% - 2px) 2px,
+      calc(100% - 2px) calc(100% - 2px),
+      2px calc(100% - 2px),
+      2px 100%,
+      100% 100%,
+      100% 0%,
+      0% 0%
+    );
+  }
+  25% {
+    clip-path: polygon(
+      0% 100%,
+      2px 100%,
+      2px 2px,
+      calc(100% - 2px) 2px,
+      calc(100% - 2px) calc(100% - 2px),
+      calc(100% - 2px) calc(100% - 2px),
+      calc(100% - 2px) 100%,
+      100% 100%,
+      100% 0%,
+      0% 0%
+    );
+  }
+  50% {
+    clip-path: polygon(
+      0% 100%,
+      2px 100%,
+      2px 2px,
+      calc(100% - 2px) 2px,
+      calc(100% - 2px) 2px,
+      calc(100% - 2px) 2px,
+      calc(100% - 2px) 2px,
+      calc(100% - 2px) 2px,
+      100% 0%,
+      0% 0%
+    );
+  }
+  75% {
+    -webkit-clip-path: polygon(
+      0% 100%,
+      2px 100%,
+      2px 2px,
+      2px 2px,
+      2px 2px,
+      2px 2px,
+      2px 2px,
+      2px 2px,
+      2px 0%,
+      0% 0%
+    );
+  }
+  100% {
+    -webkit-clip-path: polygon(
+      0% 100%,
+      2px 100%,
+      2px 100%,
+      2px 100%,
+      2px 100%,
+      2px 100%,
+      2px 100%,
+      2px 100%,
+      2px 100%,
+      0% 100%
+    );
+  }
+}
+
 .first-box {
+  box-sizing: border-box;
+  position: relative;
   width: 100%;
   height: 100%;
   top: 5%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
   animation-delay: 0s;
 }
 
+.first-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+}
+
 .second-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 90%;
   height: 90%;
   top: 9.5%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate2 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.01s;
+  animation-delay: -0.03s;
+}
+
+.second-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.01s;
 }
 
 .third-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 81%;
   height: 81%;
   top: 13.55%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate3 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.02s;
+  animation-delay: -0.06s;
+}
+
+.third-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.02s;
 }
 
 .fourth-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 72.9%;
   height: 72.9%;
   top: 17.1%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate4 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.03s;
+  animation-delay: -0.09s;
+}
+
+.fourth-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.03s;
 }
 
 .fifth-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 65.61%;
   height: 65.61%;
   top: 20.45%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate5 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.04s;
+  animation-delay: -0.12s;
+}
+
+.fifth-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.04s;
 }
 
 .sixth-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 59.049%;
   height: 59.049%;
   top: 23.42%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate6 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.05s;
+  animation-delay: -0.15s;
+}
+
+.sixth-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.05s;
 }
 
 .seventh-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 53.1441%;
   height: 53.1441%;
   top: 26.04%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate7 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.06s;
+  animation-delay: -0.18s;
+}
+
+.seventh-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.06s;
 }
 
 .eighth-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 47.82969%;
   height: 47.82969%;
   top: 28.47%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate8 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.07s;
+  animation-delay: -0.21s;
+}
+
+.eighth-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.07s;
 }
 
 .ninth-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 43.05%;
   height: 43.05%;
   top: 30.62%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate9 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.08s;
+  animation-delay: -0.24s;
+}
+
+.ninth-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.08s;
 }
 
 .tenth-box {
+  box-sizing: border-box;
+  position: absolute;
   width: 38.74%;
   height: 38.74%;
   top: 32.56%;
   transform: translate3d(0, 0, 0) rotate(0deg);
+  transition: all 0.2s;
   animation: rotate10 6s infinite cubic-bezier(0.6, 0, 0.4, 1);
-  animation-delay: -0.09s;
+  animation-delay: -0.18s;
+}
+
+.tenth-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(120deg, #00f260, #0575e6, #00f260);
+  background-size: 300% 300%;
+  clip-path: polygon(
+    0% 100%,
+    2px 100%,
+    2px 2px,
+    calc(100% - 2px) 2px,
+    calc(100% - 2px) calc(100% - 2px),
+    2px calc(100% - 2px),
+    2px 100%,
+    100% 100%,
+    100% 0%,
+    0% 0%
+  );
+  animation: frame-enter 1s forwards ease-in-out reverse,
+    gradient-animation 4s ease-in-out infinite;
+  animation-delay: 0.09s;
 }
 
 .intro {
@@ -463,4 +842,176 @@
   text-align: center;
   line-height: 2.5rem;
   animation: flicker 2s infinite ease;
+}
+
+@keyframes expand {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%) scale(1);
+  }
+  25% {
+    transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%) scale(2);
+  }
+  50% {
+    transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%) scale(3);
+  }
+  75% {
+    transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%) scale(4);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%) scale(5);
+  }
+}
+
+.box1 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 5%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+}
+
+.box2 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  top: 9.5%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+  animation-delay: 0.3s;
+}
+
+.box3 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 81%;
+  height: 81%;
+  top: 13.55%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+  animation-delay: 0.6s;
+}
+
+.box4 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 72.9%;
+  height: 72.9%;
+  top: 17.1%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+  animation-delay: 0.9s;
+}
+
+.box5 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 65.61%;
+  height: 65.61%;
+  top: 20.45%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+  animation-delay: 1.2s;
+}
+
+.box6 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 59.049%;
+  height: 59.049%;
+  top: 23.42%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+
+.box7 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 53.1441%;
+  height: 53.1441%;
+  top: 26.04%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+  animation-delay: 1.5s;
+}
+
+.box8 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 47.82969%;
+  height: 47.82969%;
+  top: 28.47%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+  animation-delay: 1.8s;
+}
+
+.box9 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 42%;
+  height: 42%;
+  top: 30.62%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+  animation-delay: 2.1s;
+}
+
+.box10 {
+  box-sizing: border-box;
+  position: absolute;
+  width: 37%;
+  height: 37%;
+  top: 32.56%;
+  left: 50%;
+  transform: translate3d(0, 0, 0) rotate(0deg) translateX(-50%);
+  transition: all 0.2s;
+  border-right: 2px solid #fff;
+  border-left: 2px solid #fff;
+  animation: expand 1s ease;
+  animation-delay: 2.4s;
+}
+
+@media (width <= 576px) {
+  .first {
+    width: 70vw;
+    height: 70vw;
+  }
 }
