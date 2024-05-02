@@ -11,7 +11,9 @@
 
 .title{
   color: white;
-  margin-left: 50vw;
+  display: flex;
+  justify-content: center;
+  margin-top: 15vh;
 }
 
 .mainView {
@@ -21,12 +23,6 @@
   padding: 2rem 0 0.75rem;
 }
 
-.logoimg {
-  margin-top: 2vh;
-  margin-left: 1vw;
-  width: 25vw;
-  
-}
 .headerView {
   display: flex;
   flex-direction: column;
@@ -35,8 +31,8 @@
 }
 
 .profileImage {
-  width: 9.375rem; /* 150px */
-  height: 6.25rem; /* 100px */
+  width: 10vw; /* 150px */
+  height: 5vh; /* 100px */
   border-radius: 50%;
 }
 

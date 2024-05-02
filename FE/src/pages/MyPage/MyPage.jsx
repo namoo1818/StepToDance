@@ -7,6 +7,7 @@ import axios from 'axios';
 import { getCookie } from '../../cookie';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/LOGO.png'
+import profileImg from '../../assets/images/ProfileImage.png'
 
 const MyPage = () => {
   const user = useSelector(state => state.user);
@@ -36,16 +37,12 @@ const MyPage = () => {
 
   return (
     <div className={styles.safeArea}>
-        <img
-        src={logo}
-        className={styles.logoimg}
-        />
-        <div className={styles.title}>
-          MYPAGE
-        </div>
+      <div className={styles.title}>
+        MYPAGE
+      </div>
       <div className={styles.mainView}>
         <img
-          src={'../assets/images/ProfileImage.png'}
+          src={profileImg}
           alt="Profile"
           className={styles.profileImage}
         />
