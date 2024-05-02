@@ -1,8 +1,5 @@
 /* Base styles */
 
-body{
-  font-family: 'esamanru-Bold' !important;
-}
 
 .safeArea {
   background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
