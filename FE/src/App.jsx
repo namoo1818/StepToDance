@@ -13,6 +13,7 @@ import { WebcamStreamCapture } from "./pages/RecordingPage/RecordingPage";
 import { userLoggedInSelector } from "./stores/UserSlice";
 import { getCookie } from "./cookie";
 import { useEffect } from "react";
+import Layout from "./components/Layout";
 
 function App() {
   const user = useSelector(userLoggedInSelector);
@@ -33,13 +34,15 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/videoList" element={<VideoList />} />
-        <Route path="/guideUpload" element={<GuideUpload />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/videoEditor" element={<VideoEditor />} />
-        <Route path="/record" element={<WebcamStreamCapture />} />
+        <Route element={<Layout />}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/videoList" element={<VideoList />} />
+          <Route path="/guideUpload" element={<GuideUpload />} />
+          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/videoEditor" element={<VideoEditor />} />
+          <Route path="/record" element={<WebcamStreamCapture />} />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/api/v1/auth/login" element={<KakaoLogin />} />
       </Routes>

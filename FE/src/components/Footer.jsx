@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import UploadIcon from "@mui/icons-material/Upload";
 import MypageIcon from "@mui/icons-material/Person";
 import { styled } from "@mui/material/styles";
+import styles from "../styles/Footer.module.css";
 
 function Footer() {
   const location = useLocation();
@@ -20,35 +21,38 @@ function Footer() {
   const icons = {
     Home: styled(HomeIcon)({
       color: getIconColor("/home"),
-      fontSize: "28px",
+      fontSize: "10vw",
     }),
     Upload: styled(UploadIcon)({
       color: getIconColor("/guideUpload"),
-      fontSize: "28px",
+      fontSize: "10vw",
     }),
     Mypage: styled(MypageIcon)({
       color: getIconColor("/mypage"),
-      fontSize: "28px",
+      fontSize: "10vw",
     }),
   };
 
   return (
-    <footer className="footer">
-      <Link to="/home" className="icon-container">
+    <footer className={styles.footer}>
+      <Link to="/home" className={styles[`icon-container`]}>
         <icons.Home />
-        <span className="icon-description" style={getTextStyle("/home")}>
+        <span className={styles["icon-text"]} style={getTextStyle("/home")}>
           홈
         </span>
       </Link>
-      <Link to="/guideUpload" className="icon-container">
+      <Link to="/guideUpload" className={styles[`icon-container`]}>
         <icons.Upload />
-        <span className="icon-description" style={getTextStyle("/guideUpload")}>
+        <span
+          className={styles["icon-text"]}
+          style={getTextStyle("/guideUpload")}
+        >
           업로드
         </span>
       </Link>
-      <Link to="/mypage" className="icon-container">
+      <Link to="/mypage" className={styles[`icon-container`]}>
         <icons.Mypage />
-        <span className="icon-description" style={getTextStyle("/mypage")}>
+        <span className={styles["icon-text"]} style={getTextStyle("/mypage")}>
           마이페이지
         </span>
       </Link>
