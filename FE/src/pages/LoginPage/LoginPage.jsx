@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from './LoginPage.module.css';
 import { getCookie } from '../../cookie';
-
+import Kakaologo from "../../assets/images/kakao_login_medium_narrow.png";
 const LoginPage = () => {
 
     const KAKAO_KEY = import.meta.env.VITE_APP_KAKAO_KEY;
@@ -43,16 +43,16 @@ const LoginPage = () => {
         {isLoggedIn ? (
             <div>
                 <h1 className={styles.heading}>Welcome!</h1>
-                <button className={styles.button} onClick={() => navigate("/home")}>
+                <button className={styles.button2} onClick={() => navigate("/home")}>
                 Enter Home
                 </button>
             </div>
             ) : (
-            <div className={styles.formView}>
+                <div className={styles.formView}>
                 <p className={styles.infoText}>Please log in.</p>
-                <button className={styles.button} onClick={handleKakaoLogin}>
-                Log in with Kakao
-                </button>
+                <div className={styles.button} onClick={handleKakaoLogin}>
+                    <img src={Kakaologo} alt="Log in with Kakao" /> {/* Add style as needed */}
+                </div>
             </div>
             )}
         </div>

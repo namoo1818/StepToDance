@@ -1,25 +1,30 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-// import { logout } from '../store/UserSlice';
+import { logout } from '../../stores/UserSlice';
+import { removeCookie } from '../../cookie';
 import styles from './MyPage.module.css'; // Import CSS module
 import axios from 'axios';
+import { getCookie } from '../../cookie';
+import { useNavigate } from 'react-router-dom';
+import logo from '../../assets/images/LOGO.png'
 
 const MyPage = () => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const signOut = async () => {
     try {
-      const accessToken = localStorage.getItem('accessToken'); // Use localStorage for web
+      const accessToken = getCookie('accessToken');
       const response = await axios.post("https://k10a101.p.ssafy.io/api/v1/auth/logout", {}, {
         headers: {
           'Authorization': `Bearer ${accessToken}`,
         }
       });
       if (response.status === 204) {
-        console.log("Logout successful:", response.data.message);
-        localStorage.removeItem('accessToken'); // Use localStorage for web
-        localStorage.removeItem('refreshToken');
+        console.log("Logout successful:");
+        removeCookie('accessToken', { path: '/' });
+        removeCookie('refreshToken', { path: '/' });
         dispatch(logout());
       }
     } catch (error) {
@@ -29,6 +34,13 @@ const MyPage = () => {
 
   return (
     <div className={styles.safeArea}>
+        <img
+        src={logo}
+        className={styles.logoimg}
+        />
+        <div className={styles.title}>
+          MYPAGE
+        </div>
       <div className={styles.mainView}>
         <img
           alt="Profile"

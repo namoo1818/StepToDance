@@ -13,6 +13,12 @@ export const setCookie = (name, value, options = {}) => {
 export const getCookie = (name) => {
   return cookie.get(name);
 };
-export const removeCookie = (name) => {
-  return cookie.remove(name);
+
+
+export const removeCookie = (name, options = {}) => {
+  const defaultOptions = {
+    path: '/',
+    ...options
+  };
+  return cookie.remove(name, defaultOptions);
 };

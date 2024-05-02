@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import VideoList from "./pages/VideoList";
 import GuideUpload from "./pages/GuideUpload";
 import VideoEditor from "./pages/VideoEditor";
+import GuideDetail from "./pages/VideoPage/GuideDetail";
 import MyPage from "./pages/MyPage/MyPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import KakaoLogin from "./pages/LoginPage/KakaoLogin";
@@ -42,6 +43,7 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/videoEditor" element={<VideoEditor />} />
           <Route path="/record" element={<WebcamStreamCapture />} />
+          <Route path="/guideDetail" element={<GuideDetail />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/api/v1/auth/login" element={<KakaoLogin />} />
