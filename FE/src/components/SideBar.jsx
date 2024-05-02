@@ -43,7 +43,7 @@ const SideBar = () => {
         <div className={`${styles.mobileMenu} ${styles.hide}`}>
             <div className={styles.sideMenu} style={{ width: isOpen ? '220px' : '0px' }}>
                 <div className={styles.toggleMenu} onClick={toggleSidebar}>
-                    <FontAwesomeIcon icon={faXmark} style={{ color: "#63E6BE" }} />
+                <FontAwesomeIcon icon={isOpen ? faXmark : faBars} style={{ color: "black" }} />
                 </div>
                 <ul className={styles.mobileSide}>
                     {MenuList.map((item, index) => (
@@ -53,7 +53,7 @@ const SideBar = () => {
                 </ul>
             </div>
             <div className={styles.menuOpen} onClick={toggleSidebar}>
-                {isOpen ? '' : <FontAwesomeIcon icon={faBars} style={{ color: "#63E6BE" }} />}
+                {isOpen ? '' : <FontAwesomeIcon icon={faBars} style={{ color: "#f9f9f9" }} />}
             </div>
             <div className={styles.loginButton}>
                 {/* Login Button Placeholder */}

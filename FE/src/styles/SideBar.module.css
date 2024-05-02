@@ -7,13 +7,32 @@
         justify-content: space-between;
     }
     
+    .mobileMenu.open {
+        transform: translateX(0); /* Slide in */
+      }
+
+    .mobileSide {
+    list-style-type: none;
+    padding: 20px; /* Padding for aesthetic spacing */
+    margin: 0;
+    }
+
+    .mobileSide li a {
+    text-decoration: none;
+    color: #1E1E23;
+    display: block; /* Block for easier clicking */
+    padding: 2vh 5vw; /* Padding for items */
+    }
+
     .toggleMenu {
         display: flex;
         align-items: center;
         justify-content: flex-start;
         font-size: 30px;  
-        margin-left: 3vw;
-        margin-top: -7.5vh;
+        position: absolute;
+        top: 2.5vh; /* Adjust based on design */
+        right: 3.5vw; /* Right for easy access */
+        cursor: pointer;
     }
 
     .sideMenu {
@@ -23,7 +42,7 @@
         top: 0;
         right: 0;  /* Changed from left to right */
         padding-top: 10vh;
-        background-color: blanchedalmond;
+        background-color:  #f9f9f9;
         transition: width 0.3s ease-in-out;  /* Transition for width to smooth slide effect */
         width: 0;  /* Initial width set to 0 */
         overflow: hidden;
