@@ -1,19 +1,34 @@
-FROM nginx:latest
+# 사용할 이미지 선택
+FROM node:16-alpine as build
 
-RUN mkdir /app
-
+# 작업 디렉토리 설정
 WORKDIR /app
 
-COPY package*.json yarn.lock ./
+# 컨테이너 내부로 package.json 파일들을 복사
+COPY package*.json ./
 
-RUN mkdir ./build
+# 명령어 실행 (의존성 설치)
+RUN yarn install --network-timeout 1000000
 
-ADD ./dist ./build
+COPY . .
 
+#yarn build
+RUN yarn build
+
+# prod environment
+FROM nginx:stable-alpine
+
+# 이전 빌드 단계에서 빌드한 결과물을 /usr/share/ngnix/html으로 복사
+COPY --from=build /app/build /usr/share/nginx/html
+
+# 기본 nginx 설정 파일을 삭제
 RUN rm /etc/nginx/conf.d/default.conf
 
-COPY ./nginx.conf /etc/nginx/conf.d
+# custom 설정파일을 컨테이너 내부로 복사
+COPY nginx.conf /etc/nginx/conf.d
 
+# 연결할 포트번호
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# 앱 실행
+CMD ["nginx","-g", "daemon off;"]
