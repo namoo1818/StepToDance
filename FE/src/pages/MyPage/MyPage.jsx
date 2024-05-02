@@ -6,7 +6,7 @@ import styles from './MyPage.module.css'; // Import CSS module
 import axios from 'axios';
 import { getCookie } from '../../cookie';
 import { useNavigate } from 'react-router-dom';
-
+import logo from '../../assets/images/LOGO.png'
 
 const MyPage = () => {
   const user = useSelector(state => state.user);
@@ -34,6 +34,13 @@ const MyPage = () => {
 
   return (
     <div className={styles.safeArea}>
+        <img
+        src={logo}
+        className={styles.logoimg}
+        />
+        <div className={styles.title}>
+          MYPAGE
+        </div>
       <div className={styles.mainView}>
         <img
           alt="Profile"
