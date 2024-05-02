@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
@@ -77,6 +78,15 @@ public class GuideServiceImpl implements GuideService{
 				System.out.println(item.getKey());
 				System.out.println(item.getValue());
 			}
+		} catch (Exception e) {
+			throw new ExternalServerException("GuideServiceImpl:guidUpload", GUIDE_UPLOAD_FAILED);
+		}
+	}
+
+	@Transactional
+	@Override
+	public void guideUploadFile(MultipartFile multipartFile) {
+		try {
 		} catch (Exception e) {
 			throw new ExternalServerException("GuideServiceImpl:guidUpload", GUIDE_UPLOAD_FAILED);
 		}

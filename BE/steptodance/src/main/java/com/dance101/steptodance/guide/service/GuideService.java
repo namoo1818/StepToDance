@@ -10,9 +10,13 @@ import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public interface GuideService {
 	GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId);
 	void guideUpload(GuideUploadRequest guideUploadRequest);
+
+	void guideUploadFile(MultipartFile multipartFile);
 
 	GuideFindResponse findGuide(long guideId);
 
