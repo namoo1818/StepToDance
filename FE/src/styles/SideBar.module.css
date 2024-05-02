@@ -48,6 +48,15 @@
         overflow: hidden;
     }
 
+    .userName {
+        margin-left: 4vw;
+        font-size: 1.1rem; /* Smaller font size for the greeting */
+    }
+    
+    .userNickname {
+        font-size: 1.4rem; /* Larger font size for the nickname */
+    }
+
     .mobileSide {
         display: flex;
         flex-direction: column;
