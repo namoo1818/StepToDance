@@ -34,6 +34,7 @@ const KakaoLogin = () => {
               isLoggedIn: true,
             }));
             setCookie("accessToken", access_token);
+            setCookie("refreshToken", refresh_token);
 
             navigate("/");
           } else {
