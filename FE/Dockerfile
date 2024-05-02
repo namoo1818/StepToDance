@@ -1,5 +1,5 @@
 # 사용할 이미지 선택
-FROM node:16-alpine as build
+FROM node:20-alpine as build
 
 # 작업 디렉토리 설정
 WORKDIR /app
