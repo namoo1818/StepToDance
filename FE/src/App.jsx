@@ -1,7 +1,6 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import "./App.css";
 import { useSelector } from "react-redux";
-import MainPage from "./pages/MainPage/MainPage";
 import Home from "./pages/Home";
 import VideoList from "./pages/VideoList";
 import GuideUpload from "./pages/GuideUpload";
@@ -15,6 +14,7 @@ import { userLoggedInSelector } from "./stores/UserSlice";
 import { getCookie } from "./cookie";
 import { useEffect } from "react";
 import Layout from "./components/Layout";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 function App() {
   const user = useSelector(userLoggedInSelector);
@@ -36,7 +36,6 @@ function App() {
     <div className="App">
       <Routes>
         <Route element={<Layout />}>
-          <Route path="/" element={<MainPage />} />
           <Route path="/home" element={<Home />} />
           <Route path="/videoList" element={<VideoList />} />
           <Route path="/guideUpload" element={<GuideUpload />} />
@@ -44,6 +43,7 @@ function App() {
           <Route path="/videoEditor" element={<VideoEditor />} />
           <Route path="/guideDetail" element={<GuideDetail />} />
         </Route>
+        <Route path="/" element={<LandingPage />} />
         <Route path="/record" element={<WebcamStreamCapture />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/api/v1/auth/login" element={<KakaoLogin />} />
