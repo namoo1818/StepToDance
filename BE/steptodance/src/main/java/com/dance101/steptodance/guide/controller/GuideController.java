@@ -10,9 +10,12 @@ import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
 import com.dance101.steptodance.guide.service.GuideService;
 import lombok.RequiredArgsConstructor;
+
+import org.hibernate.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -36,6 +39,14 @@ public class GuideController {
 	@PostMapping
 	public ResponseEntity<ApiResponse<Void>> uploadGuide(@RequestBody GuideUploadRequest guideUploadRequest) {
 		guideService.guideUpload(guideUploadRequest);
+		return ApiResponse.toEmptyResponse(CREATED, CREATED_GUIDE);
+	}
+
+	@PostMapping(value = "/file", consumes = "multipart/form-data")
+	public ResponseEntity<ApiResponse<Void>> uploadGuideFile(
+		@RequestParam(value = "file") MultipartFile file
+	) {
+		guideService.guideUploadFile(file);
 		return ApiResponse.toEmptyResponse(CREATED, CREATED_GUIDE);
 	}
 
