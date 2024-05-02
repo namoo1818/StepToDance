@@ -24,9 +24,9 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (cookie && user) {
-      navigate("/home");
-    }
+    // if (cookie && user) {
+    //   navigate("/home");
+    // }
     if (!cookie) {
       navigate("/login");
     }
@@ -42,9 +42,9 @@ function App() {
           <Route path="/guideUpload" element={<GuideUpload />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/videoEditor" element={<VideoEditor />} />
-          <Route path="/record" element={<WebcamStreamCapture />} />
           <Route path="/guideDetail" element={<GuideDetail />} />
         </Route>
+        <Route path="/record" element={<WebcamStreamCapture />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/api/v1/auth/login" element={<KakaoLogin />} />
       </Routes>
