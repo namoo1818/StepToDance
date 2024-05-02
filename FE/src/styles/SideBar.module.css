@@ -1,0 +1,45 @@
+@media screen and (max-width: 400px) {
+    .hide {
+        visibility: visible;
+    }
+    .mobileMenu {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .toggleMenu {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        font-size: 30px;  
+        margin-left: 3vw;
+        margin-top: -7.5vh;
+    }
+
+    .sideMenu {
+        height: 100%;
+        z-index: 2;  /* Ensured one z-index property */
+        position: fixed;
+        top: 0;
+        right: 0;  /* Changed from left to right */
+        padding-top: 10vh;
+        background-color: blanchedalmond;
+        transition: width 0.3s ease-in-out;  /* Transition for width to smooth slide effect */
+        width: 0;  /* Initial width set to 0 */
+        overflow: hidden;
+    }
+
+    .mobileSide {
+        display: flex;
+        flex-direction: column;
+        margin-top: 3vh;
+        padding: 0;
+    }
+
+    .menuOpen {
+        font-size: 27px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;  /* Centers text/icon vertically */
+    }
+}
