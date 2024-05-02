@@ -4,3 +4,10 @@
   position: relative;
   background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
 }
+
+.sidebar {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 4.5vw;
+  margin-top: -1vh;
+}
