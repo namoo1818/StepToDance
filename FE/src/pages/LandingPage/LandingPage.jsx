@@ -15,6 +15,7 @@ const LandingPage = () => {
         <div className={styles["ninth-box"]}></div>
         <div className={styles["tenth-box"]}></div>
       </div>
+      <span className={styles["intro"]}>Click Anywhere</span>
     </section>
   );
 };
