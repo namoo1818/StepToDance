@@ -14,6 +14,7 @@ const KakaoLogin = () => {
   useEffect(() => {
     const kakaoLogin = async () => {
       if (code) {
+        console.log(code)
         try {
           const response = await axios({
             method: "GET",
