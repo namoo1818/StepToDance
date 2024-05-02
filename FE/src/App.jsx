@@ -52,7 +52,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/record" element={<WebcamStreamCapture />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/api/v1/auth/login" element={<KakaoLogin />} />
+        <Route path="/auth/login" element={<KakaoLogin />} />
       </Routes>
     </div>
   );
