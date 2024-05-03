@@ -31,8 +31,11 @@ import static org.springframework.http.HttpStatus.OK;
 public class GuideController {
 	private final GuideService guideService;
 	@GetMapping
-	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(@AuthenticationPrincipal SecurityUser securityUser, @ModelAttribute SearchConditions searchConditions) {
-		long userId = securityUser.getId();
+	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(
+		// @AuthenticationPrincipal SecurityUser securityUser,
+		@ModelAttribute SearchConditions searchConditions) {
+		// long userId = securityUser.getId();
+		long userId = 2L;
 		GuideListFindResponse response = guideService.findGuideList(searchConditions, userId);
 		return ApiResponse.toResponse(OK, SUCCESS_GUIDE_LIST, response);
 	}
@@ -65,9 +68,12 @@ public class GuideController {
 
 	@PostMapping("/{guide_id}")
 	public ResponseEntity<ApiResponse<FeedbackResponse>> createGuideFeedback(
-		@AuthenticationPrincipal SecurityUser securityUser, @PathVariable("guide_id") long guideId, @RequestBody GuideFeedbackCreateRequest guideFeedbackCreateRequest
+		@AuthenticationPrincipal SecurityUser securityUser,
+		@PathVariable("guide_id") long guideId,
+		@RequestBody GuideFeedbackCreateRequest guideFeedbackCreateRequest
 	) throws ExecutionException, InterruptedException {
-		long userId = securityUser.getId();
+		// long userId = securityUser.getId();
+		long userId = 2L;
 		CompletableFuture<FeedbackResponse> completableFuture = guideService.createGuideFeedback(userId, guideId, guideFeedbackCreateRequest);
 		FeedbackResponse response = completableFuture.get();
 		return ApiResponse.toResponse(CREATED, SUCCESS_FEEDBACK_CREATION, response);
