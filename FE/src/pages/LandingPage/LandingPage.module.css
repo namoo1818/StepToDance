@@ -25,6 +25,7 @@
   margin: 0 auto;
   width: 60vw;
   height: 60vw;
+  z-index: 2;
 }
 
 @keyframes flicker {

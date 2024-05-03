@@ -44,41 +44,38 @@ export const WebcamStreamCapture = () => {
     [setRecordedChunks]
   );
   useEffect(() => {
-    console.log("영상", recordedChunks);
-    console.log(recordVideo);
-  }, [recordedChunks, recordVideo]);
+    if (recordedChunks.length) {
+      const blob = new Blob(recordedChunks, {
+        type: "video/mp4",
+      });
+      const url = URL.createObjectURL(blob);
+      setRecordVideo(url);
+    }
+  }, [recordedChunks]);
 
   const handleStopCaptureClick = useCallback(() => {
     mediaRecorderRef.current.stop();
     setCapturing(false);
-    const blob = new Blob(recordedChunks, {
-      type: "video/webm",
-    });
-    const url = URL.createObjectURL(blob);
-    setRecordVideo(url);
   }, [mediaRecorderRef, webcamRef, setCapturing]);
-
-  const handleDownload = useCallback(() => {
-    if (recordedChunks.length) {
-      const blob = new Blob(recordedChunks, {
-        type: "video/webm",
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      document.body.appendChild(a);
-      a.style = "display: none";
-      a.href = url;
-      a.download = "react-webcam-stream-capture.webm";
-      a.click();
-      window.URL.revokeObjectURL(url);
-      setRecordedChunks([]);
-    }
-  }, [recordedChunks]);
 
   return (
     <section className={styles["record-page"]}>
       {recordVideo ? (
-        <video controls src={recordVideo} type="video/webm" />
+        <>
+          <video
+            controls
+            src={recordVideo}
+            type="video/mp4"
+            width={widthSize}
+            height={heightSize * 0.9}
+          />
+          <article className={styles["record-button"]}>
+            <button className={styles["record-button__cancle"]}>
+              다시촬영
+            </button>
+            <button className={styles["record-button__save"]}>평가하기</button>
+          </article>
+        </>
       ) : (
         <>
           <Webcam

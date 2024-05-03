@@ -14,6 +14,7 @@ import { getCookie } from "./cookie";
 import { useEffect } from "react";
 import Layout from "./components/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import RankingPage from "./pages/Ranking/RankingPage";
 
 function App() {
   const user = useSelector(userLoggedInSelector);
@@ -26,9 +27,9 @@ function App() {
     // if (cookie && user) {
     //   navigate("/home");
     // }
-    if (!cookie) {
-      navigate("/login");
-    }
+    // if (!cookie) {
+    //   navigate("/login");
+    // }
   }, [cookie, user]);
 
   function setScreenSize() {
@@ -48,6 +49,7 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/videoEditor" element={<VideoEditor />} />
           <Route path="/guideDetail" element={<GuideDetail />} />
+          <Route path="/ranking" element={<RankingPage />} />
         </Route>
         <Route path="/" element={<LandingPage />} />
         <Route path="/record" element={<WebcamStreamCapture />} />

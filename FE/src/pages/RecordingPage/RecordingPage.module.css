@@ -1,6 +1,7 @@
 .record-page {
   position: relative;
   background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
+  height: 100vh;
 }
 
 .record-btn {
@@ -35,4 +36,30 @@
   background-color: red;
   border: none;
   transition: all 0.2s;
+}
+
+.record-button {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.record-button > button {
+  width: 40%;
+  height: 60%;
+  border: none;
+  border-radius: 0.5rem;
+  outline: none;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.record-button__cancle {
+  background-color: #f44336;
+}
+
+.record-button__save {
+  background-color: #4caf50;
 }
