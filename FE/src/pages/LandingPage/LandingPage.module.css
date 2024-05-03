@@ -1009,6 +1009,20 @@
   animation-delay: 2.4s;
 }
 
+.character {
+  position: absolute;
+  width: 100%;
+}
+
+.introText {
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  margin-left: 18vw;
+  margin-top: 5vh;
+  position: absolute;
+  justify-content: center;
+}
 @media (width <= 576px) {
   .first {
     width: 70vw;

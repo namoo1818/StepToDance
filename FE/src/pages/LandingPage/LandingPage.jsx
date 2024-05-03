@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
+import CharacterVideo from '../../assets/CharacterVideo.mp4'
+import Models from "../../components/Models/Models";
 
 const LandingPage = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [currentBox, setCurrentBox] = useState(1);
+  const [playVideo, setPlayVideo] = useState(false);
 
   useEffect(() => {
     let timeout;
@@ -11,6 +14,11 @@ const LandingPage = () => {
       timeout = setTimeout(() => {
         if (currentBox < 10) {
           setCurrentBox((prev) => prev + 1);
+        } else if (currentBox === 10) {
+          // After the last box animation, wait for its duration before playing the video
+          setTimeout(() => {
+            setPlayVideo(true);
+          }, 400); // Adjust this time to match the end of the box10 animation
         }
         const select = document.querySelector(`#box${currentBox}`);
         select.style.display = "none";
@@ -18,6 +26,7 @@ const LandingPage = () => {
     }
     return () => clearTimeout(timeout);
   }, [isClicked, currentBox]);
+
   const clickHandler = () => {
     setIsClicked(!isClicked);
   };
@@ -71,6 +80,12 @@ const LandingPage = () => {
         ></div>
       </div>
       {!isClicked && <span className={styles["intro"]}>Click Anywhere</span>}
+      {playVideo && (
+        <div className={styles["character"]}>
+        <Models/>
+        {/* <div className={styles["introText"]}>Welcome To StepDance</div> */}
+        </div>
+      )}
     </section>
   );
 };
