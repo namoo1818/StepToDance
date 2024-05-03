@@ -1,7 +1,7 @@
 .layout {
   height: 100vh;
   width: 100vw;
-  position: relative;
+  overflow:scroll;
   background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
 }
 
@@ -14,7 +14,7 @@
 }
 
 
-.main-content {
+.mainContent {
   flex-grow: 1; /* Ensures it takes the remaining space */
 }
 
