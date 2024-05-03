@@ -39,3 +39,7 @@ kakao:
 message:
   topic:
     name: topic
+ffmpeg:
+    location: /opt/homebrew/bin/ffmpeg
+ffprobe:
+  location: /opt/homebrew/bin/ffprobe
