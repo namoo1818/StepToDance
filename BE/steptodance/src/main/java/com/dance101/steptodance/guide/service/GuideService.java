@@ -17,7 +17,7 @@ public interface GuideService {
 	GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId);
 	void guideUpload(GuideUploadRequest guideUploadRequest);
 
-	void guideUploadFile(long userId, GuideUploadMultipartRequest guideUploadMultipartRequest);
+	void guideUploadFile(long userId, GuideUploadMultipartRequest request);
 
 	GuideFindResponse findGuide(long guideId);
 

@@ -51,11 +51,11 @@ public class GuideController {
 
 	@PostMapping(value = "/file", consumes = "multipart/form-data")
 	public ResponseEntity<ApiResponse<Void>> uploadGuideFile(
-		@AuthenticationPrincipal SecurityUser securityUser,
-		@ModelAttribute GuideUploadMultipartRequest guideUploadMultipartRequest
+		// @AuthenticationPrincipal SecurityUser securityUser,
+		@ModelAttribute GuideUploadMultipartRequest request
 	) {
 		// guideService.guideUploadFile(securityUser.getId(), file);
-		guideService.guideUploadFile(2L, guideUploadMultipartRequest);
+		guideService.guideUploadFile(2L, request);
 		return ApiResponse.toEmptyResponse(CREATED, CREATED_GUIDE);
 	}
 

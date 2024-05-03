@@ -5,11 +5,18 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import net.bramp.ffmpeg.FFmpeg;
+
 @Component
 public class FFmpegUtils {
-	@Value("${ffmpeg.location}")
-	private String ffmpegPath;
+	private final String ffmpegPath;
 
-	@Value("${ffprobe.location}")
-	private String ffprobePath;
+	private final String ffprobePath;
+
+	public FFmpegUtils(@Value("${ffmpeg.location}")String ffmpegPath, @Value("${ffprobe.location}")String ffprobePath) {
+		this.ffmpegPath = ffmpegPath;
+		this.ffprobePath = ffprobePath;
+	}
+
+
 }

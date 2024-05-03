@@ -89,23 +89,22 @@ public class GuideServiceImpl implements GuideService{
 
 	@Transactional
 	@Override
-	public void guideUploadFile(long userId, GuideUploadMultipartRequest guideUploadMultipartRequest) {
-		Genre genre = genreRepository.findById(guideUploadMultipartRequest.genreId())
+	public void guideUploadFile(long userId, GuideUploadMultipartRequest request) {
+		Genre genre = genreRepository.findById(request.getGenreId())
 			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile", GENRE_NOT_FOUND));
 		User user = userRepository.findById(userId)
 			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile", UNDEFINED_USER));
 		Guide guide = Guide.builder()
 			.genre(genre)
-			.singer(guideUploadMultipartRequest.singer())
-			.songTitle(guideUploadMultipartRequest.songName())
-			.highlightSectionStartAt(guideUploadMultipartRequest.highlightStartAt())
-			.highlightSectionEndAt(guideUploadMultipartRequest.highlightEndAt())
+			.singer(request.getSinger())
+			.songTitle(request.getSongName())
+			.highlightSectionStartAt(request.getHighlightStartAt())
+			.highlightSectionEndAt(request.getHighlightEndAt())
 			.user(user)
 			.build();
 		guideRepository.save(guide);
 		// TODO: kafka를 통해 비디오 프레임 전송
-		MultipartFile video = guideUploadMultipartRequest.video();
-		
+
 
 
 		try {
