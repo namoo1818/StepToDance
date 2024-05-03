@@ -7,14 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class FFmpegUtils {
-	private final String ffmpegPath;
-	private final String ffprobePath;
+	@Value("${ffmpeg.location}")
+	private String ffmpegPath;
 
-	public FFmpegUtils(
-		@Value("${ffmpeg.location}")String ffmpegPath,
-		@Value("${ffprobe.location}")String ffprobePath
-	) throws IOException {
-		this.ffmpegPath = ffmpegPath;
-		this.ffprobePath = ffprobePath;
-	}
+	@Value("${ffprobe.location}")
+	private String ffprobePath;
 }
