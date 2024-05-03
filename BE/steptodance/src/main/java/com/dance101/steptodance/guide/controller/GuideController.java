@@ -3,6 +3,7 @@ package com.dance101.steptodance.guide.controller;
 import com.dance101.steptodance.auth.utils.SecurityUser;
 import com.dance101.steptodance.global.data.response.ApiResponse;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
+import com.dance101.steptodance.guide.data.request.GuideUploadMultipartRequest;
 import com.dance101.steptodance.guide.data.request.GuideUploadRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
 import com.dance101.steptodance.guide.data.response.FeedbackResponse;
@@ -30,23 +31,31 @@ import static org.springframework.http.HttpStatus.OK;
 public class GuideController {
 	private final GuideService guideService;
 	@GetMapping
-	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(@AuthenticationPrincipal SecurityUser securityUser, @ModelAttribute SearchConditions searchConditions) {
-		long userId = securityUser.getId();
+	public ResponseEntity<ApiResponse<GuideListFindResponse>> findGuideList(
+		// @AuthenticationPrincipal SecurityUser securityUser,
+		@ModelAttribute SearchConditions searchConditions) {
+		// long userId = securityUser.getId();
+		long userId = 2L;
 		GuideListFindResponse response = guideService.findGuideList(searchConditions, userId);
 		return ApiResponse.toResponse(OK, SUCCESS_GUIDE_LIST, response);
 	}
 
 	@PostMapping
-	public ResponseEntity<ApiResponse<Void>> uploadGuide(@RequestBody GuideUploadRequest guideUploadRequest) {
+	public ResponseEntity<ApiResponse<Void>> uploadGuide(
+		// @AuthenticationPrincipal SecurityUser securityUser,
+		@RequestBody GuideUploadRequest guideUploadRequest
+	) {
 		guideService.guideUpload(guideUploadRequest);
 		return ApiResponse.toEmptyResponse(CREATED, CREATED_GUIDE);
 	}
 
 	@PostMapping(value = "/file", consumes = "multipart/form-data")
 	public ResponseEntity<ApiResponse<Void>> uploadGuideFile(
-		@RequestParam(value = "file") MultipartFile file
+		@AuthenticationPrincipal SecurityUser securityUser,
+		@ModelAttribute GuideUploadMultipartRequest guideUploadMultipartRequest
 	) {
-		guideService.guideUploadFile(file);
+		// guideService.guideUploadFile(securityUser.getId(), file);
+		guideService.guideUploadFile(2L, guideUploadMultipartRequest);
 		return ApiResponse.toEmptyResponse(CREATED, CREATED_GUIDE);
 	}
 
@@ -59,9 +68,12 @@ public class GuideController {
 
 	@PostMapping("/{guide_id}")
 	public ResponseEntity<ApiResponse<FeedbackResponse>> createGuideFeedback(
-		@AuthenticationPrincipal SecurityUser securityUser, @PathVariable("guide_id") long guideId, @RequestBody GuideFeedbackCreateRequest guideFeedbackCreateRequest
+		@AuthenticationPrincipal SecurityUser securityUser,
+		@PathVariable("guide_id") long guideId,
+		@RequestBody GuideFeedbackCreateRequest guideFeedbackCreateRequest
 	) throws ExecutionException, InterruptedException {
-		long userId = securityUser.getId();
+		// long userId = securityUser.getId();
+		long userId = 2L;
 		CompletableFuture<FeedbackResponse> completableFuture = guideService.createGuideFeedback(userId, guideId, guideFeedbackCreateRequest);
 		FeedbackResponse response = completableFuture.get();
 		return ApiResponse.toResponse(CREATED, SUCCESS_FEEDBACK_CREATION, response);

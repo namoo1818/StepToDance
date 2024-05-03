@@ -14,6 +14,8 @@ public enum ErrorCode {
     // GUIDE
     GUIDE_NOT_FOUND(404, "가이드를 찾을 수 없습니다."),
     GUIDE_UPLOAD_FAILED(404, "가이드 업로드에 실패했습니다."),
+    // GENRE
+    GENRE_NOT_FOUND(404, "장르를 찾을 수 없습니다."),
     // FEEDBACK
     FEEDBACK_NOT_FOUND(404, "피드백을 찾을 수 없습니다.");
 

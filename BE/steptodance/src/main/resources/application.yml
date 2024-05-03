@@ -39,3 +39,7 @@ kakao:
 message:
   topic:
     name: topic
+ffmpeg:
+  location: ${FFMPEG_LOCATION}
+ffprobe:
+  location: ${FFPROBE_LOCATION}

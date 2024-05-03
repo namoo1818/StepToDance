@@ -4,6 +4,7 @@ import crossOriginIsolation from 'vite-plugin-cross-origin-isolation';
 
 export default defineConfig({
   plugins: [react(), crossOriginIsolation()],
+  assetsInclude: ['**/*.glb'],
   build: {
     rollupOptions: {
       input: {

@@ -2,6 +2,7 @@ package com.dance101.steptodance.guide.service;
 
 import com.dance101.steptodance.feedback.data.response.FeedbackFindResponse;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
+import com.dance101.steptodance.guide.data.request.GuideUploadMultipartRequest;
 import com.dance101.steptodance.guide.data.request.GuideUploadRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
 import com.dance101.steptodance.guide.data.response.FeedbackResponse;
@@ -16,7 +17,7 @@ public interface GuideService {
 	GuideListFindResponse findGuideList(SearchConditions searchConditions, long userId);
 	void guideUpload(GuideUploadRequest guideUploadRequest);
 
-	void guideUploadFile(MultipartFile multipartFile);
+	void guideUploadFile(long userId, GuideUploadMultipartRequest guideUploadMultipartRequest);
 
 	GuideFindResponse findGuide(long guideId);
 

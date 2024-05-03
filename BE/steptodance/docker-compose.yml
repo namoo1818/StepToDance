@@ -1,6 +1,6 @@
 version: "3"
-services:
 
+services:
   mysql:
     container_name: mysql
     image: mysql:8.0
@@ -23,7 +23,7 @@ services:
 
   spring:
     container_name: spring
-    image: docker
+    image: dance_spring
     ports:
       - ${SPRING_BINDING_PORT}:8080
     build:
@@ -32,6 +32,9 @@ services:
     depends_on:
       - mysql
       - redis
+    volumes:
+      - ${FFMPEG_LOCATION}:${FFMPEG_LOCATION}
+      - ${FFPROBE_LOCATION}:${FFPROBE_LOCATION}
     environment:
       MYSQL_BINDING_PORT: ${MYSQL_BINDING_PORT}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -44,6 +47,8 @@ services:
       JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       KAKAO_KEY: ${KAKAO_KEY}
       KAKAO_REDIRECT_URL: ${KAKAO_REDIRECT_URL}
+      FFMPEG_LOCATION: ${FFMPEG_LOCATION}
+      FFPROBE_LOCATION: ${FFPROBE_LOCATION}
     restart: always
 
   kafka1:
