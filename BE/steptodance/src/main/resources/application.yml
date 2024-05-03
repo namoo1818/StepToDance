@@ -38,7 +38,11 @@ kakao:
   redirectUri: ${KAKAO_REDIRECT_URL}
 message:
   topic:
-    name: topic
+    feedback:
+      name: topic-feedback-test
+    guide:
+      name: topic-guide-test
+    name: topic-consume-test
 ffmpeg:
   location: ${FFMPEG_LOCATION}
 ffprobe:

@@ -4,6 +4,7 @@ import com.dance101.steptodance.global.exception.category.ExternalServerExceptio
 import com.dance101.steptodance.feedback.domain.Feedback;
 import com.dance101.steptodance.feedback.repository.FeedbackRepository;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
+import com.dance101.steptodance.global.utils.FFmpegUtils;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
 import com.dance101.steptodance.guide.data.request.GuideUploadMultipartRequest;
@@ -46,6 +47,7 @@ public class GuideServiceImpl implements GuideService{
 	private final AIServerService aiServerService;
 	private final UserRepository userRepository;
 	private final FeedbackRepository feedbackRepository;
+	private final FFmpegUtils ffmpegUtils;
 	// private final String AIServer_URL = "https://steptodance.site:8000";
 	private final String AIServer_URL = "http://k10a101.p.ssafy.io:8000";
 
@@ -104,10 +106,8 @@ public class GuideServiceImpl implements GuideService{
 			.build();
 		guideRepository.save(guide);
 		// TODO: kafka를 통해 비디오 프레임 전송
-
-
-
 		try {
+			ffmpegUtils.sendGuideVodToKafka(guide.getId(), request.getVideo());
 		} catch (Exception e) {
 			throw new ExternalServerException("GuideServiceImpl:guidUpload", GUIDE_UPLOAD_FAILED);
 		}
