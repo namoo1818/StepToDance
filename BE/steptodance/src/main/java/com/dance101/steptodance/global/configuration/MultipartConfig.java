@@ -13,10 +13,10 @@ import jakarta.servlet.MultipartConfigElement;
 @Configuration
 public class MultipartConfig {
 
-	@Value("${file.multipart.maxUploadSize:10485760}")
+	@Value("${file.multipart.maxUploadSize:524288000}")
 	private long maxUploadSize;
 
-	@Value("${file.multipart.maxUploadSizePerFile:10485760}")
+	@Value("${file.multipart.maxUploadSizePerFile:524288000}")
 	private long maxUploadSizePerFile;
 
 	@Bean
