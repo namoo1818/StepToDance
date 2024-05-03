@@ -1013,6 +1013,7 @@
 .character {
   position: absolute;
   width: 100%;
+  top: 30%;
 }
 
 .introText {
