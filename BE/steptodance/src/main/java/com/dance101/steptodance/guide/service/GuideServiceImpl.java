@@ -6,12 +6,15 @@ import com.dance101.steptodance.feedback.repository.FeedbackRepository;
 import com.dance101.steptodance.global.exception.category.NotFoundException;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.data.request.GuideFeedbackCreateRequest;
+import com.dance101.steptodance.guide.data.request.GuideUploadMultipartRequest;
 import com.dance101.steptodance.guide.data.request.GuideUploadRequest;
 import com.dance101.steptodance.guide.data.request.SearchConditions;
 import com.dance101.steptodance.guide.data.response.FeedbackResponse;
 import com.dance101.steptodance.guide.data.response.GuideFindResponse;
 import com.dance101.steptodance.guide.data.response.GuideListFindResponse;
+import com.dance101.steptodance.guide.domain.Genre;
 import com.dance101.steptodance.guide.domain.Guide;
+import com.dance101.steptodance.guide.repository.GenreRepository;
 import com.dance101.steptodance.guide.repository.GuideRepository;
 import com.dance101.steptodance.user.domain.User;
 import com.dance101.steptodance.user.repository.UserRepository;
@@ -39,6 +42,7 @@ import static com.dance101.steptodance.global.exception.data.response.ErrorCode.
 @Service
 public class GuideServiceImpl implements GuideService{
 	private final GuideRepository guideRepository;
+	private final GenreRepository genreRepository;
 	private final AIServerService aiServerService;
 	private final UserRepository userRepository;
 	private final FeedbackRepository feedbackRepository;
@@ -85,7 +89,25 @@ public class GuideServiceImpl implements GuideService{
 
 	@Transactional
 	@Override
-	public void guideUploadFile(MultipartFile multipartFile) {
+	public void guideUploadFile(long userId, GuideUploadMultipartRequest guideUploadMultipartRequest) {
+		Genre genre = genreRepository.findById(guideUploadMultipartRequest.genreId())
+			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile", GENRE_NOT_FOUND));
+		User user = userRepository.findById(userId)
+			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile", UNDEFINED_USER));
+		Guide guide = Guide.builder()
+			.genre(genre)
+			.singer(guideUploadMultipartRequest.singer())
+			.songTitle(guideUploadMultipartRequest.songName())
+			.highlightSectionStartAt(guideUploadMultipartRequest.highlightStartAt())
+			.highlightSectionEndAt(guideUploadMultipartRequest.highlightEndAt())
+			.user(user)
+			.build();
+		guideRepository.save(guide);
+		// TODO: kafka를 통해 비디오 프레임 전송
+		MultipartFile video = guideUploadMultipartRequest.video();
+		
+
+
 		try {
 		} catch (Exception e) {
 			throw new ExternalServerException("GuideServiceImpl:guidUpload", GUIDE_UPLOAD_FAILED);
