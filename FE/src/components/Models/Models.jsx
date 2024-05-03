@@ -19,8 +19,8 @@ export function Model(props) {
       if (actionNames.length > 0) {
         const firstAnimationName = actionNames[0];
         const action = actions[firstAnimationName];
-        // action.setLoop(LoopOnce);       // 애니메이션을 한 번만 실행
-        // action.clampWhenFinished = true; // 애니메이션이 끝나면 마지막 상태로 고정
+        action.setLoop(LoopOnce);       // 애니메이션을 한 번만 실행
+        action.clampWhenFinished = true; // 애니메이션이 끝나면 마지막 상태로 고정
         action.play();
       }
     }
@@ -29,7 +29,7 @@ export function Model(props) {
   return (
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
-        <group name="Armature" rotation={[Math.PI / 2, 0, 10]} scale={0.012}>
+        <group name="Armature" rotation={[Math.PI / 2, 0, 9.95]} scale={0.012}>
           <skinnedMesh
             name="Ch03"
             geometry={nodes.Ch03.geometry}
@@ -51,8 +51,8 @@ useGLTF.preload(gltfmodel)
 function Models() {
   return (
     <Canvas
-      style={{ width: "100%", height: "60vh" }}
-      camera={{ position: [5, 5, 5], fov: 30 }}> {/* 카메라 위치 수정 */}
+      style={{ width: "100%", height: "70vh" }}
+      camera={{ position: [4, 4, 4], fov: 40 }}> {/* 카메라 위치 수정 */}
     {/* <CameraControls minPolarAngle={1.5} maxPolarAngle={Math.PI / 7} /> */}
     <directionalLight
           position={[1, 1, 1]}
