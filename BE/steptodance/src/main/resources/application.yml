@@ -40,6 +40,6 @@ message:
   topic:
     name: topic
 ffmpeg:
-    location: /opt/homebrew/bin/ffmpeg
+  location: ${FFMPEG_LOCATION}
 ffprobe:
-  location: /opt/homebrew/bin/ffprobe
+  location: ${FFPROBE_LOCATION}
