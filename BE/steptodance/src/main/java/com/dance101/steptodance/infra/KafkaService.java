@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -30,6 +31,7 @@ public class KafkaService implements AIServerService {
     private String feedbackTopicName;
     @Value(value = "${message.topic.guide.name}")
     private String guideTopicName;
+    @Autowired
     private final ObjectMapper objectMapper;
 
     @Override
