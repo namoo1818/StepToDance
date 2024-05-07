@@ -4,6 +4,8 @@ from confluent_kafka import Consumer
 import asyncio
 from data.GuideRequest import GuideUpdateRequest
 from service.GuideService import guideUpload
+import json
+
 
 
 # consumer = Consumer({'bootstrap.servers': 'k10a101.p.ssafy.io:9092', 'group.id': 'group.id'})
@@ -44,7 +46,9 @@ async def consume_messages():
         if message is None:
             continue
         print("consume: Message\t", message)
-        print("consume: Message.value()\t", message.value())
+        msgInstance = json.loads(message.value())
+        print(msgInstance.name())
+        
 
 # 앱 시작 시 Kafka 메시지 Consume를 비동기로 시작
 @app.on_event('startup')
