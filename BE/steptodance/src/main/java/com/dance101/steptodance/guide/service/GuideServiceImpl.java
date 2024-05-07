@@ -93,16 +93,16 @@ public class GuideServiceImpl implements GuideService{
 	@Override
 	public void guideUploadFile(long userId, GuideUploadMultipartRequest request) {
 		log.info("GuideServiceImpl:guideUploadFile : request = " + request.toString());
-		Genre genre = genreRepository.findById(request.getGenreId())
-			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile : genreId=" + request.getGenreId(), GENRE_NOT_FOUND));
+		Genre genre = genreRepository.findById(request.getGenre_id())
+			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile : genreId=" + request.getGenre_id(), GENRE_NOT_FOUND));
 		User user = userRepository.findById(userId)
 			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile : userId=" + userId, UNDEFINED_USER));
 		Guide guide = Guide.builder()
 			.genre(genre)
 			.singer(request.getSinger())
-			.songTitle(request.getSongName())
-			.highlightSectionStartAt(request.getHighlightStartAt())
-			.highlightSectionEndAt(request.getHighlightEndAt())
+			.songTitle(request.getSong_name())
+			.highlightSectionStartAt(request.getHighlight_start_at())
+			.highlightSectionEndAt(request.getHighlight_end_at())
 			.user(user)
 			.build();
 		guideRepository.save(guide);
