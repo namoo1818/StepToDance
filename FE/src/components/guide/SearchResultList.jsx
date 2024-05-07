@@ -7,10 +7,12 @@ import styled from "styled-components";
 function SearchResultList(params) {
     const location = useLocation();
     const [guideList, setGuideList] = useState([]);
+    const [word, setWord] = useState("");
     
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const searchQuery = searchParams.get("q");
+        setWord(searchQuery);
 
         const fetchGuideData = async () => {
           try {
@@ -37,7 +39,7 @@ function SearchResultList(params) {
     return (
         <div className={styles.container}>
             <Links>
-                {guideList.length === 0 ? (<div className={styles.noResult}>검색 결과가 없습니다.</div>) : (guideList.map((item) => (<div key={`page_${item.id}`}>{renderItem({ item })}</div>))
+                {guideList.length === 0 ? (<div className={styles.noResult}>"{word}" <br/> 검색 결과가 없습니다.</div>) : (guideList.map((item) => (<div key={`page_${item.id}`}>{renderItem({ item })}</div>))
                 )}
             </Links>
         </div>
