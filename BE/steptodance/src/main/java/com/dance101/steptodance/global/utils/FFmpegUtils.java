@@ -22,7 +22,7 @@ import com.dance101.steptodance.guide.service.AIServerService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-// @Component
+@Component
 public class FFmpegUtils {
 	private final String ffmpegPath;
 	private final String ffprobePath;
