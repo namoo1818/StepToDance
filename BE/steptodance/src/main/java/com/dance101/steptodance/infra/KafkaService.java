@@ -59,9 +59,4 @@ public class KafkaService implements AIServerService {
         // update & save result
         feedbackService.updateFeedback(response);
     }
-
-    @Bean
-    public ObjectMapper getObjectMapper() {
-        return new ObjectMapper();
-    }
 }
