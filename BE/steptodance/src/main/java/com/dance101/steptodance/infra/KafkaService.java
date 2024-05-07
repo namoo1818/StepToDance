@@ -39,6 +39,7 @@ public class KafkaService implements AIServerService {
         try {
             this.kafkaTemplate.send(guideTopicName, objectMapper.writeValueAsString(guideMessageRequest));
         } catch (JsonProcessingException e) {
+            e.printStackTrace();
             throw new ExternalServerException("KafkaService::publish : "+"json parsing problem", JSON_PARSE_CAN_NOT_BE_DONE);
         }
     }
