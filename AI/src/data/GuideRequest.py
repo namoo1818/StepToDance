@@ -4,4 +4,4 @@ class GuideUpdateRequest(BaseModel):
     guideId: int
     name: str
     size: int
-    image: bytearray
+    image: bytes
