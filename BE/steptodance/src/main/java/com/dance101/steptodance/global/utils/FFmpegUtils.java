@@ -2,7 +2,6 @@ package com.dance101.steptodance.global.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
@@ -22,7 +21,7 @@ import com.dance101.steptodance.guide.service.AIServerService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Component
+// @Component
 public class FFmpegUtils {
 	private final String ffmpegPath;
 	private final String ffprobePath;
