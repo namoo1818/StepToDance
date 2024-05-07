@@ -62,8 +62,6 @@ public class FFmpegUtils {
 			paths.filter(Files::isRegularFile)
 				.forEach(path -> {
 					try {
-						// log.info("FFmpegUtils::sendGuideVodToKafka: ========" + path.getFileName() + "=============");
-						System.out.println("왜안돼");
 						aiServerService.publish(
 							GuideMessageRequest.builder()
 								.guideId(id)
@@ -81,12 +79,13 @@ public class FFmpegUtils {
 		}
 
 		// 이미지파일 삭제
+		// TODO: 이미지들이 잘 지워지는가 확인
 		Files.walk(Path.of(outputDirPath + id))
 			.map(Path::toFile)
 			.forEach(File::delete);
 		Files.delete(Path.of(outputDirPath + id));
 		// 영상파일 삭제
 		Files.delete(tempFilePath);
-		log.info("==============동영상작업완료==============");
+		log.info("============== Sending Guide Vod Done ==============");
 	}
 }

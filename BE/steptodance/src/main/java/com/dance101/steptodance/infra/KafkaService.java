@@ -1,6 +1,10 @@
 package com.dance101.steptodance.infra;
 
+import static com.dance101.steptodance.global.exception.data.response.ErrorCode.*;
+
 import com.dance101.steptodance.feedback.service.FeedbackService;
+import com.dance101.steptodance.global.exception.category.ExternalServerException;
+import com.dance101.steptodance.global.exception.data.response.ErrorCode;
 import com.dance101.steptodance.guide.data.request.FeedbackMessageRequest;
 import com.dance101.steptodance.guide.data.request.GuideMessageRequest;
 import com.dance101.steptodance.guide.data.response.GuideFeedbackCreateResponse;
@@ -11,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -25,12 +30,17 @@ public class KafkaService implements AIServerService {
     private String feedbackTopicName;
     @Value(value = "${message.topic.guide.name}")
     private String guideTopicName;
+    private ObjectMapper objectMapper;
 
     @Override
     public void publish(GuideMessageRequest guideMessageRequest) {
         // send message
-        log.info("KafkaService::publish : ===========" + guideMessageRequest.name() + " 전송 ===========");
-        this.kafkaTemplate.send(guideTopicName, guideMessageRequest.toString());
+        log.info("KafkaService::publish : ===========" + guideMessageRequest.name() + " send ===========");
+        try {
+            this.kafkaTemplate.send(guideTopicName, objectMapper.writeValueAsString(guideMessageRequest));
+        } catch (JsonProcessingException e) {
+            throw new ExternalServerException("KafkaService::publish : "+"json parsing problem", JSON_PARSE_CAN_NOT_BE_DONE);
+        }
     }
 
     @Override
@@ -47,5 +57,10 @@ public class KafkaService implements AIServerService {
 
         // update & save result
         feedbackService.updateFeedback(response);
+    }
+
+    @Bean
+    public ObjectMapper getObjectMapper() {
+        return new ObjectMapper();
     }
 }

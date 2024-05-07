@@ -17,7 +17,9 @@ public enum ErrorCode {
     // GENRE
     GENRE_NOT_FOUND(404, "장르를 찾을 수 없습니다."),
     // FEEDBACK
-    FEEDBACK_NOT_FOUND(404, "피드백을 찾을 수 없습니다.");
+    FEEDBACK_NOT_FOUND(404, "피드백을 찾을 수 없습니다."),
+    // JSON PARSE
+    JSON_PARSE_CAN_NOT_BE_DONE(500, "객체 직렬화 도중 문제가 발생하였습니다.");
 
     private final int status;
     private final String message;
