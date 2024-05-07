@@ -32,6 +32,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	/* ffmpeg */
 	implementation 'net.bramp.ffmpeg:ffmpeg:0.8.0'
+	/* javaCV */
+	implementation 'in.hocg.boot:javacv-spring-boot-starter:1.0.40'
 	/* QueryDSL */
 	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
 	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
