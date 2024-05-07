@@ -88,6 +88,20 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 404 에러
+     * 리소스 없음 에러 핸들러
+     *
+     * @param exception
+     * @return
+     */
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ErrorResponse notFoundCustomHandler(SteptodanceRuntimeException exception) {
+        log.error(exception.getMessageKey(), exception, exception.getParams());
+        return new ErrorResponse(exception.getErrorCode());
+    }
+
+    /**
      * 400 에러
      * DTO validation 에러 핸들러
      *
