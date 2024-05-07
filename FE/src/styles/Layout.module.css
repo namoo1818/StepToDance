@@ -14,6 +14,9 @@
 .sidebar {
   display: flex;
   justify-content: flex-end;
+  position: absolute;
+  right: 5%;
+  margin-top: 9vw;
 }
 
 .mainContent {
@@ -23,5 +26,8 @@
 .logoimg {
   display: flex;
   justify-content: flex-end;
-  width: 25vw;
+  position: absolute;
+  left: 1.5%;
+  top: 3%;
+  width: 20vw;
 }
