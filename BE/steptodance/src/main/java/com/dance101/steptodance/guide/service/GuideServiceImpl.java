@@ -93,9 +93,9 @@ public class GuideServiceImpl implements GuideService{
 	@Override
 	public void guideUploadFile(long userId, GuideUploadMultipartRequest request) {
 		Genre genre = genreRepository.findById(request.getGenreId())
-			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile", GENRE_NOT_FOUND));
+			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile : genreId=" + request.getGenreId(), GENRE_NOT_FOUND));
 		User user = userRepository.findById(userId)
-			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile", UNDEFINED_USER));
+			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile : userId=" + userId, UNDEFINED_USER));
 		Guide guide = Guide.builder()
 			.genre(genre)
 			.singer(request.getSinger())
