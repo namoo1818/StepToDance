@@ -44,8 +44,6 @@ async def consume_messages():
         if message is None:
             continue
         print("consume: Message\t", message)
-        print("consume: Message.message()\t", message.message())
-        print("consume: Message.value\t", message.value)
         print("consume: Message.value()\t", message.value())
 
 # 앱 시작 시 Kafka 메시지 Consume를 비동기로 시작
