@@ -1,4 +1,7 @@
 from pydantic import BaseModel
 
 class GuideUpdateRequest(BaseModel):
-    video_url: str
+    guideId: int
+    name: str
+    size: int
+    image: bytearray
