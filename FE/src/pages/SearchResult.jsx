@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import SearchBar from "../components/guide/SearchBar";
 import SearchResultList from "../components/guide/SearchResultList";
+import styles from "../styles/Home.module.css";
 
 function SearchResult() {
   const location = useLocation();
@@ -11,7 +12,9 @@ function SearchResult() {
   return (
     <div>
       <SearchBar params={searchQuery}/>
-      <SearchResultList/>
+      <div className={styles.homeContainer}>
+        <SearchResultList params={searchQuery}/>
+      </div>
     </div>
   );
 }

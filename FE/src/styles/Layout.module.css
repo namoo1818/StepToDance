@@ -3,6 +3,7 @@
   width: 100vw;
   background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
 }
+
 .header {
   position: relative;
   padding: 1rem;
@@ -16,7 +17,7 @@
   justify-content: flex-end;
   position: absolute;
   right: 5%;
-  margin-top: 9vw;
+  margin-top: 6vw;
 }
 
 .mainContent {
@@ -30,4 +31,5 @@
   left: 1.5%;
   top: 3%;
   width: 20vw;
+  margin-top: 5vw;
 }
