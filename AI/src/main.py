@@ -44,7 +44,6 @@ async def consume_messages():
         if message is None:
             continue
         print("consume: Message\t", message)
-        print("consume: Message.message\t", message.message)
         print("consume: Message.message()\t", message.message())
         print("consume: Message.value\t", message.value)
         print("consume: Message.value()\t", message.value())
