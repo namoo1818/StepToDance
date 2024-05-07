@@ -1,18 +1,20 @@
 .layout {
   height: 100vh;
   width: 100vw;
-  overflow:scroll;
   background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
+}
+.header {
+  position: relative;
+  padding: 1rem;
+  height: fit-content;
+  display: flex;
+  justify-content: space-between;
 }
 
 .sidebar {
   display: flex;
   justify-content: flex-end;
-  position: absolute;
-  right: 5%;
-  top: 3%;
 }
-
 
 .mainContent {
   flex-grow: 1; /* Ensures it takes the remaining space */
@@ -21,8 +23,5 @@
 .logoimg {
   display: flex;
   justify-content: flex-end;
-  position: absolute;
-  left: 1.5%;
-  top: 3%;
   width: 25vw;
 }
