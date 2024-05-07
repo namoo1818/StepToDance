@@ -30,7 +30,7 @@ public class KafkaService implements AIServerService {
     private String feedbackTopicName;
     @Value(value = "${message.topic.guide.name}")
     private String guideTopicName;
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void publish(GuideMessageRequest guideMessageRequest) {
