@@ -11,15 +11,15 @@ import lombok.Data;
 
 @Data
 public class GuideUploadMultipartRequest implements Serializable {
-	private long genreId;
+	private long genre_id;
 
-	private String songName;
+	private String song_name;
 
 	private String singer;
 
-	private LocalTime highlightStartAt;
+	private LocalTime highlight_start_at;
 
-	private LocalTime highlightEndAt;
+	private LocalTime highlight_end_at;
 
 	private MultipartFile video;
 }
