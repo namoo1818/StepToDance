@@ -17,9 +17,9 @@ public class GuideUploadMultipartRequest implements Serializable {
 
 	private String singer;
 
-	private LocalTime highlight_start_at;
+	private LocalTime highlight_section_start_at;
 
-	private LocalTime highlight_end_at;
+	private LocalTime highlight_section_end_at;
 
 	private MultipartFile video;
 }

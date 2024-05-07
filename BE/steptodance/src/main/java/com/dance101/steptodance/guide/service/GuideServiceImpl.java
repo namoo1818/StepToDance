@@ -101,8 +101,8 @@ public class GuideServiceImpl implements GuideService{
 			.genre(genre)
 			.singer(request.getSinger())
 			.songTitle(request.getSong_name())
-			.highlightSectionStartAt(request.getHighlight_start_at())
-			.highlightSectionEndAt(request.getHighlight_end_at())
+			.highlightSectionStartAt(request.getHighlight_section_start_at())
+			.highlightSectionEndAt(request.getHighlight_section_end_at())
 			.user(user)
 			.build();
 		guideRepository.save(guide);
