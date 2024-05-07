@@ -1,15 +1,21 @@
 import {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { searchTitle } from "../../api/GuideApis";
 import styles from "../../styles/guide/SearchGuideList.module.css";
 import styled from "styled-components";
 
 function SearchResultList(params) {
+    const location = useLocation();
     const [guideList, setGuideList] = useState([]);
+    
     useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const searchQuery = searchParams.get("q");
+
         const fetchGuideData = async () => {
           try {
-            const data = await searchTitle(params.params);
+            console.log(params);
+            const data = await searchTitle(searchQuery);
             setGuideList(data.data.guide_list);
           } catch (error) {
             console.error('Error fetching guide data:', error);
@@ -17,7 +23,7 @@ function SearchResultList(params) {
         };
     
         fetchGuideData();
-      }, []);
+      }, [location]);
 
       const renderItem = ({item}) => (
         <Link to={{ pathname: '/guideDetail', search: `?id=${item.id}` }}>

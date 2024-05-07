@@ -7,10 +7,10 @@ function Home(){
     return (
         <div>
             <SearchBar/>
-        <div className={styles.homeContainer}>
-            <Hot5Guides/>
-            <GuideList/>
-        </div>
+            <div className={styles.homeContainer}>
+                <Hot5Guides/>
+                <GuideList/>
+            </div>
         </div>
     );
 }
