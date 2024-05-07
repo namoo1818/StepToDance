@@ -28,6 +28,8 @@ spring:
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       group-id: step-to-dance
       auto-offset-reset: earliest
+    properties:
+      max.request.size: 20971520
 logging:
   level:
     org.hibernate.sql: debug

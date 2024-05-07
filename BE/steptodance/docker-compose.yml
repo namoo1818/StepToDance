@@ -74,6 +74,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+      KAFKA_MESSAGE_MAX_BYTES: 20971520
   kafka2:
     image: confluentinc/cp-kafka:7.6.0
     hostname: kafka2
@@ -100,6 +101,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+      KAFKA_MESSAGE_MAX_BYTES: 20971520
   kafka3:
     image: confluentinc/cp-kafka:7.6.0
     hostname: kafka3
@@ -126,6 +128,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
+      KAFKA_MESSAGE_MAX_BYTES: 20971520
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
