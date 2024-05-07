@@ -92,6 +92,7 @@ public class GuideServiceImpl implements GuideService{
 	@Transactional
 	@Override
 	public void guideUploadFile(long userId, GuideUploadMultipartRequest request) {
+		log.info("GuideServiceImpl:guideUploadFile : request = " + request.toString());
 		Genre genre = genreRepository.findById(request.getGenreId())
 			.orElseThrow(() -> new NotFoundException("GuideServiceImpl:guideUploadFile : genreId=" + request.getGenreId(), GENRE_NOT_FOUND));
 		User user = userRepository.findById(userId)
