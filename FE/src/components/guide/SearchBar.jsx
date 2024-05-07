@@ -1,15 +1,21 @@
 import {useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../../styles/guide/SearchBar.module.css"
 import SearchIcon from "@mui/icons-material/Search";
 
-function SearchBar(params){
-    const [search, setSearch] = useState(params.params);
+function SearchBar(){
+    
+  const location = useLocation();
+
+
+    const [search, setSearch] = useState("");
     const navigation = useNavigate();
 
     useEffect(()=> {
-        setSearch(params.params);
-    },[]);
+        const searchParams = new URLSearchParams(location.search);
+        const searchQuery = searchParams.get("q");
+        setSearch(searchQuery);
+    },[location]);
 
     const onChange = (e) => {
         setSearch(e.target.value);
