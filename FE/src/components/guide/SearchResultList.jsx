@@ -1,19 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {useSelector} from 'react-redux';
+import {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-import styles from "../../styles/guide/GuideList.module.css";
-import { getGuideList } from "../../api/GuideApis";
+import { searchTitle } from "../../api/GuideApis";
+import styles from "../../styles/guide/SearchGuideList.module.css";
 import styled from "styled-components";
 
-function GuideList(){
-    const user = useSelector(state=> state.user);
+function SearchResultList(params) {
     const [guideList, setGuideList] = useState([]);
-
     useEffect(() => {
         const fetchGuideData = async () => {
           try {
-            const data = await getGuideList();
-            console.log(data.data.guide_list);
+            const data = await searchTitle(params.params);
             setGuideList(data.data.guide_list);
           } catch (error) {
             console.error('Error fetching guide data:', error);
@@ -22,8 +18,8 @@ function GuideList(){
     
         fetchGuideData();
       }, []);
-    
-    const renderItem = ({item}) => (
+
+      const renderItem = ({item}) => (
         <Link to={{ pathname: '/guideDetail', search: `?id=${item.id}` }}>
             <div className={styles.guide}>
                 <img className={styles.image} src={item.thumbnail_img_url}/>
@@ -31,13 +27,12 @@ function GuideList(){
             </div>
         </Link>
     );
+
     return (
         <div className={styles.container}>
-            <div className={styles.title}>{user.nickname}님이 좋아하는 장르</div>
             <Links>
-                {guideList.map((item) => (
-                <div key={`page_${item.id}`}>{renderItem({ item })}</div>
-                ))}
+                {guideList.length === 0 ? (<div className={styles.noResult}>검색 결과가 없습니다.</div>) : (guideList.map((item) => (<div key={`page_${item.id}`}>{renderItem({ item })}</div>))
+                )}
             </Links>
         </div>
     );
@@ -49,4 +44,4 @@ const Links = styled.div`
     }
 `;
 
-export default GuideList;
+export default SearchResultList;

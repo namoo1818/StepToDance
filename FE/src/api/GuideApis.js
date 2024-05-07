@@ -18,6 +18,20 @@ export const getGuideList = async () => {
   }
 };
 
+export const searchTitle = async (title) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/guides?limit=10&offset=1&title=${title}`, {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+        },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching guide list:', error);
+    throw error; 
+  }
+};
+
 export const getGuideDetail = async (guideId) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/guides/${guideId}`, {

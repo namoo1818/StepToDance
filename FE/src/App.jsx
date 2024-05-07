@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import Layout from "./components/Layout";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import RankingPage from "./pages/Ranking/RankingPage";
+import SearchResult from "./pages/SearchResult";
 
 function App() {
   const user = useSelector(userLoggedInSelector);
@@ -49,6 +50,7 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/videoEditor" element={<VideoEditor />} />
           <Route path="/guideDetail" element={<GuideDetail />} />
+          <Route path="/searchResult" element={<SearchResult/>} />
           <Route path="/ranking" element={<RankingPage />} />
         </Route>
         <Route path="/" element={<LandingPage />} />
