@@ -1,5 +1,6 @@
 import boto3
 from data.GuideRequest import GuideUpdateRequest
+from data.GuideUpdateMsg import GuideUpdateMsg
 from core.redis_config import redis_config
 from util.AiUtil import imgToBodyModel
 
@@ -12,7 +13,7 @@ def guideUpload(video_url: str):
     s3 = boto3.client("s3", aws_access_key_id=AWS_S3_ACCESS_KEY, aws_secret_access_key=AWS_S3_PRIVATE_KEY)
 
 def guideFrame(msgInstance: dict):
-    guide = GuideUpdateRequest(msgInstance)
+    guide = GuideUpdateMsg(msgInstance)
     bodyModel = imgToBodyModel(guide.image)
     
     # redis.lpush(f'guide:{guide.guideId}', )
