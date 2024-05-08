@@ -14,6 +14,11 @@ consumer.subscribe(['topic-guide-test'])
 
 app = FastAPI()
 
+methods = {
+    'topic-guide-test': 1
+}
+
+
 @app.get('/')
 def home():
     return "hello!"
@@ -45,10 +50,9 @@ async def consume_messages():
         message = await current_loop.run_in_executor(None, consumer.poll, 1.0)
         if message is None:
             continue
-        print("consume: Message\t", message)
         msgInstance = json.loads(message.value())
-        print(msgInstance['name'])
-        print(message.topic())
+        methods[message.topic()](msgInstance)
+
         
 
 # 앱 시작 시 Kafka 메시지 Consume를 비동기로 시작
