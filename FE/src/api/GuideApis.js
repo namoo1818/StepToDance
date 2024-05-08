@@ -20,6 +20,18 @@ export const getGuideDetail = async (guideId) => {
   }
 };
 
+export const searchTitle = async (title) => {
+  try {
+    const response = await customAxios.get(
+      `guides?limit=10&offset=1&title=${title}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching guide list:", error);
+    throw error;
+  }
+};
+
 export const postFeedback = async (guideId, feedbackData) => {
   try {
     const response = await customAxios.post(
