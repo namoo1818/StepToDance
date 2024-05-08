@@ -57,6 +57,7 @@ async def consume_messages():
 # 앱 시작 시 Kafka 메시지 Consume를 비동기로 시작
 @app.on_event('startup')
 async def app_startup():
+    print("app started...")
     asyncio.create_task(consume_messages())
 
 # 앱 종료 시 Kafka Consumer 닫기
