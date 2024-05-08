@@ -7,9 +7,24 @@ const accessToken = getCookie('accessToken');
 export const getGuideList = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/guides?limit=10&offset=1`, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`,
-        },
+        // headers: {
+        //     'Authorization': `Bearer ${accessToken}`,
+        // },
+    });
+    console.log('accessToken', accessToken);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching guide list:', error);
+    throw error; 
+  }
+};
+
+export const searchTitle = async (title) => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/guides?limit=10&offset=1&title=${title}`, {
+        // headers: {
+        //     'Authorization': `Bearer ${accessToken}`,
+        // },
     });
     return response.data;
   } catch (error) {
