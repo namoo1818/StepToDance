@@ -10,6 +10,27 @@
   margin: 0.5rem 0;
 }
 
+.ranking-rank {
+  width: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.ranking-name {
+  width: 45%;
+  display: flex;
+  justify-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ranking-score {
+  width: 15%;
+  display: flex;
+  justify-content: center;
+}
+
 .ranking:nth-child(1) .ranking-rank {
   color: black;
 }

@@ -1,11 +1,11 @@
 import styles from "./RankingList.module.css";
 
-const RankingList = () => {
+const RankingList = ({ ranking, name, score }) => {
   return (
     <div className={styles["ranking"]}>
-      <span className={styles["ranking-rank"]}>1등</span>
-      <span>김아무개</span>
-      <span>9999점</span>
+      <span className={styles["ranking-rank"]}>{ranking}등</span>
+      <span className={styles["ranking-name"]}>{name}</span>
+      <span className={styles["ranking-score"]}>{score}점</span>
     </div>
   );
 };
