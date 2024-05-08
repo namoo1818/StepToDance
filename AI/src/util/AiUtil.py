@@ -12,3 +12,7 @@ def get_s3_client():
                       region_name='ap-northeast-2'
                       )
     return s3
+
+def imgToBodyModel(image) -> list:
+    print(image)
+    return None
