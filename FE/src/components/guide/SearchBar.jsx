@@ -36,7 +36,7 @@ function SearchBar(){
 
     return (
         <div className={styles.container}>
-             <input className={styles.searchBar} type="text" placeholder="노래 검색" value={search} onChange={onChange} onKeyDown={(e) => { if(e.key === "Enter") onSubmit(); }}/>
+             <input className={styles.searchBar} type="text" placeholder="노래 검색" value={search || ""} onChange={onChange} onKeyDown={(e) => { if(e.key === "Enter") onSubmit(); }}/>
              {search && ( 
                 <CancelIcon
                     className={styles.cancelIcon}
