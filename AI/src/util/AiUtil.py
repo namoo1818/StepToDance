@@ -14,5 +14,5 @@ def get_s3_client():
     return s3
 
 def imgToBodyModel(image) -> list:
-    print(image)
+    print("imgToBodyModel: " , image[:10])
     return None
