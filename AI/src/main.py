@@ -48,6 +48,7 @@ async def consume_messages():
         print("consume: Message\t", message)
         msgInstance = json.loads(message.value())
         print(msgInstance['name'])
+        print(message.topic())
         
 
 # 앱 시작 시 Kafka 메시지 Consume를 비동기로 시작
