@@ -22,20 +22,6 @@ methods = {
 def home():
     return "hello!"
 
-# @app.post('/guides/upload')
-# def guideUpload(guideUpdateRequest: GuideUpdateRequest):
-#     print("log: guideUpload::", guideUpdateRequest)
-#     guideUpload(guideUpdateRequest.video_url)
-#     response = {"code": 201, "message": "가이드 영상이 저장되었습니다."}
-#     return response
-
-# @app.post('/guides/upload/file')
-# def guideUploadFile(file: bytes = File(), guideId: str = Form()):
-#     print("log: guideUploadFile::")
-#     print(file)
-#     response = {"code": 201, "message": "가이드 영상이 업로드 되었습니다."}
-#     return response
-
 @app.post("/send-data")
 async def send_data(data: dict, background_tasks: BackgroundTasks):
     background_tasks.add_task(send_data_to_kafka, data)
