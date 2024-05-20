@@ -44,4 +44,16 @@ public class Feedback extends BaseEntity {
         this.guide = guide;
         this.user = user;
     }
+
+    public void update(double score) {
+        this.score = score;
+    }
+
+    public void addUrl(String url) {
+        this.videoUrl = url;
+    }
+
+    public void addThumbnailUrl(String url) {
+        this.thumbnailImgUrl = url;
+    }
 }

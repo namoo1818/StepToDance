@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+confluent_kafka
+python-dotenv
+redis
+tensorflow
+tensorflow_hub
+opencv-python

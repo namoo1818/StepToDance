@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "GUIDE_TBL")
@@ -30,6 +32,12 @@ public class Guide extends BaseEntity {
     @Column(name = "singer")
     private String singer;
 
+    @Column(name = "highlight_section_start_at")
+    private LocalTime highlightSectionStartAt;
+
+    @Column(name = "highlight_section_end_at")
+    private LocalTime highlightSectionEndAt;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -39,12 +47,22 @@ public class Guide extends BaseEntity {
     private Genre genre;
 
     @Builder
-    public Guide(String videoUrl, String thumbnailImgUrl, String songTitle, String singer, User user, Genre genre) {
+    public Guide(String videoUrl, String thumbnailImgUrl, String songTitle, String singer, User user, Genre genre, LocalTime highlightSectionStartAt, LocalTime highlightSectionEndAt) {
         this.videoUrl = videoUrl;
         this.thumbnailImgUrl = thumbnailImgUrl;
         this.songTitle = songTitle;
         this.singer = singer;
         this.user = user;
         this.genre = genre;
+        this.highlightSectionStartAt = highlightSectionStartAt;
+        this.highlightSectionEndAt = highlightSectionEndAt;
+    }
+
+    public void addUrl(String url) {
+        this.videoUrl = url;
+    }
+
+    public void addThumbnail(String url) {
+        this.thumbnailImgUrl = url;
     }
 }

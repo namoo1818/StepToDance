@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: fast-api
+    container_name: fast-api
+    ports:
+      - "8000:8000"
+    environment:
+      REDIS_HOST: ${REDIS_HOST} 
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+    restart: always
+    networks:
+      - steptodance_default
+networks:
+  steptodance_default:
+    external: true

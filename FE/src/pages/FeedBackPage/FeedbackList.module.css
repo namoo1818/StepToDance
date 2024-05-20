@@ -1,0 +1,118 @@
+/* FeedbackList.module.css */
+.container {
+  padding: 1em;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 11.5rem);
+  position: relative;
+  z-index: 10;
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.feedbackList {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.feedbackItem {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+.videoDate {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 0.5em;
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 0.5em;
+}
+
+.guideDetail {
+  font-size: 1em;
+  color: #333;
+}
+
+.loadMoreButton,
+.backButton {
+  display: block;
+  width: 100%;
+  padding: 0.75em;
+  margin-top: 1em;
+  font-size: 1em;
+  color: #fff;
+  background-color: var(--glow1-color);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.loadMoreButton:hover,
+.backButton:hover {
+  background-color: #0056b3;
+}
+
+.deleteButton {
+  /* display: flex; */
+  /* position: sticky; */
+  /* justify-content: center; */
+  margin-left: 48vw;
+  /* width: 30vw; */
+  color: rgb(115, 38, 38);
+  height: 1.5vh;
+  padding: 0.1em;
+  font-size: 0.8rem;
+  /* margin-bottom: 1vh; */
+  border: 0.15em solid var(--glow-color);
+  -webkit-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  -moz-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  background-color: hsl(0, 100%, 64%);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0.5em;
+  }
+
+  .title {
+    font-size: 1.2em;
+  }
+
+  .feedbackItem {
+    padding: 0.5em;
+  }
+
+  .videoDate,
+  .guideDetail {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .loadMoreButton,
+  .backButton {
+    padding: 0.5em;
+    font-size: 0.9em;
+  }
+}

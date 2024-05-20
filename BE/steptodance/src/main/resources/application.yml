@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:${MYSQL_BINDING_PORT}/${MYSQL_DATABASE}
+    url: jdbc:mysql://k10a101.p.ssafy.io:${MYSQL_BINDING_PORT}/${MYSQL_DATABASE}
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_ROOT_PASSWORD}
   jpa:
@@ -13,11 +13,27 @@ spring:
         format_sql: true
   data:
     redis:
-      host: localhost
+      host: k10a101.p.ssafy.io
       port: ${REDIS_BINDING_PORT}
+      password: ${REDIS_PASSWORD}
+    mongodb:
+      uri: mongodb://root:${DANCE_MONGODB_PASSWORD}@k10a101.p.ssafy.io:${DANCE_MONGODB_BINDING_PORT}/?authSource=admin
+      database: dance
   mvc:
     servlet:
       path: /api/v1
+  kafka:
+    bootstrap-servers: kafka1:${KAFKA1_BINDING_PORT}, kafka2:${KAFKA1_BINDING_PORT}, kafka3:${KAFKA1_BINDING_PORT}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: step-to-dance
+      auto-offset-reset: earliest
+    properties:
+      max.request.size: 20971520
 logging:
   level:
     org.hibernate.sql: debug
@@ -26,3 +42,27 @@ jwt:
 kakao:
   key: ${KAKAO_KEY}
   redirectUri: ${KAKAO_REDIRECT_URL}
+message:
+  topic:
+    feedback:
+      name: topic-feedback-test
+      completion-name: feedback-flag
+    guide:
+      name: topic-guide-test
+      completion-name: guide-flag
+    name: topic-consume-test
+ffmpeg:
+  location: ${FFMPEG_LOCATION}
+ffprobe:
+  location: ${FFPROBE_LOCATION}
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      accessKey: ${S3_ACCESS_KEY}
+      secretKey: ${S3_SECRET_KEY}
+    s3:
+      bucket: ${S3_BUCKET_NAME}

@@ -1,0 +1,656 @@
+.record-page {
+  position: relative; /* 상대적 위치 지정 */
+  background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; 
+}
+
+
+.playerWrapper, .overlayWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.record-btn {
+  position: absolute;
+  border: 4px solid red;
+  border-radius: 100%;
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3rem;
+  height: 3rem;
+  padding: 0.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 8;
+}
+
+
+
+.record-start {
+  width: 100%;
+  height: 100%;
+  color: red;
+  border-radius: 100%;
+  border: none;
+  background-color: red;
+  transition: all 0.2s;
+}
+
+.record-stop {
+  width: 60%;
+  height: 60%;
+  background-color: red;
+  border: none;
+  transition: all 0.2s;
+}
+
+.record-button {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  top: 20vh;
+  position: absolute;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 5;
+}
+
+.record-button > button {
+  width: 40%;
+  height: 60%;
+  border: none;
+  border-radius: 0.5rem;
+  outline: none;
+  color: white;
+  font-size: 1.3rem;
+}
+
+.record-button__cancle {
+  appearance: none;
+  border: none;
+  font-size: inherit;
+  border-radius: 2em;
+  padding: 0.75em 1em;
+  background: var(--glow-color);;
+  border: 0.15em solid var(--glow-color);
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow-color), 0px 0px 0.5em 0px var(--glow-color);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  cursor: wait;
+}
+
+.record-button__save {
+  appearance: none;
+  border: none;
+  font-size: inherit;
+  border-radius: 2em;
+  padding: 0.75em 1em;
+  background: var(--glow1-color);;
+  border: 0.15em solid var(--glow1-color);
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow1-color), 0px 0px 0.5em 0px var(--glow1-color);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  cursor: wait;
+}
+
+.cameraToggle {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 20vh; 
+  z-index: 5;
+  border-radius: 10px;
+  background-color: #ffffff; /* Adjust to fit your theme */
+  border: 1px solid #000000;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.cameraToggle.active {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.mirrorToggle {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 0;
+  z-index: 2;
+  border-radius: 10px;
+  background-color: var;
+  border: 1px solid #000000;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.mirrorToggle.active {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.spinner {
+  position: relative;
+  display: inline-flex;
+  height: 1.25em; /* Adjusted for CSS */
+  width: 1.25em; 
+  margin-top: calc(1.25em * -0.5);
+  margin-right: calc(1.25em * -1); /* Adjusted for CSS */
+  margin-bottom: calc(1.25em * -0.5);
+  margin-left: 0; /* Adjusted for CSS */
+  box-sizing: border-box;
+  border: 0.125em solid rgba(255, 255, 255, 0.333);
+  border-top-color: white;
+  border-radius: 50%;
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.25s, margin-right 0.25s, margin-left 0.25s;
+}
+
+.record-button__save:hover .spinner,
+.record-button__save:focus .spinner,
+.record-button__save:active .spinner {
+  margin-right: 0.333em;
+  margin-left: 0.3em;
+  opacity: 1;
+  animation: spin 0.666s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rangeSlider {
+  outline: none;
+  border: none;
+  border-radius: 500px;
+  width: 95vw;
+  max-width: 98vw;
+  margin: 24px 0 16px;
+  transition: box-shadow 0.2s ease-in-out;
+  -webkit-appearance: none;
+  background-color: #ddd;
+  overflow: hidden;
+  height: 2.5vh;
+}
+
+.rangeSlider::-webkit-slider-runnable-track {
+  height: 2.5vh;
+  -webkit-appearance: none;
+  color: #444;
+  transition: box-shadow 0.2s ease-in-out;
+  background-color: #ccc; 
+}
+
+
+.rangeSlider::-webkit-slider-thumb {
+  width: 9vw;  
+  -webkit-appearance: none;
+  height: 2.5vh;  
+  cursor: ew-resize;
+  background: #fff;
+  box-shadow: -320px 0 0 300px #1597ff, inset 0 0 0 20px #fff;
+  border-radius: 50%;
+  transition: box-shadow 0.5s ease-in-out;
+  position: relative;
+}
+
+.rangeSlider:active::-webkit-slider-thumb {
+  background: #fff;
+  box-shadow: -320px 0 0 300px #1597ff, inset 0 0 0 3px #1597ff; 
+}
+
+.rangeSlider::-moz-range-progress {
+  background-color: #43e5f7; 
+}
+
+.rangeSlider::-moz-range-track {
+  background-color: #9a905d; 
+}
+
+.rangeSlider::-ms-fill-lower {
+  background-color: #43e5f7; 
+}
+
+.rangeSlider::-ms-fill-upper {
+  background-color: #9a905d; 
+}
+
+
+.record-page {
+  position: relative;
+  width: 100%; /* Adjust width as necessary */
+  height: 100%; /* Adjust height as necessary */
+}
+
+.video-overlay,
+.webcam-feed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.webcam-feed {
+  z-index: 0;
+}
+
+.video-overlay {
+  z-index: 1;
+  pointer-events: none; /* Prevents video overlay from blocking controls */
+
+}
+
+h2 {
+  color: #0575e6; /* Adjust to fit your theme */
+}
+
+
+.mainView {
+  position: relative; /* 상대적 위치 지정 */
+  background: linear-gradient(180deg, #0b1238 0%, #286eca 100%);
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* 내용이 넘치면 숨김 */
+}
+
+.infoBar {
+  position: relative; /* 절대 위치 */
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7); /* 배경 반투명 검정 */
+  color: white;
+}
+
+.versionToggle{
+  position: absolute;
+  bottom: 74vh;
+  display: flex;
+  z-index: 6;
+}
+.toggleButton{
+  appearance: none;
+  border: none;
+  font-size: inherit;
+  border-radius: 2em;
+  padding: 0.5em 1em;
+  margin-right: 5vw;
+  margin-left: 5vw;
+  background: rgb(61, 134, 142);
+  border: 0.15em solid var(--glow1-color);
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow1-color), 0px 0px 0.5em 0px var(--glow1-color);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  cursor: wait;
+}
+.playButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  color: #f0f0f0;
+  display: flex;
+  z-index: 5;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.playerWrapper:hover .volumeControl .controlsOverlay {
+  opacity: 1; /* Fully visible on hover */
+}
+
+.progressBar {
+  width: 300px;
+  height: 0.8vh;
+  background-color: #ffffff;
+  position: absolute;
+  top: 25vh;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, #00f260, #0575e6); /* Green to blue gradient */
+  width: 0%; /* Updated by React */
+}
+
+.volumeSlider {
+  width: 150px;
+  height: 5px;
+  appearance: none;
+  background: linear-gradient(to right, #00f260, #0575e6); /* Green to blue gradient */
+  outline: none;
+  transition: opacity .2s;
+}
+
+.backButton {
+  position: relative;
+  margin-right: 80vw;
+  color: var(--glow-color);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.timeDisplayOverlay {
+  position: absolute;
+  left: 50%;
+  top: 28vh;
+  transform: translateX(-20%);
+  color: white;
+  width: 30vh;
+  font-size: 1rem; /* Larger font size for visibility */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Enhancing readability */
+}
+
+
+.volumeSlider::-webkit-slider-thumb,
+.volumeSlider::-moz-range-thumb {
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+}
+
+.controlsOverlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 4;
+}
+
+.controlsOverlay:hover {
+  opacity: 1;
+}
+
+.volumeControl {
+  display: none; /* Initially hidden */
+  flex-direction: row;
+  align-items: center;
+}
+
+.volumeIcon {
+  cursor: pointer;
+  color: #0575e6; /* Adjust to fit your theme */
+}
+
+.speedControl{
+  cursor: pointer;
+  color: #f0f0f0;
+  top: 28vh;
+  left: 35vw;
+  position: absolute;
+}
+
+.speedControl span {
+  position: absolute;
+  right: 1.5vw;
+  font-size: 0.85rem;
+  position: relative;  
+}
+
+
+:root {
+  --glow-color: hsl(0, 100%, 50%); /* Red color */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+.glowingBtn {
+  position: relative;
+  margin-top: 3vh;
+  color: var(--glow-color);
+  cursor: pointer;
+  padding: 0.35em 1em;
+  border: 0.15em solid var(--glow-color);
+  border-radius: 0.45em;
+  background: none;
+  perspective: 2em;
+  font-family: "Raleway", sans-serif;
+  font-size: 2em;
+  font-weight: 900;
+  letter-spacing: 1em;
+
+  -webkit-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  -moz-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  animation: border-flicker 2s linear infinite;
+}
+
+.glowingTxt {
+  float: left;
+  margin-right: -0.8em;
+  -webkit-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3),
+    0 0 0.45em var(--glow-color);
+  -moz-text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3),
+    0 0 0.45em var(--glow-color);
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--glow-color);
+  animation: text-flicker 3s linear infinite;
+}
+
+.faulty-letter {
+  opacity: 0.5;
+  animation: faulty-flicker 2s linear infinite;
+}
+
+.glowingBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.7;
+  filter: blur(1em);
+  transform: translateY(120%) rotateX(95deg) scale(1, 0.35);
+  background: var(--glow-color);
+  pointer-events: none;
+  transition: transform 0.5s, opacity 0.5s; /* Smoothing out the transition */
+}
+
+.glowingBtn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  z-index: -1;
+  background-color: var(--glow-color);
+  box-shadow: 0 0 2em 0.2em var(--glow-color);
+  transition: opacity 100ms linear;
+
+}
+
+
+.glowingBtn.active::before {
+  transform: translateY(0%) rotateX(0deg) scale(1, 1);
+  opacity: 0; /* Hide the before effect when active */
+}
+
+.glowingBtn.active::after {
+  opacity: 1; /* Show the after effect when active */
+}
+
+.glowingBtn:not(.active)::before {
+  opacity: 0.7; /* Show the before effect when not active */
+  transform: translateY(120%) rotateX(95deg) scale(1, 0.35); /* Reset to initial state */
+}
+
+.glowingBtn:not(.active)::after {
+  opacity: 0; /* Hide the after effect when not active */
+}
+.glowingBtn.active, .glowingBtn:hover {
+  color: rgba(0, 0, 0, 0.8);
+  text-shadow: none;
+  animation: none;
+  background-color: var(--glow-color);
+  box-shadow: 0 0 2em 0.2em var(--glow-color);
+}
+
+.glowingBtn:hover .glowingTxt {
+  animation: none;
+}
+
+.glowingBtn:hover .faulty-letter {
+  animation: none;
+  text-shadow: none;
+  opacity: 1;
+}
+
+.glowingBtn:hover:before {
+  filter: blur(1.5em);
+  opacity: 1;
+}
+
+.glowingBtn:hover:after {
+  opacity: 1;
+}
+
+@keyframes faulty-flicker {
+  0% {
+    opacity: 0.1;
+  }
+  2% {
+    opacity: 0.1;
+  }
+  4% {
+    opacity: 0.5;
+  }
+  19% {
+    opacity: 0.5;
+  }
+  21% {
+    opacity: 0.1;
+  }
+  23% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.5;
+  }
+  83% {
+    opacity: 0.4;
+  }
+
+  87% {
+    opacity: 1;
+  }
+}
+
+@keyframes text-flicker {
+  0% {
+    opacity: 0.1;
+  }
+
+  2% {
+    opacity: 1;
+  }
+
+  8% {
+    opacity: 0.1;
+  }
+
+  9% {
+    opacity: 1;
+  }
+
+  12% {
+    opacity: 0.1;
+  }
+  20% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0.7;
+  }
+  72% {
+    opacity: 0.2;
+  }
+
+  77% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes border-flicker {
+  0% {
+    opacity: 0.1;
+  }
+  2% {
+    opacity: 1;
+  }
+  4% {
+    opacity: 0.1;
+  }
+
+  8% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .glowingBtn{
+    font-size: 1em;
+  }
+}

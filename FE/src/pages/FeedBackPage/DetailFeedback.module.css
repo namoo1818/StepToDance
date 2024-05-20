@@ -1,0 +1,166 @@
+.container {
+  padding: 1em;
+  max-width: 600px;
+  margin: 0 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 11.5rem);
+  position: relative;
+  z-index: 10;
+}
+
+.title {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+}
+
+.score {
+  font-size: 2em;
+  color: #0575e6;
+  margin-bottom: 1em;
+}
+
+.playersWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.player {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.controlsOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.playButton {
+  cursor: pointer;
+  color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressBarWrapper {
+  margin-top: 10px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.progressBar {
+  width: 100%;
+  height: 10px;
+  background-color: #e0e0e0;
+}
+
+.progress {
+  height: 100%;
+  background: linear-gradient(to right, #00f260, #0575e6);
+  border: 0.15em solid #00f260;
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow1-color),
+    0px 0px 0.5em 0px var(--glow1-color);
+  color: hsl(209, 25%, 65%);
+}
+
+.progressTime {
+  font-size: 1em;
+  color: #c8c8c8;
+  margin-top: 0.5em;
+  text-align: center;
+}
+
+.info {
+  font-size: 1em;
+  margin: 1em 0;
+}
+
+.infoTitle1 {
+  font-size: 1.2em;
+  color: var(--glow1-color);
+  margin: 1em 0 0.5em;
+}
+.infoTitle2 {
+  font-size: 1.2em;
+  color: var(--glow-color);
+  margin: 1em 0 0.5em;
+}
+
+.backButton {
+  display: block;
+  width: 50%;
+  padding: 0.75em;
+  margin-top: 1em;
+  font-size: 1em;
+  margin-right: 5vw;
+  color: black;
+  border: 0.15em solid var(--glow1-color);
+  -webkit-box-shadow: inset 0px 0px 0.5em 0px var(--glow1-color),
+    0px 0px 0.5em 0px var(--glow1-color);
+  -moz-box-shadow: inset 0px 0px 0.5em 0px var(--glow1-color),
+    0px 0px 0.5em 0px var(--glow1-color);
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow1-color),
+    0px 0px 0.5em 0px var(--glow1-color);
+  background-color: var(--glow1-color);
+  border: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.backButton:hover {
+  background-color: #0056b3;
+}
+
+.buttonWrapper {
+  flex-direction: row;
+  display: flex;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+.editorButton {
+  display: block;
+  width: 50%;
+  padding: 0.75em;
+  margin-top: 1em;
+  font-size: 1em;
+  color: #fff;
+  border-radius: 0.3em;
+  will-change: transform;
+  backface-visibility: hidden;
+  border: 0.15em solid var(--glow-color);
+  -webkit-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  -moz-box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  box-shadow: inset 0px 0px 0.5em 0px var(--glow-color),
+    0px 0px 0.5em 0px var(--glow-color);
+  background-color: var(--glow-color);
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5vw;
+}
+
+@media (max-width: 600px) {
+  .score {
+    font-size: 1.5em;
+  }
+
+  .playersWrapper {
+    gap: 0.5em;
+  }
+}

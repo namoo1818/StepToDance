@@ -17,6 +17,8 @@ public enum StatusCode {
     // GUIDE
     SUCCESS_GUIDE_LIST(200, "가이드 목록 조회 성공"),
     SUCCESS_GUIDE_ONE(200, "가이드 상세 조회 성공"),
+    SUCCESS_GUIDE_DELETION(204, "가이드 삭제 성공"),
+    CREATED_GUIDE(201, "가이드 업로드 요청"),
 
     // FEEDBACK
     SUCCESS_FEEDBACK_ONE(200, "피드백 상세 조회 성공"),
@@ -24,8 +26,11 @@ public enum StatusCode {
     SUCCESS_FEEDBACK_DELETION(204, "피드백 삭제 성공"),
 
     // SHORTS
+    SUCCESS_SHORTS_LIST(200, "숏폼 목록 조회 성공"),
+    SUCCESS_SHORTS_ONE(200, "숏폼 상세 조회 성공"),
     SUCCESS_SHORTS_CREATION(201, "숏폼 생성 성공"),
-    SUCCESS_SHORTS_SHARE(200, "숏폼 공유 성공");
+    SUCCESS_SHORTS_SHARE(200, "숏폼 공유 성공"),
+    SUCCESS_SHORTS_DELETION(204, "숏폼 삭제 성공");
 
     private final int status;
     private final String message;
