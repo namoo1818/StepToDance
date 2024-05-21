@@ -25,15 +25,50 @@
 
 ### 가이드 영상 시청
 
+<img alt="가이드시청" src="./img/가이드시청.gif" height="400"/> <br/>
+
+- 홈 화면에는 유저들이 많이 춘 순서대로 안무 영상을 추천하는 HOT 5와 개인 맞춤형 장르별 안무 추천이 있습니다
+- 가이드 화면에서는 영상을 보며 춤을 익힐 수 있습니다
+  - 볼륨 조절과 배속 기능이 지원됩니다.
+
 ### 영상 촬영
+
+<img alt="영상촬영" src="./img/영상촬영.gif" height="400"/> <br/>
+
+- 촬영은 사이드 모드와 오버레이 모드를 지원합니다.
 
 ### 피드백 생성
 
+<img alt="피드백1" src="./img/피드백1.jpg" height="400"/>
+<img alt="피드백2" src="./img/피드백2.jpg" height="400"/> <br/>
+
+- AI가 영상을 분석하여 점수과 틀린 구간을 계산해줍니다.
+
 ### 숏폼 편집
+
+<img alt="영상편집" src="./img/영상편집.gif" height="400"/> <br/>
+
+- 편집 페이지에서 촬영한 영상을 편집할 수 있습니다
+- 완성한 숏폼은 카카오톡, 페이스북, X로 공유할 수 있습니다.
 
 ### 숏폼 조회
 
+<img alt="숏폼조회" src="./img/숏폼조회.gif" height="400"/> <br/>
+
+- 숏폼 페이지에서 유저들이 올린 숏폼을 조회할 수 있습니다
+
+### 랭킹
+
+<img alt="랭킹" src="./img/랭킹.gif" height="400"/> <br/>
+
+- 랭킹 페이지에서는 전체 유저의 랭킹을 확인할 수 있습니다
+- 유저 페이지에 들어가 유저의 점수와 숏폼을 확인할 수 있습니다
+
 ### 가이드 업로드
+
+<img alt="가이드업로드" src="./img/가이드업로드.gif" height="400"/> <br/>
+
+- 직접 연습할 안무를 올릴 수 있는 가이드 업로드 페이지입니다.
 
 ## 기술 스택
 
@@ -119,6 +154,66 @@
 - SSH: WSL , MobaXterm
 - SSL: CertBot, Let’s Encrypt
 
+## REACT PWA
+
+<img alt="react pwa" src="./img/reactpwa.webp" height="280"/> <br/>
+
+모바일 환경에서도 접근이 가능할 수 있도록 PWA를 적용
+
+일반적인 웹 기술을 활용해 모바일에서도 사용이 가능
+
+일반적인 웹사이트와는 달리, 오프라인에서도 작동
+
+## KARKA
+
+<img alt="kafka" src="./img/kafka.PNG" height="280"/> <br/>
+
+(n= 분석할 초당 프레임 수) 1/n초마다
+하나의 이미지를 전송하여 분석해야 함
+
+분석 결과 list를 1/n초마다 반환해야 함
+
+많은 양의 데이터를 서버 사이에서
+수송신 해야하는 환경에 적합
+
+## MOVENET
+
+<img alt="movenet" src="./img/movenet.gif" height="280"/> <br/>
+
+동영상에 대한 사람 분석은 영상 자체가 아닌
+프레임 마다의 human estimation을 수행
+
+서비스 이용자 수가 많더라도
+안정적인 유사도 비교 역할 수행 필요
+
+Openpose 일부 모델 대비 1분 영상 기준
+약 8배 빠른 성능
+(Tensorflow를 서버 내 cpu로 구동한 결과)
+
+## 유사도-비교방식
+
+<img alt="유사도비교" src="./img/유사도비교.jpeg" height="400"/> <br/>
+
+기존의 가이드 영상에서의 사람 모델과 사람들이 점수를 보기 위해 올린 영상에서의 사람 모델을 비교하는 방법.
+
+기획 단계에서의 계획 : 관절간의 각도에 대한 유사도 비교
+-> 360도에 대한 정확한 각도를 구하기가 어려운 문제
+
+대안: 유클리드 거리를 통해 유사도를 비교하게 됨
+두 점 사이의 거리를 재는 것
+
+## 유사도-정규화
+
+사람 모델을 정규화
+
+두 개의 사람 모델
+(가이드 영상,
+사용자의 업로드 영상)
+거리 비교 수행
+
+-> 개선사항
+정규화된 키포인트 좌표를 통해 코사인 유사도를 계산 (정확도)
+
 ## 프로젝트 산출물
 
 ### ERD
@@ -164,10 +259,10 @@
 
 <table>
  <tr>
-    <td align="center"><a href="https://github.com/"><img src="./img/황진하.png" width="130px;" alt=""></a></td>
+    <td align="center"><a href="https://github.com/MadCom96"><img src="./img/황진하.png" width="130px;" alt=""></a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/"><b>황진하</b></a></td>
+    <td align="center"><a href="https://github.com/MadCom96"><b>황진하</b></a></td>
   </tr>
   <tr>
     <td align="center"></td>
@@ -179,4 +274,3 @@
 <p>
 This software is licensed under the MIT <a href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp" _blank="new">©SSAFY</a>.
 </p>
-
