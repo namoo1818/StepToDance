@@ -226,8 +226,8 @@ Openpose 일부 모델 대비 1분 영상 기준
 
 ### API 명세서
 
-![API명세서1](./img/API명세서1.png) <br/>
-![API명세서2](./img/API명세서2.png) <br/>
+<img alt="API명세서1" src="./img/API명세서1.png" width="400"/>
+<img alt="API명세서1" src="./img/API명세서1.png" width="400"/><br/>
 
 ### 시스템 설계서
 
