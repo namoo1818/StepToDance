@@ -149,7 +149,7 @@
   <tr>
     <td align="center"><a href="https://github.com/1234jienf"><b>백지윤</b></a></td>
     <td align="center"><a href="https://github.com/choikeunyoung"><b>최근영</b></a></td>
-    <td align="center"><a href="https://github.com/h-spear"><b>이민지</b></a></td>
+    <td align="center"><a href="https://github.com/namoo1818"><b>이민지</b></a></td>
   </tr>
   <tr>
     <td align="center">팀장</td>
