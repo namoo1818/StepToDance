@@ -265,7 +265,7 @@ Openpose 일부 모델 대비 1분 영상 기준
     <td align="center"><a href="https://github.com/MadCom96"><b>황진하</b></a></td>
   </tr>
   <tr>
-    <td align="center"></td>
+    <td align="center">Infra</td>
   </tr>
 </table>
 
