@@ -2,6 +2,8 @@
 
 ### AI 댄스 선생님 및 숏폼 생성 공유 플랫폼
 
+<img alt="steptodance" src="./img/steptodance.jpg" height="280"/> <br/>
+
 ## 서비스 개요
 
 ### 서비스 설명
