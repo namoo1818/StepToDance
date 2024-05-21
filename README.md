@@ -72,7 +72,7 @@
 
 ## 기술 스택
 
-> ## Frontend
+## Frontend
 
 ### React
 
@@ -87,8 +87,8 @@
 - styled-components 6.1.8
 - three 0.164.1
 - vite-plugin-pwa 0.19.8
-  > ## Backend
 
+## Backend
 ### Spring 서버
 
 - Springboot 3.2.4
@@ -117,8 +117,8 @@
   > ## AI
 - Openpose
 - Movenet thunder
-  > ## 인프라
 
+## 인프라
 ### CI/CD
 
 - AWS EC2
@@ -130,8 +130,8 @@
 - GitLab Webhook
 - MySQL 8.0.36
 - Redis 7.2.4
-  > ## 기타
 
+## 기타
 ### 이슈 관리
 
 - Jira
