@@ -233,41 +233,6 @@ Openpose 일부 모델 대비 1분 영상 기준
 
 ![시스템설계서](./img/시스템설계서.png) <br/>
 
-## 팀원 소개
-
-> <h3><font color="red">Front-End</font></h3>
-
-<table>
- <tr>
-    <td align="center"><a href="https://github.com/1234jienf"><img src="./img/백지윤.png" width="130px;" alt=""></a></td>
-    <td align="center"><a href="https://github.com/choikeunyoung"><img src="./img/최근영.png" width="130px;" alt=""></a></td>
-    <td align="center"><a href="https://github.com/namoo1818"><img src="./img/이민지.png" width="130px;" alt=""></a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/1234jienf"><b>백지윤</b></a></td>
-    <td align="center"><a href="https://github.com/choikeunyoung"><b>최근영</b></a></td>
-    <td align="center"><a href="https://github.com/namoo1818"><b>이민지</b></a></td>
-  </tr>
-  <tr>
-    <td align="center">팀장</td>
-    <td align="center"></td>
-    <td align="center"></td>
-  </tr>
-</table>
-
-> <h3><font color="red">Back-End</font></h3>
-
-<table>
- <tr>
-    <td align="center"><a href="https://github.com/MadCom96"><img src="./img/황진하.png" width="130px;" alt=""></a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://github.com/MadCom96"><b>황진하</b></a></td>
-  </tr>
-  <tr>
-    <td align="center">Infra</td>
-  </tr>
-</table>
 
 ## 🏷 License
 
